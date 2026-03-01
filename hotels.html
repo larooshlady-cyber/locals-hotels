@@ -227,61 +227,98 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .hotel-card__gradient {
+    a.hotel-card:hover .hotel-card__image {
+      transform: scale(1.06);
+    }
+    .hotel-card__gradient-top {
       position: absolute;
       inset: 0;
-      border-radius: 8px;
-      background: radial-gradient(circle at 25% 80%, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 65%);
+      background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 40%);
+      transition: opacity 0.4s;
     }
-    .hotel-card__meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 8px;
-      min-height: 29px;
+    .hotel-card__gradient-bottom {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 50%);
+      transition: opacity 0.4s;
     }
-    .hotel-card__name {
-      font-size: 14px;
-      font-weight: 400;
-      text-transform: uppercase;
-      line-height: 14px;
-      color: var(--black-60);
-      flex-shrink: 0;
+    a.hotel-card:hover .hotel-card__gradient-bottom {
+      opacity: 0.7;
+    }
+    .hotel-card__overlay-text {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 18px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.35s, transform 0.35s;
+    }
+    a.hotel-card:hover .hotel-card__overlay-text {
+      opacity: 1;
+      transform: translateY(0);
     }
     .hotel-card__badges {
+      position: absolute;
+      top: 12px;
+      left: 12px;
       display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-left: auto;
+      gap: 6px;
+      z-index: 2;
     }
     .hotel-card__badge {
       display: inline-flex;
       align-items: center;
-      padding: 4px 7px;
-      border-radius: 2px;
+      padding: 5px 10px;
+      border-radius: 6px;
       font-size: 10px;
-      font-weight: 500;
+      font-weight: 600;
       text-transform: uppercase;
-      line-height: 9px;
-      letter-spacing: 0.2px;
+      line-height: 10px;
+      letter-spacing: 0.4px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       white-space: nowrap;
     }
     .hotel-card__badge--gray {
-      background: var(--abbey);
-      color: var(--white);
+      background: rgba(255,255,255,0.85);
+      color: var(--shark);
     }
     .hotel-card__badge--red {
       background: var(--mexican-red);
       color: var(--white);
     }
+    .hotel-card__meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .hotel-card__name {
+      font-size: 13.2px;
+      font-weight: 500;
+      text-transform: uppercase;
+      line-height: 14px;
+      color: var(--shark);
+      letter-spacing: 0.3px;
+    }
     .hotel-card__title {
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 16.7px;
+      font-weight: 700;
       line-height: 24px;
-      color: var(--outer-space);
-      margin-top: 2px;
+      color: var(--shark);
+      margin-top: 4px;
+      transition: color 0.3s;
+    }
+    a.hotel-card:hover .hotel-card__title {
+      color: var(--abbey);
     }
     .hotel-card__location {
       display: flex;
@@ -782,13 +819,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/c26926c5-f24f-4960-b2d1-f594d0fc75b7" alt="Artizan Design Hotel">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Artizan Design Hotel</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Artizan Design Hotel</span>
           </div>
           <h3 class="hotel-card__title">Stylish Rooms and a Historic Artist's Museum in Tbilisi's Vera District</h3>
           <div class="hotel-card__location">
@@ -801,14 +840,16 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/3ab9394c-8c10-4f11-be38-9b2e177ba6a2" alt="Hotel Afisha">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Hotel Afisha</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--red">New</span>
               <span class="hotel-card__badge hotel-card__badge--gray">featured</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Hotel Afisha</span>
           </div>
           <h3 class="hotel-card__title">A Retro-Inspired Hotel Stay on One of Tbilisi's Fast Main Streets</h3>
           <div class="hotel-card__location">
@@ -821,13 +862,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/cce45575-0da9-4c21-b5f7-ec14610d0ba6" alt="Blueberry Nights">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Blueberry Nights</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Blueberry Nights</span>
           </div>
           <h3 class="hotel-card__title">Cinematic Escape Above Lolita Restaurant, Blending Design, Music, and Film</h3>
           <div class="hotel-card__location">
@@ -840,13 +883,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/ecfbd526-f66d-40d2-ab8c-0f11460ce7bb" alt="Rooms Hotel Tbilisi">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Rooms Hotel Tbilisi</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Rooms Hotel Tbilisi</span>
           </div>
           <h3 class="hotel-card__title">Design Hotel in a Former Publishing House, at the Heart of Vera District</h3>
           <div class="hotel-card__location">
@@ -859,13 +904,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/4ca4b088-be76-434a-941a-e17462269e43" alt="Stamba Hotel">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Stamba Hotel</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Stamba Hotel</span>
           </div>
           <h3 class="hotel-card__title">Tbilisi's Creative Landmark, in a Restored Soviet Publishing House</h3>
           <div class="hotel-card__location">
@@ -878,13 +925,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/dedce9e7-b4fa-46c0-a753-a212ca3941ef" alt="Puris Moedani Boutique Hotel">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Puris Moedani Boutique Hotel</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Puris Moedani Boutique Hotel</span>
           </div>
           <h3 class="hotel-card__title">Scenery Morning Beneath Ancient Narikala Fortress</h3>
           <div class="hotel-card__location">
@@ -897,13 +946,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/9211ef27-c911-4996-9fff-eeef30abde06" alt="Writers House Residency">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Writers House Residency</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Historic</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Writers House Residency</span>
           </div>
           <h3 class="hotel-card__title">Art Nouveau Mansion Stay in Sololaki's Literary Landmark</h3>
           <div class="hotel-card__location">
@@ -916,13 +967,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/68cba179-6e27-4708-a9f1-50cebce6b3fe" alt="Bazzar Boutique Hotel">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Bazzar Boutique Hotel</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Bazzar Boutique Hotel</span>
           </div>
           <h3 class="hotel-card__title">Intimate City Stay in the Heart of the Bazaar Quarter</h3>
           <div class="hotel-card__location">
@@ -935,14 +988,16 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/a4771a10-3200-4564-8b02-5bd49ee3f86c" alt="Qarvasla Hotel">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Qarvasla Hotel</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--red">new</span>
               <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Qarvasla Hotel</span>
           </div>
           <h3 class="hotel-card__title">Moorish Arches and Courtyard Rooms at the Historic Crossroads of Old Tbilisi</h3>
           <div class="hotel-card__location">
@@ -955,13 +1010,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/0375cc82-a2c5-4538-898b-287bdbf97b93" alt="Communal Hotel Sololaki">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Communal Hotel Sololaki</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">featured</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Communal Hotel Sololaki</span>
           </div>
           <h3 class="hotel-card__title">Bohemian Elegance in Tbilisi's Art Nouveau Streets</h3>
           <div class="hotel-card__location">
@@ -974,13 +1031,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/d2da4c2a-ce40-4083-a821-841a567fade6" alt="Blue Fox Hotel">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Blue Fox Hotel</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Blue Fox Hotel</span>
           </div>
           <h3 class="hotel-card__title">Balconied Rooms with Local Murals in Old Town's Backstreets</h3>
           <div class="hotel-card__location">
@@ -993,14 +1052,16 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/2ca060f6-7108-4b88-8aa6-aca91b9b679a" alt="Bellhop Tbilisi">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Bellhop Tbilisi</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--red">NEW</span>
               <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Bellhop Tbilisi</span>
           </div>
           <h3 class="hotel-card__title">A Restaurant, Bar, and 12-Room Stay Inside a Restored Century-Old Townhouse</h3>
           <div class="hotel-card__location">
@@ -1013,13 +1074,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/976e0408-8fe6-4a4b-9987-133d007f04ac" alt="Unfound Door">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Unfound Door</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Unfound Door</span>
           </div>
           <h3 class="hotel-card__title">Reimagined Cultural Monument for Design-First Travelers</h3>
           <div class="hotel-card__location">
@@ -1032,13 +1095,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/6bf64e47-d8ce-48ef-9eeb-59c8bd37bcf7" alt="Communal Hotel Plekhanovi">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Communal Hotel Plekhanovi</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Communal Hotel Plekhanovi</span>
           </div>
           <h3 class="hotel-card__title">Design-led Boutique Stay in Tbilisi's Creative District</h3>
           <div class="hotel-card__location">
@@ -1051,13 +1116,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/90a9c6aa-11cd-4a39-a111-292e63c42e80" alt="Glarros Oldtown">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Glarros Oldtown</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Glarros Oldtown</span>
           </div>
           <h3 class="hotel-card__title">Mosaic Textures Meet the Everyday Pattern of Tbilisi's Oldest District</h3>
           <div class="hotel-card__location">
@@ -1070,13 +1137,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/48a52583-5738-462b-a097-ece49d72ec65" alt="Duende Hotel">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Duende Hotel</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">into the wild</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Duende Hotel</span>
           </div>
           <h3 class="hotel-card__title">Forest Immersion, Wooden Architecture, and Outdoor Rituals in Kakheti's Wild Corner</h3>
           <div class="hotel-card__location">
@@ -1089,14 +1158,16 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/164ac6b6-d36e-4d14-9b56-729507aefa53" alt="Pabellon Hotel">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Pabellon Hotel</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--red">NEW</span>
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Pabellon Hotel</span>
           </div>
           <h3 class="hotel-card__title">Modern Design Retreat in Kakheti's Historic Vineyards, Inspired by Georgian Heritage</h3>
           <div class="hotel-card__location">
@@ -1109,13 +1180,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/5401ab4a-646a-4354-81ee-5aa264da5dcf" alt="Communal Telavi">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Communal Telavi</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Communal Telavi</span>
           </div>
           <h3 class="hotel-card__title">Moorish-Inspired Boutique Stay with Pool and Local Fare in Telavi</h3>
           <div class="hotel-card__location">
@@ -1128,14 +1201,16 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/ae560d5d-d381-4a2d-b0f5-b841b53c35ca" alt="Bodbe Hotel">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Bodbe Hotel</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--red">new</span>
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Bodbe Hotel</span>
           </div>
           <h3 class="hotel-card__title">Contemporary Retreat with Panoramic Views Near Bodbe Monastery</h3>
           <div class="hotel-card__location">
@@ -1148,13 +1223,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/a031b6ff-4ff2-448f-a71e-64efc9fc0d2b" alt="Esquisse Design Hotel">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Esquisse Design Hotel</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Esquisse Design Hotel</span>
           </div>
           <h3 class="hotel-card__title">Chic Rooms and Slow Spa Days in Telavi, Kakheti's Wine Capital</h3>
           <div class="hotel-card__location">
@@ -1167,13 +1244,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/f6238e1c-bd2c-456a-a28c-9c5d828f891a" alt="Kabadoni Boutique Hotel">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Kabadoni Boutique Hotel</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Kabadoni Boutique Hotel</span>
           </div>
           <h3 class="hotel-card__title">Boutique Hilltop Retreat with Panoramic Alazani Valley Views</h3>
           <div class="hotel-card__location">
@@ -1186,13 +1265,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/30a35303-8494-4844-902f-9dadf2da0b25" alt="Vazisubani Estate">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Vazisubani Estate</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Vazisubani Estate</span>
           </div>
           <h3 class="hotel-card__title">19th-Century Estate with Timeless Elegance, Vineyards, and Horseback Riding</h3>
           <div class="hotel-card__location">
@@ -1205,13 +1286,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/9c909128-c61c-495b-ad29-907a75ae26ee" alt="Kvareli Lake Resort">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Kvareli Lake Resort</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Kvareli Lake Resort</span>
           </div>
           <h3 class="hotel-card__title">Lake Evenings, Bike Paths and Shared Silence in Northern Kakheti</h3>
           <div class="hotel-card__location">
@@ -1224,14 +1307,16 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/cff51478-d81d-4d1e-9888-c3a4cd0d7103" alt="Samzeo Kvareli">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Samzeo Kvareli</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--red">NEW</span>
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Samzeo Kvareli</span>
           </div>
           <h3 class="hotel-card__title">A Modern Resting Point in Historic Kvareli</h3>
           <div class="hotel-card__location">
@@ -1244,13 +1329,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/07f34476-6926-40b3-8767-85d8076ca486" alt="Rooms Hotel Kazbegi">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Rooms Hotel Kazbegi</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">one of a kind</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Rooms Hotel Kazbegi</span>
           </div>
           <h3 class="hotel-card__title">The Iconic Mountain Retreat that Redefined Georgian Hospitality</h3>
           <div class="hotel-card__location">
@@ -1263,13 +1350,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/46771278-fe9c-4491-8df4-9733fa346a87" alt="Marco Polo Gudauri">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Marco Polo Gudauri</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Ski Hotel</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Marco Polo Gudauri</span>
           </div>
           <h3 class="hotel-card__title">Ski-in Ski-out Resort with Spa, Chalets, and the Spirit of Gudauri Since 1988</h3>
           <div class="hotel-card__location">
@@ -1282,13 +1371,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/ddd626e1-2f82-4619-a8fa-73fc6b4183b3" alt="Gudauri Lodge">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Gudauri Lodge</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Ski Hotel</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Gudauri Lodge</span>
           </div>
           <h3 class="hotel-card__title">Ski-in Ski-out Lodge with Spa & Caucasus Mountain Views</h3>
           <div class="hotel-card__location">
@@ -1301,13 +1392,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/be9f480d-2f31-45c5-b0a1-873029dcfd87" alt="Communal Hotel Kutaisi">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Communal Hotel Kutaisi</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Culture City</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Communal Hotel Kutaisi</span>
           </div>
           <h3 class="hotel-card__title">Charming Townhouse with Local Eatery, Serving Authentic Plates and Natural Wine</h3>
           <div class="hotel-card__location">
@@ -1320,13 +1413,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/7d7b95dd-67a6-4a91-ac0b-8285efcb2162" alt="Hotel Memoire Kutaisi">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Hotel Memoire Kutaisi</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Culture City</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Hotel Memoire Kutaisi</span>
           </div>
           <h3 class="hotel-card__title">Terrace Light, English Breakfasts and Walkable Old Town Days in Kutaisi</h3>
           <div class="hotel-card__location">
@@ -1339,13 +1434,15 @@
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
             <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/bb05fb42-186c-40ea-b0cd-18fcd4d69759" alt="Grand Opera Hotel">
-            <div class="hotel-card__gradient"></div>
-          </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Grand Opera Hotel</span>
+            <div class="hotel-card__gradient-top"></div>
+            <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Culture City</span>
             </div>
+            <span class="hotel-card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Grand Opera Hotel</span>
           </div>
           <h3 class="hotel-card__title">Classical Elegance, Modern Comfort and Wine Cellars in Kutaisi</h3>
           <div class="hotel-card__location">
