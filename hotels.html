@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotels — Locals' Hotels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300;400;500;600;700&family=Funnel+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --white: #FFFFFF;
+      --athens-gray: #F8F9FA;
+      --mischka: #CED4DA;
+      --hit-gray: #ADB5BD;
+      --abbey: #495057;
+      --nevada: #677078;
+      --outer-space: #343A40;
+      --shark: #212529;
+      --black: #000000;
+      --black-60: rgba(0,0,0,0.6);
+      --mexican-red: #A22522;
+      --white-lilac: #E8E8F6;
+      --gray-muted: #6C757D;
+      --font: 'Funnel Sans', sans-serif;
+      --font-display: 'Funnel Display', sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--shark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { border: none; background: none; cursor: pointer; font-family: inherit; }
+    ul, li { list-style: none; }
+
+    /* ========== HEADER ========== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--mischka);
+    }
+    .header__inner {
+      max-width: 1366px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 55px;
+      padding: 0 16px;
+    }
+    .header__logo img {
+      height: 17px;
+      width: auto;
+    }
+    .header__nav { display: flex; gap: 0; align-items: center; }
+    .header__nav-item {
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 400;
+      text-transform: uppercase;
+      line-height: 14px;
+      color: var(--abbey);
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .header__nav-item:hover,
+    .header__nav-item--active {
+      background: var(--shark);
+      color: var(--white);
+    }
+    .header__hamburger {
+      display: none;
+      width: 32px;
+      height: 32px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .header__hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--shark);
+      border-radius: 1px;
+    }
+
+    /* ========== PAGE HEADER ========== */
+    .page-header {
+      padding: 0;
+    }
+    .page-header__inner {
+      max-width: 1366px;
+      margin: 0 auto;
+      padding: 24px 16px 0;
+    }
+    .page-header__breadcrumb {
+      font-size: 14px;
+      line-height: 14px;
+      color: var(--black-60);
+      margin-bottom: 8px;
+    }
+    .page-header__breadcrumb a {
+      color: var(--black-60);
+    }
+    .page-header__title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 50px;
+      color: var(--outer-space);
+      margin-bottom: 16px;
+    }
+
+    /* ========== SEARCH & FILTERS ========== */
+    .filters {
+      padding: 0 0 8px;
+    }
+    .filters__inner {
+      max-width: 1366px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .filters__row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .filters__search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      border: 1px solid var(--mischka);
+      border-radius: 6px;
+      padding: 8px 14px;
+      min-width: 280px;
+      flex: 1;
+      max-width: 400px;
+    }
+    .filters__search-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+    .filters__search input {
+      border: none;
+      outline: none;
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--shark);
+      width: 100%;
+      background: transparent;
+    }
+    .filters__search input::placeholder {
+      color: var(--hit-gray);
+    }
+    .filters__select {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border: 1px solid var(--mischka);
+      border-radius: 6px;
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--abbey);
+      background: var(--white);
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .filters__select:hover {
+      border-color: var(--hit-gray);
+    }
+    .filters__select svg {
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
+    }
+    .filters__divider {
+      width: 100%;
+      height: 1px;
+      background: var(--mischka);
+      margin-top: 12px;
+    }
+
+    /* ========== HOTEL GRID ========== */
+    .hotel-grid {
+      padding: 0;
+    }
+    .hotel-grid__inner {
+      max-width: 1390px;
+      margin: 0 auto;
+      padding: 0 4px;
+    }
+    .hotel-grid__list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .hotel-card {
+      padding: 32px 12px;
+      display: flex;
+      flex-direction: column;
+    }
+    .hotel-card__image-wrap {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 323.5 / 347.5;
+      background: var(--mischka);
+    }
+    .hotel-card__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hotel-card__gradient {
+      position: absolute;
+      inset: 0;
+      border-radius: 8px;
+      background: radial-gradient(circle at 25% 80%, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 65%);
+    }
+    .hotel-card__meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+      min-height: 29px;
+    }
+    .hotel-card__name {
+      font-size: 14px;
+      font-weight: 400;
+      text-transform: uppercase;
+      line-height: 14px;
+      color: var(--black-60);
+      flex-shrink: 0;
+    }
+    .hotel-card__badges {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-left: auto;
+    }
+    .hotel-card__badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 7px;
+      border-radius: 2px;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      line-height: 9px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+    .hotel-card__badge--gray {
+      background: var(--abbey);
+      color: var(--white);
+    }
+    .hotel-card__badge--red {
+      background: var(--mexican-red);
+      color: var(--white);
+    }
+    .hotel-card__title {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 24px;
+      color: var(--outer-space);
+      margin-top: 2px;
+    }
+    .hotel-card__location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      font-size: 14px;
+      line-height: 14px;
+    }
+    .hotel-card__country {
+      color: var(--black-60);
+    }
+    .hotel-card__city {
+      color: var(--mexican-red);
+      font-weight: 500;
+    }
+
+    /* ========== ARTICLE SECTION ========== */
+    .articles {
+      padding: 24px 0;
+    }
+    .articles__inner {
+      max-width: 1366px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .articles__heading {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 38px;
+      color: var(--outer-space);
+      margin-bottom: 16px;
+    }
+    .articles__carousel {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .articles__track {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+    }
+    .articles__track::-webkit-scrollbar { display: none; }
+    .articles__card {
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .articles__card-image-wrap {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 966px;
+    }
+    .articles__card-image-wrap img {
+      width: 100%;
+      display: block;
+    }
+    .articles__card-gradient {
+      position: absolute;
+      inset: 0;
+      border-radius: 6px;
+      background: radial-gradient(circle at 20% 80%, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 70%);
+    }
+    .articles__card-title {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 30px;
+      color: var(--abbey);
+      padding: 0 16px;
+    }
+    .articles__card-desc {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      color: var(--abbey);
+      padding: 0 16px;
+    }
+    .articles__arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(248, 249, 250, 0.69);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+    .articles__arrow--left { left: 8px; }
+    .articles__arrow--right { right: 8px; }
+    .articles__arrow svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ========== FILTER DROPDOWNS ========== */
+    .filters__select-wrap {
+      position: relative;
+    }
+    .filter-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      min-width: 200px;
+      background: var(--white);
+      border: 1px solid var(--mischka);
+      border-radius: 6px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      z-index: 50;
+      overflow: hidden;
+    }
+    .filter-dropdown.active { display: block; }
+    .filter-dropdown__item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      font-size: 14px;
+      color: var(--abbey);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .filter-dropdown__item:hover { background: var(--athens-gray); }
+    .filter-dropdown__item.selected { color: var(--shark); font-weight: 500; }
+    .filter-dropdown__item.selected::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--mexican-red);
+      flex-shrink: 0;
+    }
+    .filters__select--active {
+      border-color: var(--shark);
+      color: var(--shark);
+      font-weight: 500;
+    }
+    .filters__active-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .filters__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: var(--athens-gray);
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--abbey);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .filters__tag:hover { background: var(--mischka); }
+    .filters__tag svg { width: 10px; height: 10px; }
+    .hotel-grid__no-results {
+      display: none;
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      font-size: 16px;
+      color: var(--abbey);
+    }
+    .hotel-grid__no-results.active { display: block; }
+
+    /* ========== MOBILE MENU ========== */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 55px;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--mischka);
+      z-index: 99;
+      flex-direction: column;
+      padding: 8px 16px 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .mobile-menu.active { display: flex; }
+    .mobile-menu__link {
+      display: block;
+      padding: 12px 0;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--abbey);
+      border-bottom: 1px solid var(--athens-gray);
+      text-transform: uppercase;
+    }
+    .mobile-menu__link:last-child { border-bottom: none; }
+    .mobile-menu__link--active { color: var(--mexican-red); }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      border-top: 1px solid var(--mischka);
+    }
+    .footer__inner {
+      max-width: 1366px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .footer__brand {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--mexican-red);
+      padding: 24px 0 16px;
+    }
+    .footer__grid {
+      display: flex;
+      gap: 0;
+      padding-bottom: 24px;
+    }
+    .footer__col {
+      display: flex;
+      flex-direction: column;
+    }
+    .footer__col--pages {
+      width: 341.5px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--mischka);
+      padding-right: 1px;
+      justify-content: space-between;
+      min-height: 224px;
+    }
+    .footer__col--regions {
+      width: 341.5px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--mischka);
+      padding-left: 24px;
+    }
+    .footer__col--contact {
+      flex: 1;
+      padding: 24px;
+    }
+    .footer__nav-list li {
+      padding: 13px 0;
+    }
+    .footer__nav-list a {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--abbey);
+      line-height: 20px;
+      transition: color 0.2s;
+    }
+    .footer__nav-list a:hover {
+      color: var(--shark);
+    }
+    .footer__nav-list a.active {
+      color: var(--mexican-red);
+    }
+    .footer__copyright {
+      font-size: 12px;
+      line-height: 12px;
+      color: var(--gray-muted);
+    }
+    .footer__contact-label {
+      font-size: 14px;
+      line-height: 24px;
+      color: var(--gray-muted);
+      margin-bottom: 16px;
+    }
+    .footer__contact-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .footer__contact-links a {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--mexican-red);
+      line-height: 24px;
+    }
+    .footer__contact-links span {
+      font-size: 14px;
+      color: var(--gray-muted);
+    }
+
+    /* ========== MOBILE ========== */
+    @media (max-width: 1100px) {
+      .hotel-grid__list {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header__nav { display: none; }
+      .header__hamburger { display: flex; }
+
+      .page-header__title {
+        font-size: 28px;
+        line-height: 36px;
+      }
+
+      .filters__row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filters__search {
+        max-width: 100%;
+        min-width: unset;
+      }
+      .filters__selects {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .hotel-grid__list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .hotel-card {
+        padding: 16px 8px;
+      }
+      .hotel-card__title {
+        font-size: 14px;
+        line-height: 20px;
+      }
+      .hotel-card__meta {
+        gap: 8px;
+      }
+      .hotel-card__name {
+        font-size: 12px;
+      }
+
+      .articles__heading {
+        font-size: 22px;
+        line-height: 30px;
+      }
+      .articles__card-title {
+        font-size: 18px;
+        line-height: 24px;
+      }
+      .articles__card-desc {
+        font-size: 14px;
+        line-height: 22px;
+      }
+
+      .footer__grid {
+        flex-direction: column;
+        gap: 0;
+      }
+      .footer__col--pages,
+      .footer__col--regions {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--mischka);
+        padding: 0 0 16px;
+        min-height: unset;
+      }
+      .footer__col--regions {
+        padding: 16px 0;
+      }
+      .footer__col--contact {
+        padding: 16px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hotel-grid__list {
+        grid-template-columns: 1fr;
+      }
+      .hotel-card {
+        padding: 12px 0;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1398px) {
+      .page-header__inner,
+      .filters__inner,
+      .articles__inner,
+      .footer__inner {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+      .hotel-grid__inner {
+        padding: 0 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo">
+        <img src="https://www.figma.com/api/mcp/asset/7e6d60f3-0457-40ef-b253-2093b38d45d4" alt="Locals' Hotels">
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-item">Home</a>
+        <a href="hotels.html" class="header__nav-item header__nav-item--active">Hotels</a>
+        <a href="#" class="header__nav-item">Journal</a>
+        <a href="#" class="header__nav-item">Contact</a>
+      </nav>
+      <button class="header__hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-menu__link">Home</a>
+    <a href="hotels.html" class="mobile-menu__link mobile-menu__link--active">Hotels</a>
+    <a href="#" class="mobile-menu__link">Journal</a>
+    <a href="#" class="mobile-menu__link">Contact</a>
+  </nav>
+
+  <!-- ========== PAGE HEADER ========== -->
+  <section class="page-header">
+    <div class="page-header__inner">
+      <div class="page-header__breadcrumb"><a href="index.html">Home</a> › Hotels</div>
+      <h1 class="page-header__title">Hotels</h1>
+    </div>
+  </section>
+
+  <!-- ========== FILTERS ========== -->
+  <section class="filters">
+    <div class="filters__inner">
+      <div class="filters__row">
+        <div class="filters__search">
+          <svg class="filters__search-icon" viewBox="0 0 16 16" fill="none">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242 1.156a5 5 0 1 1 0-10 5 5 0 0 1 0 10z" fill="#ADB5BD"/>
+          </svg>
+          <input type="text" id="hotelsSearchInput" placeholder="Search for Hotels & Destinations" autocomplete="off">
+        </div>
+        <div class="filters__selects" style="display:flex;gap:12px;flex-wrap:wrap;">
+          <div class="filters__select-wrap">
+            <button class="filters__select" data-filter="theme">
+              Themes
+              <svg viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="#495057" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="filter-dropdown" id="filterTheme">
+              <div class="filter-dropdown__item" data-value="Locals' Spot">Locals' Spot</div>
+              <div class="filter-dropdown__item" data-value="Old Town">Old Town</div>
+              <div class="filter-dropdown__item" data-value="Wine Country">Wine Country</div>
+              <div class="filter-dropdown__item" data-value="Culture City">Culture City</div>
+              <div class="filter-dropdown__item" data-value="Ski Hotel">Ski Hotel</div>
+              <div class="filter-dropdown__item" data-value="Into the Wild">Into the Wild</div>
+              <div class="filter-dropdown__item" data-value="One of a Kind">One of a Kind</div>
+              <div class="filter-dropdown__item" data-value="Featured">Featured</div>
+            </div>
+          </div>
+          <div class="filters__select-wrap">
+            <button class="filters__select" data-filter="dest">
+              Destinations
+              <svg viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="#495057" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="filter-dropdown" id="filterDest">
+              <div class="filter-dropdown__item" data-value="Tbilisi">Tbilisi</div>
+              <div class="filter-dropdown__item" data-value="Kakheti">Kakheti</div>
+              <div class="filter-dropdown__item" data-value="Kutaisi">Kutaisi</div>
+              <div class="filter-dropdown__item" data-value="Gudauri">Gudauri</div>
+              <div class="filter-dropdown__item" data-value="Stepantsminda">Stepantsminda</div>
+              <div class="filter-dropdown__item" data-value="Lagodekhi">Lagodekhi</div>
+            </div>
+          </div>
+          <div class="filters__select-wrap">
+            <button class="filters__select" data-filter="feature">
+              Features
+              <svg viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="#495057" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="filter-dropdown" id="filterFeature">
+              <div class="filter-dropdown__item" data-value="NEW">New Hotels</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="filters__active-tags" id="activeTags"></div>
+      <div class="filters__divider"></div>
+    </div>
+  </section>
+
+  <!-- ========== HOTEL GRID ========== -->
+  <section class="hotel-grid">
+    <div class="hotel-grid__inner">
+      <div class="hotel-grid__list">
+
+        <!-- Card 1: Artizan Design Hotel -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/c26926c5-f24f-4960-b2d1-f594d0fc75b7" alt="Artizan Design Hotel">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Artizan Design Hotel</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Stylish Rooms and a Historic Artist's Museum in Tbilisi's Vera District</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 2: Hotel Afisha -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/3ab9394c-8c10-4f11-be38-9b2e177ba6a2" alt="Hotel Afisha">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Hotel Afisha</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--red">New</span>
+              <span class="hotel-card__badge hotel-card__badge--gray">featured</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">A Retro-Inspired Hotel Stay on One of Tbilisi's Fast Main Streets</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 3: Blueberry Nights -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/cce45575-0da9-4c21-b5f7-ec14610d0ba6" alt="Blueberry Nights">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Blueberry Nights</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Cinematic Escape Above Lolita Restaurant, Blending Design, Music, and Film</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 4: Rooms Hotel Tbilisi -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/ecfbd526-f66d-40d2-ab8c-0f11460ce7bb" alt="Rooms Hotel Tbilisi">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Rooms Hotel Tbilisi</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Design Hotel in a Former Publishing House, at the Heart of Vera District</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 5: Stamba Hotel -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/4ca4b088-be76-434a-941a-e17462269e43" alt="Stamba Hotel">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Stamba Hotel</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Tbilisi's Creative Landmark, in a Restored Soviet Publishing House</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 6: Puris Moedani Boutique Hotel -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/dedce9e7-b4fa-46c0-a753-a212ca3941ef" alt="Puris Moedani Boutique Hotel">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Puris Moedani Boutique Hotel</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Scenery Morning Beneath Ancient Narikala Fortress</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 7: Writers House Residency -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/9211ef27-c911-4996-9fff-eeef30abde06" alt="Writers House Residency">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Writers House Residency</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Historic</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Art Nouveau Mansion Stay in Sololaki's Literary Landmark</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 8: Bazzar Boutique Hotel -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/68cba179-6e27-4708-a9f1-50cebce6b3fe" alt="Bazzar Boutique Hotel">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Bazzar Boutique Hotel</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Intimate City Stay in the Heart of the Bazaar Quarter</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 9: Qarvasla Hotel -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/a4771a10-3200-4564-8b02-5bd49ee3f86c" alt="Qarvasla Hotel">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Qarvasla Hotel</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--red">new</span>
+              <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Moorish Arches and Courtyard Rooms at the Historic Crossroads of Old Tbilisi</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 10: Communal Hotel Sololaki -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/0375cc82-a2c5-4538-898b-287bdbf97b93" alt="Communal Hotel Sololaki">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Communal Hotel Sololaki</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">featured</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Bohemian Elegance in Tbilisi's Art Nouveau Streets</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 11: Blue Fox Hotel -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/d2da4c2a-ce40-4083-a821-841a567fade6" alt="Blue Fox Hotel">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Blue Fox Hotel</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Balconied Rooms with Local Murals in Old Town's Backstreets</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 12: Bellhop Tbilisi -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/2ca060f6-7108-4b88-8aa6-aca91b9b679a" alt="Bellhop Tbilisi">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Bellhop Tbilisi</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--red">NEW</span>
+              <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">A Restaurant, Bar, and 12-Room Stay Inside a Restored Century-Old Townhouse</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 13: Unfound Door -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/976e0408-8fe6-4a4b-9987-133d007f04ac" alt="Unfound Door">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Unfound Door</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Reimagined Cultural Monument for Design-First Travelers</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 14: Communal Hotel Plekhanovi -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/6bf64e47-d8ce-48ef-9eeb-59c8bd37bcf7" alt="Communal Hotel Plekhanovi">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Communal Hotel Plekhanovi</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Design-led Boutique Stay in Tbilisi's Creative District</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 15: Glarros Oldtown -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/90a9c6aa-11cd-4a39-a111-292e63c42e80" alt="Glarros Oldtown">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Glarros Oldtown</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Mosaic Textures Meet the Everyday Pattern of Tbilisi's Oldest District</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Tbilisi</span>
+          </div>
+        </a>
+
+        <!-- Card 16: Duende Hotel -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/48a52583-5738-462b-a097-ece49d72ec65" alt="Duende Hotel">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Duende Hotel</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">into the wild</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Forest Immersion, Wooden Architecture, and Outdoor Rituals in Kakheti's Wild Corner</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Lagodekhi</span>
+          </div>
+        </a>
+
+        <!-- Card 17: Pabellon Hotel -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/164ac6b6-d36e-4d14-9b56-729507aefa53" alt="Pabellon Hotel">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Pabellon Hotel</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--red">NEW</span>
+              <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Modern Design Retreat in Kakheti's Historic Vineyards, Inspired by Georgian Heritage</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Kvareli</span>
+          </div>
+        </a>
+
+        <!-- Card 18: Communal Telavi -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/5401ab4a-646a-4354-81ee-5aa264da5dcf" alt="Communal Telavi">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Communal Telavi</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Moorish-Inspired Boutique Stay with Pool and Local Fare in Telavi</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Telavi</span>
+          </div>
+        </a>
+
+        <!-- Card 19: Bodbe Hotel -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/ae560d5d-d381-4a2d-b0f5-b841b53c35ca" alt="Bodbe Hotel">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Bodbe Hotel</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--red">new</span>
+              <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Contemporary Retreat with Panoramic Views Near Bodbe Monastery</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Sighnaghi</span>
+          </div>
+        </a>
+
+        <!-- Card 20: Esquisse Design Hotel -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/a031b6ff-4ff2-448f-a71e-64efc9fc0d2b" alt="Esquisse Design Hotel">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Esquisse Design Hotel</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Chic Rooms and Slow Spa Days in Telavi, Kakheti's Wine Capital</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Telavi</span>
+          </div>
+        </a>
+
+        <!-- Card 21: Kabadoni Boutique Hotel -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/f6238e1c-bd2c-456a-a28c-9c5d828f891a" alt="Kabadoni Boutique Hotel">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Kabadoni Boutique Hotel</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Boutique Hilltop Retreat with Panoramic Alazani Valley Views</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Sighnaghi</span>
+          </div>
+        </a>
+
+        <!-- Card 22: Vazisubani Estate -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/30a35303-8494-4844-902f-9dadf2da0b25" alt="Vazisubani Estate">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Vazisubani Estate</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">19th-Century Estate with Timeless Elegance, Vineyards, and Horseback Riding</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Gurjaani</span>
+          </div>
+        </a>
+
+        <!-- Card 23: Kvareli Lake Resort -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/9c909128-c61c-495b-ad29-907a75ae26ee" alt="Kvareli Lake Resort">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Kvareli Lake Resort</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Lake Evenings, Bike Paths and Shared Silence in Northern Kakheti</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Kvareli</span>
+          </div>
+        </a>
+
+        <!-- Card 24: Samzeo Kvareli -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/cff51478-d81d-4d1e-9888-c3a4cd0d7103" alt="Samzeo Kvareli">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Samzeo Kvareli</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--red">NEW</span>
+              <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">A Modern Resting Point in Historic Kvareli</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Kvareli</span>
+          </div>
+        </a>
+
+        <!-- Card 25: Rooms Hotel Kazbegi -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/07f34476-6926-40b3-8767-85d8076ca486" alt="Rooms Hotel Kazbegi">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Rooms Hotel Kazbegi</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">one of a kind</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">The Iconic Mountain Retreat that Redefined Georgian Hospitality</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Stepantsminda</span>
+          </div>
+        </a>
+
+        <!-- Card 26: Marco Polo Gudauri -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/46771278-fe9c-4491-8df4-9733fa346a87" alt="Marco Polo Gudauri">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Marco Polo Gudauri</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Ski Hotel</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Ski-in Ski-out Resort with Spa, Chalets, and the Spirit of Gudauri Since 1988</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Gudauri</span>
+          </div>
+        </a>
+
+        <!-- Card 27: Gudauri Lodge -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/ddd626e1-2f82-4619-a8fa-73fc6b4183b3" alt="Gudauri Lodge">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Gudauri Lodge</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Ski Hotel</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Ski-in Ski-out Lodge with Spa & Caucasus Mountain Views</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Gudauri</span>
+          </div>
+        </a>
+
+        <!-- Card 28: Communal Hotel Kutaisi -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/be9f480d-2f31-45c5-b0a1-873029dcfd87" alt="Communal Hotel Kutaisi">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Communal Hotel Kutaisi</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Culture City</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Charming Townhouse with Local Eatery, Serving Authentic Plates and Natural Wine</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Kutaisi</span>
+          </div>
+        </a>
+
+        <!-- Card 29: Hotel Memoire Kutaisi -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/7d7b95dd-67a6-4a91-ac0b-8285efcb2162" alt="Hotel Memoire Kutaisi">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Hotel Memoire Kutaisi</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Culture City</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Terrace Light, English Breakfasts and Walkable Old Town Days in Kutaisi</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Kutaisi</span>
+          </div>
+        </a>
+
+        <!-- Card 30: Grand Opera Hotel -->
+        <a href="hotel.html" class="hotel-card">
+          <div class="hotel-card__image-wrap">
+            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/bb05fb42-186c-40ea-b0cd-18fcd4d69759" alt="Grand Opera Hotel">
+            <div class="hotel-card__gradient"></div>
+          </div>
+          <div class="hotel-card__meta">
+            <span class="hotel-card__name">Grand Opera Hotel</span>
+            <div class="hotel-card__badges">
+              <span class="hotel-card__badge hotel-card__badge--gray">Culture City</span>
+            </div>
+          </div>
+          <h3 class="hotel-card__title">Classical Elegance, Modern Comfort and Wine Cellars in Kutaisi</h3>
+          <div class="hotel-card__location">
+            <span class="hotel-card__country">Georgia,</span>
+            <span class="hotel-card__city">Kutaisi</span>
+          </div>
+        </a>
+
+        <div class="hotel-grid__no-results" id="noResults">No hotels match your search. Try different keywords or clear your filters.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ARTICLES SECTION ========== -->
+  <section class="articles">
+    <div class="articles__inner">
+      <h2 class="articles__heading">Lorem Ipsum Articles</h2>
+      <div class="articles__carousel">
+        <div class="articles__track">
+          <div class="articles__card">
+            <div class="articles__card-image-wrap">
+              <img src="https://www.figma.com/api/mcp/asset/a8ca95b1-541d-451e-9d9d-55143d1bdf26" alt="Article image">
+              <div class="articles__card-gradient"></div>
+            </div>
+            <h3 class="articles__card-title">Hello How are you? I'm Under the water</h3>
+            <p class="articles__card-desc">Our havens away from home are a place to explore your passions. Our havens away from home are a place to explore your passions. Our havens away from home are a place to explore your passions. Our havens away from home are a place to explore your passions.</p>
+          </div>
+        </div>
+        <button class="articles__arrow articles__arrow--left" aria-label="Previous">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="#212529" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="articles__arrow articles__arrow--right" aria-label="Next">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#212529" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">Locals' Hotels</div>
+      <div class="footer__grid">
+        <div class="footer__col footer__col--pages">
+          <ul class="footer__nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="hotels.html" class="active">Hotels</a></li>
+            <li><a href="#">Journal</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+          <div class="footer__copyright">All Rights Reserved, Locals Hotels 2025</div>
+        </div>
+        <div class="footer__col footer__col--regions">
+          <ul class="footer__nav-list">
+            <li><a href="#">Tbilisi</a></li>
+            <li><a href="#">Kakheti</a></li>
+            <li><a href="#">Kutaisi</a></li>
+          </ul>
+        </div>
+        <div class="footer__col footer__col--contact">
+          <div class="footer__contact-label">Have Questions?</div>
+          <div class="footer__contact-links">
+            <a href="mailto:hello@localshotels.com">E-mail us</a>
+            <span>/</span>
+            <a href="mailto:hello@localshotels.com">hello@localshotels.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    (function() {
+      var btn = document.querySelector('.header__hamburger');
+      var menu = document.getElementById('mobileMenu');
+      btn.addEventListener('click', function() { menu.classList.toggle('active'); });
+      document.addEventListener('click', function(e) {
+        if (!menu.contains(e.target) && !btn.contains(e.target)) menu.classList.remove('active');
+      });
+    })();
+
+    // Filter & Search system
+    (function() {
+      var searchInput = document.getElementById('hotelsSearchInput');
+      var cards = Array.from(document.querySelectorAll('.hotel-card'));
+      var noResults = document.getElementById('noResults');
+      var activeTags = document.getElementById('activeTags');
+
+      var activeFilters = { theme: null, dest: null, feature: null };
+
+      // Read URL params on load
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('q')) { searchInput.value = params.get('q'); }
+      if (params.get('theme')) { activeFilters.theme = params.get('theme'); }
+      if (params.get('dest')) { activeFilters.dest = params.get('dest'); }
+      if (params.get('feature')) { activeFilters.feature = params.get('feature'); }
+
+      // City to region mapping
+      var cityToRegion = {
+        'Tbilisi': 'Tbilisi', 'Kvareli': 'Kakheti', 'Telavi': 'Kakheti',
+        'Sighnaghi': 'Kakheti', 'Gurjaani': 'Kakheti', 'Lagodekhi': 'Kakheti',
+        'Kutaisi': 'Kutaisi', 'Gudauri': 'Gudauri', 'Stepantsminda': 'Stepantsminda'
+      };
+
+      function getCardData(card) {
+        var name = (card.querySelector('.hotel-card__name') || {}).textContent || '';
+        var title = (card.querySelector('.hotel-card__title') || {}).textContent || '';
+        var city = (card.querySelector('.hotel-card__city') || {}).textContent || '';
+        var badges = Array.from(card.querySelectorAll('.hotel-card__badge')).map(function(b) { return b.textContent.trim(); });
+        var region = cityToRegion[city] || city;
+        return { name: name, title: title, city: city, region: region, badges: badges };
+      }
+
+      function applyFilters() {
+        var query = searchInput.value.toLowerCase().trim();
+        var visibleCount = 0;
+
+        cards.forEach(function(card) {
+          var data = getCardData(card);
+          var show = true;
+
+          // Text search
+          if (query) {
+            var text = (data.name + ' ' + data.title + ' ' + data.city + ' ' + data.region).toLowerCase();
+            if (text.indexOf(query) === -1) show = false;
+          }
+
+          // Theme filter
+          if (show && activeFilters.theme) {
+            var hasTheme = data.badges.some(function(b) {
+              return b.toLowerCase() === activeFilters.theme.toLowerCase();
+            });
+            if (!hasTheme) show = false;
+          }
+
+          // Destination filter
+          if (show && activeFilters.dest) {
+            var matchDest = data.city === activeFilters.dest || data.region === activeFilters.dest;
+            if (!matchDest) show = false;
+          }
+
+          // Feature filter (NEW)
+          if (show && activeFilters.feature) {
+            var hasFeature = data.badges.some(function(b) {
+              return b.toUpperCase() === activeFilters.feature.toUpperCase();
+            });
+            if (!hasFeature) show = false;
+          }
+
+          card.style.display = show ? '' : 'none';
+          if (show) visibleCount++;
+        });
+
+        noResults.classList.toggle('active', visibleCount === 0);
+        renderTags();
+        updateFilterButtons();
+      }
+
+      function renderTags() {
+        var html = '';
+        if (activeFilters.theme) {
+          html += '<span class="filters__tag" data-clear="theme">' + activeFilters.theme + ' <svg viewBox="0 0 10 10" fill="none"><path d="M2 2l6 6M8 2l-6 6" stroke="#495057" stroke-width="1.2" stroke-linecap="round"/></svg></span>';
+        }
+        if (activeFilters.dest) {
+          html += '<span class="filters__tag" data-clear="dest">' + activeFilters.dest + ' <svg viewBox="0 0 10 10" fill="none"><path d="M2 2l6 6M8 2l-6 6" stroke="#495057" stroke-width="1.2" stroke-linecap="round"/></svg></span>';
+        }
+        if (activeFilters.feature) {
+          html += '<span class="filters__tag" data-clear="feature">New Hotels <svg viewBox="0 0 10 10" fill="none"><path d="M2 2l6 6M8 2l-6 6" stroke="#495057" stroke-width="1.2" stroke-linecap="round"/></svg></span>';
+        }
+        activeTags.innerHTML = html;
+        // bind close
+        activeTags.querySelectorAll('.filters__tag').forEach(function(tag) {
+          tag.addEventListener('click', function() {
+            activeFilters[this.dataset.clear] = null;
+            applyFilters();
+          });
+        });
+      }
+
+      function updateFilterButtons() {
+        document.querySelectorAll('.filters__select').forEach(function(btn) {
+          var type = btn.dataset.filter;
+          btn.classList.toggle('filters__select--active', !!activeFilters[type]);
+        });
+        // update dropdown selected states
+        document.querySelectorAll('.filter-dropdown__item').forEach(function(item) {
+          var dropdown = item.closest('.filter-dropdown');
+          var type = dropdown.id.replace('filter', '').toLowerCase();
+          if (type === 'theme') item.classList.toggle('selected', activeFilters.theme === item.dataset.value);
+          else if (type === 'dest') item.classList.toggle('selected', activeFilters.dest === item.dataset.value);
+          else if (type === 'feature') item.classList.toggle('selected', activeFilters.feature === item.dataset.value);
+        });
+      }
+
+      // Search input
+      searchInput.addEventListener('input', function() { applyFilters(); });
+
+      // Filter dropdown toggle
+      document.querySelectorAll('.filters__select').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var wrap = this.closest('.filters__select-wrap');
+          var dropdown = wrap.querySelector('.filter-dropdown');
+          var wasOpen = dropdown.classList.contains('active');
+          // close all
+          document.querySelectorAll('.filter-dropdown').forEach(function(d) { d.classList.remove('active'); });
+          if (!wasOpen) dropdown.classList.add('active');
+        });
+      });
+
+      // Filter item click
+      document.querySelectorAll('.filter-dropdown__item').forEach(function(item) {
+        item.addEventListener('click', function() {
+          var dropdown = this.closest('.filter-dropdown');
+          var type = dropdown.id.replace('filter', '').toLowerCase();
+          var val = this.dataset.value;
+          // Toggle - click again to deselect
+          if (type === 'theme') activeFilters.theme = activeFilters.theme === val ? null : val;
+          else if (type === 'dest') activeFilters.dest = activeFilters.dest === val ? null : val;
+          else if (type === 'feature') activeFilters.feature = activeFilters.feature === val ? null : val;
+          dropdown.classList.remove('active');
+          applyFilters();
+        });
+      });
+
+      // Close dropdowns on outside click
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.filters__select-wrap')) {
+          document.querySelectorAll('.filter-dropdown').forEach(function(d) { d.classList.remove('active'); });
+        }
+      });
+
+      // Apply on load (for URL params)
+      applyFilters();
+    })();
+  </script>
+</body>
+</html>

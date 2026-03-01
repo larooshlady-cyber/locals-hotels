@@ -1,0 +1,2191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Locals' Hotels | Boutique Hotels across Georgia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --white: #FFFFFF;
+      --athens-gray: #F8F9FA;
+      --mischka: #CED4DA;
+      --hit-gray: #ADB5BD;
+      --abbey: #495057;
+      --nevada: #677078;
+      --outer-space: #343A40;
+      --shark: #212529;
+      --black: #000000;
+      --mexican-red: #A22522;
+      --white-lilac: #E8E8F6;
+      --gray-muted: #6C757D;
+      --font: 'Inter', sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--shark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { border: none; background: none; cursor: pointer; font-family: inherit; }
+    ul, li { list-style: none; }
+
+    /* ========== HEADER ========== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--mischka);
+    }
+    .header__inner {
+      max-width: 1366px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 55px;
+      padding: 0 16px;
+    }
+    .header__logo img {
+      height: 17px;
+      width: auto;
+    }
+    .header__nav { display: flex; gap: 0; align-items: center; }
+    .header__nav-item {
+      padding: 8px 16px;
+      font-size: 13.9px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      line-height: 14px;
+      color: var(--abbey);
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .header__nav-item:hover,
+    .header__nav-item--active {
+      background: var(--shark);
+      color: var(--white);
+    }
+    .header__hamburger {
+      display: none;
+      width: 32px;
+      height: 32px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .header__hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--shark);
+      border-radius: 1px;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      padding: 16px 0 0;
+    }
+    .hero__inner {
+      max-width: 1366px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .hero__card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--shark);
+      aspect-ratio: 1366 / 416;
+    }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero__gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6) 100%);
+    }
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 24px 32px 20px;
+      text-align: center;
+    }
+    .hero__breadcrumb {
+      font-size: 13.6px;
+      line-height: 21px;
+      color: var(--white);
+      margin-bottom: 8px;
+      opacity: 0.8;
+      display: none;
+    }
+    .hero__heading {
+      font-weight: 300;
+      font-size: 47.8px;
+      line-height: 54px;
+      color: var(--white);
+      max-width: 700px;
+    }
+    .hero__heading strong {
+      font-weight: 400;
+    }
+    .hero__search-bar {
+      display: flex;
+      align-items: center;
+      margin-top: 16px;
+      background: var(--white);
+      border-radius: 48px;
+      padding: 6px;
+      width: 100%;
+      max-width: 720px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      text-align: left;
+    }
+    .hero__search-field {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      position: relative;
+      min-width: 0;
+    }
+    .hero__search-field--where::after,
+    .hero__search-field--dates::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 25%;
+      height: 50%;
+      width: 1px;
+      background: var(--mischka);
+    }
+    .hero__search-field--where { flex: 1.5; }
+    .hero__search-field-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      opacity: 0.45;
+    }
+    .hero__search-field-inner {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      flex: 1;
+    }
+    .hero__search-field-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--shark);
+      line-height: 14px;
+    }
+    .hero__search-field-input {
+      border: none;
+      outline: none;
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--shark);
+      width: 100%;
+      background: transparent;
+      padding: 0;
+    }
+    .hero__search-field-input::placeholder {
+      color: var(--hit-gray);
+    }
+    .hero__search-field-input[type="date"] {
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+    }
+    .hero__search-field-input[type="date"]::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+    .hero__search-field-text {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--hit-gray);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .hero__search-field-text--filled {
+      color: var(--shark);
+    }
+    .hero__search-field select {
+      border: none;
+      outline: none;
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--shark);
+      background: transparent;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+      width: 100%;
+      padding: 0;
+    }
+    .hero__search-btn {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--shark);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .hero__search-btn:hover {
+      background: var(--outer-space);
+      transform: scale(1.05);
+    }
+    .hero__search-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ========== SECTION (Hotel Category) ========== */
+    .section {
+      padding: 32px 0 0;
+    }
+    .section__inner {
+      max-width: 1366px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .section__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .section__heading {
+      font-weight: 700;
+      font-size: 34.9px;
+      line-height: 46px;
+      color: var(--shark);
+    }
+    .section__desc {
+      font-size: 15.1px;
+      line-height: 24px;
+      font-weight: 400;
+      color: var(--shark);
+      margin-top: 6px;
+    }
+    .section__view-all {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--shark);
+      white-space: nowrap;
+      margin-top: 12px;
+      transition: color 0.2s;
+    }
+    .section__view-all:hover {
+      color: var(--hit-gray);
+    }
+    .section__view-all svg {
+      transition: transform 0.2s;
+    }
+    .section__view-all:hover svg {
+      transform: translateX(3px);
+    }
+
+    /* ========== FEATURED SLIDER ========== */
+    .featured-slider {
+      position: relative;
+      margin-top: 20px;
+    }
+    .featured-slider__track {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 8px 0 8px;
+      margin: -8px 0 -8px;
+      cursor: grab;
+    }
+    .featured-slider__track:active {
+      cursor: grabbing;
+    }
+    .featured-slider__track::-webkit-scrollbar {
+      display: none;
+    }
+    .featured-slider__track .card {
+      flex: 0 0 calc(45% - 10px);
+      min-width: 280px;
+      scroll-snap-align: start;
+    }
+    .featured-slider__track .card__image-wrap {
+      aspect-ratio: 4 / 3;
+    }
+    .featured-slider__arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-100%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1px solid var(--mischka);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 3;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .featured-slider__arrow:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transform: translateY(-100%) scale(1.05);
+    }
+    .featured-slider__arrow--left {
+      left: 12px;
+    }
+    .featured-slider__arrow--right {
+      right: 12px;
+    }
+    .featured-slider__arrow[disabled] {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .featured-slider__arrow svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--shark);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .featured-slider__dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .featured-slider__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--mischka);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .featured-slider__dot.active {
+      background: var(--shark);
+      transform: scale(1.25);
+    }
+
+    /* ========== EXPLORE GRID (masonry via grid) ========== */
+    .explore-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(6, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+      height: 700px;
+    }
+    .explore-grid .card {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .explore-grid .card__image-wrap {
+      flex: 1;
+      min-height: 0;
+      aspect-ratio: unset;
+    }
+    .explore-grid .card__meta,
+    .explore-grid .card__title {
+      flex-shrink: 0;
+    }
+    /* Left: card1 rows 1-3, card2 rows 4-6, link card row 7 */
+    .explore-grid .card:nth-child(1) { grid-column: 1; grid-row: 1 / 4; }
+    .explore-grid .card:nth-child(2) { grid-column: 1; grid-row: 4 / 7; }
+    /* Right: card3 rows 1-2, card4 rows 3-4, card5 rows 5-6 */
+    .explore-grid .card:nth-child(3) { grid-column: 2; grid-row: 1 / 3; }
+    .explore-grid .card:nth-child(4) { grid-column: 2; grid-row: 3 / 5; }
+    .explore-grid .card:nth-child(5) { grid-column: 2; grid-row: 5 / 7; }
+    .explore-grid__link-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--shark);
+      border-radius: 8px;
+      padding: 24px 32px;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .explore-grid__link-card:hover {
+      background: var(--outer-space);
+      transform: translateY(-2px);
+    }
+    .explore-grid__link-card span {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .explore-grid__link-card svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.2s;
+    }
+    .explore-grid__link-card:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Carousel */
+    .carousel {
+      position: relative;
+      margin-top: 16px;
+    }
+    .carousel__track {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 8px;
+    }
+    .carousel__track::-webkit-scrollbar { display: none; }
+
+    .carousel__arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-70%);
+      z-index: 5;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(248, 249, 250, 0.69);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      transition: background 0.2s;
+    }
+    .carousel__arrow:hover {
+      background: rgba(248, 249, 250, 0.9);
+    }
+    .carousel__arrow--left { left: 8px; }
+    .carousel__arrow--right { right: 8px; }
+    .carousel__arrow svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--shark);
+    }
+
+    /* Hotel Card */
+    .card {
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      width: 100%;
+      position: relative;
+    }
+    .card__image-wrap {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 1366 / 1388;
+      background: var(--mischka);
+    }
+    .card__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    a.card:hover .card__image {
+      transform: scale(1.06);
+    }
+    .card__gradient-top {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 40%);
+      transition: opacity 0.4s;
+    }
+    .card__gradient-bottom {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 50%);
+      transition: opacity 0.4s;
+    }
+    a.card:hover .card__gradient-bottom {
+      opacity: 0.7;
+    }
+    .card__overlay-text {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 18px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.35s, transform 0.35s;
+    }
+    a.card:hover .card__overlay-text {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .card__meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .card__name {
+      font-size: 13.2px;
+      font-weight: 500;
+      text-transform: uppercase;
+      line-height: 14px;
+      color: var(--shark);
+      letter-spacing: 0.3px;
+    }
+    .card__badges {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      display: flex;
+      gap: 6px;
+      z-index: 2;
+    }
+    .card__badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      line-height: 10px;
+      letter-spacing: 0.4px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .card__badge--gray {
+      background: rgba(255,255,255,0.85);
+      color: var(--shark);
+    }
+    .card__badge--red {
+      background: var(--mexican-red);
+      color: var(--white);
+    }
+    .card__title {
+      font-size: 16.7px;
+      font-weight: 700;
+      line-height: 24px;
+      color: var(--shark);
+      margin-top: 4px;
+      transition: color 0.3s;
+    }
+    a.card:hover .card__title {
+      color: var(--abbey);
+    }
+
+    /* Section CTA button */
+    .section__cta {
+      margin-top: 20px;
+    }
+    .btn-dark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      background: var(--shark);
+      color: var(--white);
+      font-size: 13.9px;
+      font-weight: 400;
+      text-transform: uppercase;
+      line-height: 14px;
+      border-radius: 999px;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .btn-dark:hover {
+      background: var(--outer-space);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .btn-light {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      background: rgba(248, 249, 250, 0.85);
+      color: var(--shark);
+      font-size: 13.9px;
+      font-weight: 400;
+      text-transform: uppercase;
+      line-height: 14px;
+      border-radius: 999px;
+      transition: background 0.2s;
+    }
+    .btn-light:hover { background: rgba(248, 249, 250, 1); }
+
+    /* ========== CTA BANNER ========== */
+    .cta-banner {
+      padding: 32px 0 0;
+    }
+    .cta-banner__inner {
+      max-width: 1366px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .cta-banner__card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 1366 / 700;
+      background: var(--shark);
+    }
+    .cta-banner__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .cta-banner__card:hover .cta-banner__bg {
+      transform: scale(1.05);
+    }
+    .cta-banner__gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.6) 100%);
+    }
+    .cta-banner__content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-start;
+      height: 100%;
+      padding: 40px;
+    }
+    .cta-banner__heading {
+      font-weight: 300;
+      font-size: 47.8px;
+      line-height: 48px;
+      color: var(--white);
+      max-width: 800px;
+      margin-bottom: 24px;
+    }
+
+    /* ========== MISSION STATEMENT ========== */
+    .mission {
+      padding: 40px 0;
+    }
+    .mission__inner {
+      max-width: 1366px;
+      margin: 0 auto;
+      padding: 32px 16px;
+      border-top: 1px solid var(--mischka);
+      border-bottom: 1px solid var(--mischka);
+    }
+    .mission__text {
+      font-weight: 900;
+      font-size: 34.9px;
+      line-height: 46px;
+      color: var(--shark);
+    }
+
+    /* ========== FAQ ========== */
+    .faq {
+      padding: 32px 0 40px;
+    }
+    .faq__inner {
+      max-width: 1366px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .faq__heading {
+      font-weight: 700;
+      font-size: 34.9px;
+      line-height: 46px;
+      color: var(--shark);
+      margin-bottom: 16px;
+    }
+    .faq__item {
+      border-bottom: 1px solid var(--white-lilac);
+    }
+    .faq__question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      font-family: var(--font);
+      font-size: 14.9px;
+      font-weight: 700;
+      line-height: 24px;
+      color: var(--shark);
+      text-align: left;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .faq__question:hover {
+      color: var(--abbey);
+    }
+    .faq__icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .faq__item.open .faq__icon {
+      transform: rotate(45deg);
+    }
+    .faq__answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+      opacity: 0;
+    }
+    .faq__answer-inner {
+      padding: 0 0 16px;
+      font-size: 15.1px;
+      line-height: 24px;
+      color: var(--abbey);
+    }
+    .faq__item.open .faq__answer {
+      opacity: 1;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      border-top: 1px solid var(--mischka);
+      padding: 0 0 40px;
+    }
+    .footer__inner {
+      max-width: 1366px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Desktop footer: multi-column grid */
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 32px;
+      padding: 32px 0;
+    }
+    .footer__brand {
+      font-size: 14.8px;
+      font-weight: 600;
+      color: var(--mexican-red);
+      margin-bottom: 16px;
+    }
+    .footer__label {
+      font-size: 11.1px;
+      line-height: 18px;
+      color: var(--gray-muted);
+      margin-bottom: 8px;
+    }
+    .footer__contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .footer__contact-links a {
+      font-size: 12.9px;
+      font-weight: 600;
+      color: var(--mexican-red);
+    }
+    .footer__contact-links span {
+      font-size: 12.9px;
+      color: var(--gray-muted);
+    }
+    .footer__nav-title {
+      font-size: 11.1px;
+      font-weight: 600;
+      color: var(--gray-muted);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .footer__nav-list li {
+      margin-bottom: 8px;
+    }
+    .footer__nav-list a {
+      font-size: 13.3px;
+      font-weight: 400;
+      color: var(--abbey);
+      line-height: 20px;
+      transition: color 0.2s;
+    }
+    .footer__nav-list a:hover {
+      color: var(--shark);
+    }
+    .footer__nav-list a.active {
+      color: var(--mexican-red);
+    }
+    .footer__copyright {
+      font-size: 11.1px;
+      line-height: 18px;
+      color: var(--gray-muted);
+      padding-top: 16px;
+      border-top: 1px solid var(--mischka);
+    }
+
+    /* ========== MOBILE STYLES ========== */
+    @media (max-width: 768px) {
+      .header__nav { display: none; }
+      .header__hamburger { display: flex; }
+
+      .hero__card {
+        aspect-ratio: 1 / 1;
+        border-radius: 12px;
+      }
+      .hero__heading {
+        font-size: 23.8px;
+        line-height: 30px;
+      }
+      .hero__content {
+        padding: 16px 20px;
+      }
+      .hero__search-bar {
+        max-width: 100%;
+        flex-wrap: wrap;
+        border-radius: 16px;
+        padding: 4px;
+        gap: 0;
+      }
+      .hero__search-field {
+        flex: 1 1 100%;
+        padding: 8px 14px;
+      }
+      .hero__search-field--where::after {
+        top: auto;
+        bottom: 0;
+        left: 14px;
+        right: 14px;
+        height: 1px;
+        width: auto;
+      }
+      .hero__search-field--where { flex: 1 1 100%; }
+      .hero__search-field--dates { flex: 1 1 50%; }
+      .hero__search-field--guests { flex: 1 1 50%; }
+      .hero__search-field--dates::after {
+        top: 25%; bottom: auto; left: auto; right: 0; height: 50%; width: 1px;
+      }
+      .hero__search-btn {
+        width: 100%;
+        border-radius: 12px;
+        height: 44px;
+        margin-top: 2px;
+      }
+      .hero-calendar-popup,
+      .hero-guest-popup {
+        position: fixed;
+        top: auto !important;
+        bottom: 0;
+        left: 0 !important;
+        right: 0;
+        width: auto;
+        border-radius: 16px 16px 0 0;
+        z-index: 200;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      .section__heading {
+        font-size: 23.4px;
+        line-height: 32px;
+      }
+      .section__desc {
+        font-size: 13.1px;
+        line-height: 22px;
+      }
+
+      .card__image-wrap {
+        aspect-ratio: 358 / 382;
+        border-radius: 0;
+      }
+      .card__title {
+        font-size: 14.9px;
+        line-height: 22px;
+      }
+
+      .featured-slider__track .card {
+        flex: 0 0 85%;
+        min-width: 0;
+      }
+      .featured-slider__arrow {
+        display: none;
+      }
+      .explore-grid {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+      }
+      .explore-grid .card__image-wrap {
+        aspect-ratio: 3 / 2;
+        flex: none;
+        height: auto;
+      }
+
+      .carousel__arrow {
+        width: 32px;
+        height: 32px;
+      }
+      .carousel__arrow svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      .cta-banner__card {
+        aspect-ratio: 358 / 260;
+      }
+      .cta-banner__heading {
+        font-size: 31.8px;
+        line-height: 36px;
+      }
+      .cta-banner__content {
+        padding: 20px;
+      }
+
+      .mission__text {
+        font-size: 23.1px;
+        line-height: 32px;
+      }
+
+      .faq__heading {
+        font-size: 23.4px;
+        line-height: 32px;
+      }
+      .faq__question {
+        font-size: 13.1px;
+        line-height: 22px;
+      }
+
+      .footer__grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 16px 0;
+      }
+      .footer__col {
+        padding: 12px 0;
+        border-bottom: 1px solid var(--mischka);
+      }
+      .footer__col:last-child {
+        border-bottom: none;
+      }
+    }
+
+    /* ========== SEARCH AUTOCOMPLETE ========== */
+    .hero__search-field--where {
+      position: relative;
+    }
+    .search-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: -14px;
+      right: -14px;
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      overflow: hidden;
+      z-index: 50;
+    }
+    .search-dropdown.active { display: block; }
+    .search-dropdown__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-decoration: none;
+      color: var(--shark);
+    }
+    .search-dropdown__item:hover,
+    .search-dropdown__item.highlighted {
+      background: var(--athens-gray);
+    }
+    .search-dropdown__name {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+    .search-dropdown__city {
+      font-size: 12px;
+      color: var(--gray-muted);
+      line-height: 18px;
+    }
+    .search-dropdown__all {
+      display: block;
+      padding: 10px 16px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--abbey);
+      border-top: 1px solid var(--mischka);
+      cursor: pointer;
+      transition: background 0.15s;
+      text-decoration: none;
+    }
+    .search-dropdown__all:hover {
+      background: var(--athens-gray);
+    }
+
+    /* ========== CALENDAR DATE PICKER (Hero) ========== */
+    .hero__search-field--dates {
+      position: relative;
+      cursor: pointer;
+    }
+    .hero__search-field--guests {
+      position: relative;
+      cursor: pointer;
+    }
+    .hero-calendar-popup {
+      display: none;
+      position: fixed;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      z-index: 200;
+      padding: 20px;
+      width: 320px;
+    }
+    .hero-calendar-popup.active { display: block; }
+    .hero-calendar-popup .calendar-popup__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .hero-calendar-popup .calendar-popup__nav {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--shark);
+      transition: background 0.15s;
+    }
+    .hero-calendar-popup .calendar-popup__nav:hover { background: var(--athens-gray); }
+    .hero-calendar-popup .calendar-popup__nav svg { width: 16px; height: 16px; }
+    .hero-calendar-popup .calendar-popup__month-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--shark);
+    }
+    .hero-calendar-popup .calendar-popup__grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      text-align: center;
+    }
+    .hero-calendar-popup .calendar-popup__dow {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--hit-gray);
+      text-transform: uppercase;
+      padding: 4px 0 8px;
+    }
+    .hero-calendar-popup .calendar-popup__day {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--shark);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s;
+      gap: 1px;
+    }
+    .hero-calendar-popup .calendar-popup__day-price {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--hit-gray);
+      line-height: 1;
+    }
+    .hero-calendar-popup .calendar-popup__day--selected .calendar-popup__day-price {
+      color: rgba(255,255,255,0.7);
+    }
+    .hero-calendar-popup .calendar-popup__day--disabled .calendar-popup__day-price {
+      color: var(--mischka);
+    }
+    .hero-calendar-popup .calendar-popup__day:hover:not(.calendar-popup__day--disabled):not(.calendar-popup__day--empty) {
+      background: var(--athens-gray);
+    }
+    .hero-calendar-popup .calendar-popup__day--empty { cursor: default; }
+    .hero-calendar-popup .calendar-popup__day--disabled { color: var(--mischka); cursor: default; }
+    .hero-calendar-popup .calendar-popup__day--today { font-weight: 700; box-shadow: inset 0 0 0 1px var(--mischka); }
+    .hero-calendar-popup .calendar-popup__day--selected { background: var(--shark) !important; color: var(--white) !important; font-weight: 600; }
+    .hero-calendar-popup .calendar-popup__day--in-range { background: var(--athens-gray); border-radius: 0; }
+    .hero-calendar-popup .calendar-popup__day--range-start { border-radius: 8px 0 0 8px; }
+    .hero-calendar-popup .calendar-popup__day--range-end { border-radius: 0 8px 8px 0; }
+    .hero-calendar-popup .calendar-popup__day--range-start.calendar-popup__day--range-end { border-radius: 8px; }
+    .hero-calendar-popup .calendar-popup__hint {
+      font-size: 12px;
+      color: var(--hit-gray);
+      text-align: center;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--athens-gray);
+    }
+
+    /* ========== GUEST STEPPER (Hero) ========== */
+    .hero-guest-popup {
+      display: none;
+      position: fixed;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      z-index: 200;
+      padding: 20px;
+      width: 280px;
+    }
+    .hero-guest-popup.active { display: block; }
+    .hero-guest-popup .guest-stepper__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+    }
+    .hero-guest-popup .guest-stepper__row + .guest-stepper__row {
+      border-top: 1px solid var(--athens-gray);
+    }
+    .hero-guest-popup .guest-stepper__label-group { display: flex; flex-direction: column; }
+    .hero-guest-popup .guest-stepper__label { font-size: 14px; font-weight: 600; color: var(--shark); }
+    .hero-guest-popup .guest-stepper__sublabel { font-size: 12px; color: var(--hit-gray); }
+    .hero-guest-popup .guest-stepper__controls { display: flex; align-items: center; gap: 14px; }
+    .hero-guest-popup .guest-stepper__btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--mischka);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--shark);
+      transition: border-color 0.15s, background 0.15s;
+      background: var(--white);
+    }
+    .hero-guest-popup .guest-stepper__btn:hover:not(:disabled) { border-color: var(--shark); }
+    .hero-guest-popup .guest-stepper__btn:disabled { color: var(--mischka); cursor: default; }
+    .hero-guest-popup .guest-stepper__btn svg { width: 14px; height: 14px; }
+    .hero-guest-popup .guest-stepper__value {
+      font-size: 16px; font-weight: 600; color: var(--shark); min-width: 20px; text-align: center;
+    }
+    .hero-guest-popup .guest-stepper__done {
+      display: block;
+      width: 100%;
+      margin-top: 16px;
+      padding: 10px;
+      background: var(--shark);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+    .hero-guest-popup .guest-stepper__done:hover { background: var(--outer-space); }
+
+    /* ========== MOBILE MENU ========== */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 55px;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--mischka);
+      z-index: 99;
+      flex-direction: column;
+      padding: 8px 16px 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .mobile-menu.active { display: flex; }
+    .mobile-menu__link {
+      display: block;
+      padding: 12px 0;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--abbey);
+      border-bottom: 1px solid var(--athens-gray);
+      text-transform: uppercase;
+    }
+    .mobile-menu__link:last-child { border-bottom: none; }
+    .mobile-menu__link--active { color: var(--mexican-red); }
+
+    /* ========== CARD AS LINK ========== */
+    a.card {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    a.card:hover {
+      transform: translateY(-4px);
+    }
+
+    @media (min-width: 769px) and (max-width: 1398px) {
+      .header__inner,
+      .hero__inner,
+      .section__inner,
+      .cta-banner__inner,
+      .mission__inner,
+      .faq__inner,
+      .footer__inner {
+        padding: 0 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo">
+        <img src="https://www.figma.com/api/mcp/asset/7e6d60f3-0457-40ef-b253-2093b38d45d4" alt="Locals' Hotels">
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-item header__nav-item--active">Home</a>
+        <a href="hotels.html" class="header__nav-item">Hotels</a>
+        <a href="#" class="header__nav-item">Journal</a>
+        <a href="#" class="header__nav-item">Contact</a>
+      </nav>
+      <button class="header__hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-menu__link mobile-menu__link--active">Home</a>
+    <a href="hotels.html" class="mobile-menu__link">Hotels</a>
+    <a href="#" class="mobile-menu__link">Journal</a>
+    <a href="#" class="mobile-menu__link">Contact</a>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="hero__inner">
+      <div class="hero__card">
+        <img class="hero__bg" src="https://www.figma.com/api/mcp/asset/6a8bf993-9608-413e-9e61-92e99332a37c" alt="Georgia landscape">
+        <div class="hero__gradient"></div>
+        <div class="hero__content">
+          <div class="hero__breadcrumb">Home</div>
+          <h1 class="hero__heading">A <strong>curated collection</strong> of independent boutique hotels</h1>
+          <div class="hero__search-bar" id="heroSearch">
+            <!-- Where -->
+            <div class="hero__search-field hero__search-field--where">
+              <svg class="hero__search-field-icon" viewBox="0 0 18 18" fill="none"><path d="M9 1.5C6.1 1.5 3.75 3.85 3.75 6.75c0 4.12 5.25 9.75 5.25 9.75s5.25-5.63 5.25-9.75c0-2.9-2.35-5.25-5.25-5.25zm0 7.13a1.88 1.88 0 1 1 0-3.76 1.88 1.88 0 0 1 0 3.76z" fill="#ADB5BD"/></svg>
+              <div class="hero__search-field-inner">
+                <span class="hero__search-field-label">Where</span>
+                <input type="text" class="hero__search-field-input" id="heroSearchInput" placeholder="Search destination" autocomplete="off">
+              </div>
+              <div class="search-dropdown" id="searchDropdown"></div>
+            </div>
+            <!-- Dates -->
+            <div class="hero__search-field hero__search-field--dates" id="heroDatesField">
+              <svg class="hero__search-field-icon" viewBox="0 0 18 18" fill="none"><rect x="2.25" y="3.75" width="13.5" height="12" rx="1.5" stroke="#ADB5BD" stroke-width="1.3"/><path d="M2.25 7.5h13.5M6 2.25v3M12 2.25v3" stroke="#ADB5BD" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <div class="hero__search-field-inner">
+                <span class="hero__search-field-label">Dates</span>
+                <span class="hero__search-field-text" id="heroDatesDisplay">Add dates</span>
+              </div>
+              <input type="hidden" id="heroCheckin">
+              <input type="hidden" id="heroCheckout">
+              <!-- Calendar Popup -->
+              <div class="hero-calendar-popup" id="heroCalendarPopup">
+                <div class="calendar-popup__header">
+                  <button class="calendar-popup__nav" id="heroCalPrev" aria-label="Previous month">
+                    <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                  <span class="calendar-popup__month-label" id="heroCalMonthLabel"></span>
+                  <button class="calendar-popup__nav" id="heroCalNext" aria-label="Next month">
+                    <svg viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+                <div class="calendar-popup__grid" id="heroCalGrid"></div>
+                <div class="calendar-popup__hint" id="heroCalHint">Select check-in date</div>
+              </div>
+            </div>
+            <!-- Guests -->
+            <div class="hero__search-field hero__search-field--guests" id="heroGuestsField">
+              <svg class="hero__search-field-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="5.25" r="3" stroke="#ADB5BD" stroke-width="1.3"/><path d="M3 15.75c0-3.31 2.69-6 6-6s6 2.69 6 6" stroke="#ADB5BD" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <div class="hero__search-field-inner">
+                <span class="hero__search-field-label">Guests</span>
+                <span class="hero__search-field-text" id="heroGuestsDisplay">2 guests</span>
+              </div>
+              <input type="hidden" id="heroGuests" value="2">
+              <!-- Guest Stepper Popup -->
+              <div class="hero-guest-popup" id="heroGuestPopup">
+                <div class="guest-stepper__row">
+                  <div class="guest-stepper__label-group">
+                    <span class="guest-stepper__label">Adults</span>
+                    <span class="guest-stepper__sublabel">Ages 13 or above</span>
+                  </div>
+                  <div class="guest-stepper__controls">
+                    <button class="guest-stepper__btn" id="heroAdultMinus" aria-label="Decrease adults">
+                      <svg viewBox="0 0 14 14" fill="none"><path d="M3 7h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </button>
+                    <span class="guest-stepper__value" id="heroAdultVal">2</span>
+                    <button class="guest-stepper__btn" id="heroAdultPlus" aria-label="Increase adults">
+                      <svg viewBox="0 0 14 14" fill="none"><path d="M7 3v8M3 7h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="guest-stepper__row">
+                  <div class="guest-stepper__label-group">
+                    <span class="guest-stepper__label">Children</span>
+                    <span class="guest-stepper__sublabel">Ages 0–12</span>
+                  </div>
+                  <div class="guest-stepper__controls">
+                    <button class="guest-stepper__btn" id="heroChildMinus" aria-label="Decrease children">
+                      <svg viewBox="0 0 14 14" fill="none"><path d="M3 7h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </button>
+                    <span class="guest-stepper__value" id="heroChildVal">0</span>
+                    <button class="guest-stepper__btn" id="heroChildPlus" aria-label="Increase children">
+                      <svg viewBox="0 0 14 14" fill="none"><path d="M7 3v8M3 7h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </button>
+                  </div>
+                </div>
+                <button class="guest-stepper__done" id="heroGuestDone">Done</button>
+              </div>
+            </div>
+            <!-- Search Button -->
+            <button class="hero__search-btn" id="heroSearchBtn" aria-label="Search">
+              <svg viewBox="0 0 18 18" fill="none"><circle cx="7.5" cy="7.5" r="5" stroke="white" stroke-width="2"/><path d="M11.5 11.5L16 16" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION: Featured Hotels (3-col grid) ========== -->
+  <section class="section">
+    <div class="section__inner">
+      <h2 class="section__heading">Featured Hotels</h2>
+      <p class="section__desc">Handpicked stays across Tbilisi, from creative neighborhoods to the city's historic heart.</p>
+      <div class="featured-slider" id="featuredSlider">
+        <div class="featured-slider__track" id="featuredTrack">
+          <a href="hotel.html" class="card">
+            <div class="card__image-wrap">
+              <img class="card__image" src="https://www.figma.com/api/mcp/asset/7836c19a-af13-4b3d-bf61-b4ec94e56918" alt="Artizan Design Hotel">
+              <div class="card__gradient-top"></div>
+              <div class="card__gradient-bottom"></div>
+              <div class="card__badges">
+                <span class="card__badge card__badge--gray">Locals' Spot</span>
+              </div>
+              <span class="card__overlay-text">View hotel &rarr;</span>
+            </div>
+            <div class="card__meta">
+              <span class="card__name">Artizan Design Hotel</span>
+            </div>
+            <h3 class="card__title">Stylish Rooms and a Historic Artist's Museum in Tbilisi's Vera District</h3>
+          </a>
+          <a href="hotel.html" class="card">
+            <div class="card__image-wrap">
+              <img class="card__image" src="https://www.figma.com/api/mcp/asset/0b95c770-297c-4999-8678-a0e810112fd8" alt="Glarros Oldtown">
+              <div class="card__gradient-top"></div>
+              <div class="card__gradient-bottom"></div>
+              <div class="card__badges">
+                <span class="card__badge card__badge--gray">Old Town</span>
+              </div>
+              <span class="card__overlay-text">View hotel &rarr;</span>
+            </div>
+            <div class="card__meta">
+              <span class="card__name">Glarros Oldtown</span>
+            </div>
+            <h3 class="card__title">Mosaic Textures Meet the Everyday Pattern of Tbilisi's Oldest District</h3>
+          </a>
+          <a href="hotel.html" class="card">
+            <div class="card__image-wrap">
+              <img class="card__image" src="https://www.figma.com/api/mcp/asset/9ad24004-40de-46e0-bb72-df25f4c9a5a9" alt="Bellhop Tbilisi">
+              <div class="card__gradient-top"></div>
+              <div class="card__gradient-bottom"></div>
+              <div class="card__badges">
+                <span class="card__badge card__badge--gray">Locals' Spot</span>
+                <span class="card__badge card__badge--red">NEW</span>
+              </div>
+              <span class="card__overlay-text">View hotel &rarr;</span>
+            </div>
+            <div class="card__meta">
+              <span class="card__name">Bellhop Tbilisi</span>
+            </div>
+            <h3 class="card__title">A Restaurant, Bar, and 12-Room Stay Inside a Restored Century-Old Townhouse</h3>
+          </a>
+        </div>
+        <button class="featured-slider__arrow featured-slider__arrow--left" id="featuredLeft" disabled aria-label="Previous">
+          <svg viewBox="0 0 16 16"><path d="M10 12L6 8l4-4"/></svg>
+        </button>
+        <button class="featured-slider__arrow featured-slider__arrow--right" id="featuredRight" aria-label="Next">
+          <svg viewBox="0 0 16 16"><path d="M6 4l4 4-4 4"/></svg>
+        </button>
+        <div class="featured-slider__dots" id="featuredDots"></div>
+      </div>
+      <div class="section__cta">
+        <a href="hotels.html?dest=Tbilisi" class="btn-dark">All Hotels in Tbilisi</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA BANNER ========== -->
+  <section class="cta-banner">
+    <div class="cta-banner__inner">
+      <div class="cta-banner__card">
+        <img class="cta-banner__bg" src="https://www.figma.com/api/mcp/asset/0762a320-33de-4c12-8095-bdb550a33ac9" alt="Georgian architecture">
+        <div class="cta-banner__gradient"></div>
+        <div class="cta-banner__content">
+          <h2 class="cta-banner__heading">Connecting travellers with places shaped by locals, where design, culture, and story come together.</h2>
+          <a href="hotels.html" class="btn-light">Explore all hotels</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION: Explore Beyond Tbilisi ========== -->
+  <section class="section">
+    <div class="section__inner">
+      <div class="section__header">
+        <div>
+          <h2 class="section__heading">Explore Beyond Tbilisi</h2>
+          <p class="section__desc">Wine country estates, culture-city townhouses, and mountain retreats.</p>
+        </div>
+        <a href="hotels.html" class="section__view-all">View all 30+ hotels <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M3.75 9h10.5M9.75 4.5L14.25 9l-4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="explore-grid">
+        <a href="hotel.html" class="card card--tall">
+          <div class="card__image-wrap">
+            <img class="card__image" src="https://www.figma.com/api/mcp/asset/6b131434-5551-4757-b3cf-c54081104295" alt="Bodbe Hotel">
+            <div class="card__gradient-top"></div>
+            <div class="card__gradient-bottom"></div>
+            <div class="card__badges">
+              <span class="card__badge card__badge--gray">Sighnaghi</span>
+              <span class="card__badge card__badge--gray">Wine Country</span>
+              <span class="card__badge card__badge--red">NEW</span>
+            </div>
+            <span class="card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="card__meta">
+            <span class="card__name">Bodbe Hotel</span>
+          </div>
+          <h3 class="card__title">Contemporary Retreat with Panoramic Views Near Bodbe Monastery</h3>
+        </a>
+        <a href="hotel.html" class="card card--wide">
+          <div class="card__image-wrap">
+            <img class="card__image" src="https://www.figma.com/api/mcp/asset/07f34476-6926-40b3-8767-85d8076ca486" alt="Rooms Hotel Kazbegi">
+            <div class="card__gradient-top"></div>
+            <div class="card__gradient-bottom"></div>
+            <div class="card__badges">
+              <span class="card__badge card__badge--gray">Kazbegi</span>
+              <span class="card__badge card__badge--gray">One of a Kind</span>
+            </div>
+            <span class="card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="card__meta">
+            <span class="card__name">Rooms Hotel Kazbegi</span>
+          </div>
+          <h3 class="card__title">Iconic Mountain Hotel with Dramatic Views of Mount Kazbegi</h3>
+        </a>
+        <a href="hotel.html" class="card card--tall">
+          <div class="card__image-wrap">
+            <img class="card__image" src="https://www.figma.com/api/mcp/asset/d7cb7a45-dc8e-425f-b3d8-2a6214211362" alt="Communal Hotel Kutaisi">
+            <div class="card__gradient-top"></div>
+            <div class="card__gradient-bottom"></div>
+            <div class="card__badges">
+              <span class="card__badge card__badge--gray">Kutaisi</span>
+              <span class="card__badge card__badge--gray">Culture City</span>
+            </div>
+            <span class="card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="card__meta">
+            <span class="card__name">Communal Hotel Kutaisi</span>
+          </div>
+          <h3 class="card__title">Charming Townhouse with Local Eatery, Serving Authentic Plates and Natural Wine</h3>
+        </a>
+        <a href="hotel.html" class="card card--wide">
+          <div class="card__image-wrap">
+            <img class="card__image" src="https://www.figma.com/api/mcp/asset/46771278-fe9c-4491-8df4-9733fa346a87" alt="Marco Polo Gudauri">
+            <div class="card__gradient-top"></div>
+            <div class="card__gradient-bottom"></div>
+            <div class="card__badges">
+              <span class="card__badge card__badge--gray">Gudauri</span>
+              <span class="card__badge card__badge--gray">Ski Hotel</span>
+            </div>
+            <span class="card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="card__meta">
+            <span class="card__name">Marco Polo Gudauri</span>
+          </div>
+          <h3 class="card__title">Slope-Side Ski Lodge with Modern Alpine Design in the Caucasus</h3>
+        </a>
+        <a href="hotel.html" class="card card--tall">
+          <div class="card__image-wrap">
+            <img class="card__image" src="https://www.figma.com/api/mcp/asset/48a52583-5738-462b-a097-ece49d72ec65" alt="Duende Hotel">
+            <div class="card__gradient-top"></div>
+            <div class="card__gradient-bottom"></div>
+            <div class="card__badges">
+              <span class="card__badge card__badge--gray">Lagodekhi</span>
+              <span class="card__badge card__badge--gray">Into the Wild</span>
+              <span class="card__badge card__badge--red">NEW</span>
+            </div>
+            <span class="card__overlay-text">View hotel &rarr;</span>
+          </div>
+          <div class="card__meta">
+            <span class="card__name">Duende Hotel</span>
+          </div>
+          <h3 class="card__title">Nature-Immersed Retreat at the Edge of Lagodekhi National Park</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MISSION STATEMENT ========== -->
+  <section class="mission">
+    <div class="mission__inner">
+      <p class="mission__text">Locals'Hotels is the new way to discover Georgia through its most original boutique and design hotels. Our collection spans cities, wine regions, coastal towns, and remote mountain villages, connecting travelers to the culture, creativity, and character of each place.</p>
+    </div>
+  </section>
+
+  <!-- ========== FAQ ========== -->
+  <section class="faq">
+    <div class="faq__inner">
+      <h2 class="faq__heading">Frequently Asked Questions</h2>
+      <div class="faq__item">
+        <button class="faq__question">
+          <span>What is the Locals' Hotels?</span>
+          <svg class="faq__icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">Locals' Hotels is a curated collection of independent boutique and design hotels across Georgia, connecting travelers with places shaped by local culture, creativity, and character.</div>
+        </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__question">
+          <span>Do you own the hotels you feature?</span>
+          <svg class="faq__icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">No, we don't own the hotels. We carefully select and feature independently-owned properties that meet our standards for design, hospitality, and local character.</div>
+        </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__question">
+          <span>Why use Locals' instead of just searching online?</span>
+          <svg class="faq__icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">We do the research so you don't have to. Every hotel in our collection has been personally visited and vetted, ensuring quality stays that reflect the best of Georgian hospitality.</div>
+        </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__question">
+          <span>How do you decide which hotels to include?</span>
+          <svg class="faq__icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">We look for properties with distinctive design, genuine hospitality, and a strong connection to their surroundings. Each hotel must offer something unique that you won't find in a chain.</div>
+        </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__question">
+          <span>Can I list my hotel on Locals' Hotels?</span>
+          <svg class="faq__icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">Yes! If you run an independent boutique hotel in Georgia, we'd love to hear from you. Get in touch through our contact page and tell us about your property.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__grid">
+        <div class="footer__col">
+          <div class="footer__brand">Locals' Hotels</div>
+          <div class="footer__label">Have Questions?</div>
+          <div class="footer__contact-links">
+            <a href="mailto:hello@localshotels.com">E-mail us</a>
+            <span>/</span>
+            <a href="mailto:hello@localshotels.com">hello@localshotels.com</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <div class="footer__nav-title">Regions</div>
+          <ul class="footer__nav-list">
+            <li><a href="#">Tbilisi</a></li>
+            <li><a href="#">Kakheti</a></li>
+            <li><a href="#">Kutaisi</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <div class="footer__nav-title">Pages</div>
+          <ul class="footer__nav-list">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="hotels.html">Hotels</a></li>
+            <li><a href="#">Journal</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <div class="footer__copyright">All Rights Reserved, Locals Hotels 2025</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Hotel data for search
+    var hotels = [
+      { name: 'Artizan Design Hotel', city: 'Tbilisi', region: 'Tbilisi', tags: ["Locals' Spot"], url: 'hotel.html' },
+      { name: 'Rooms Hotel Tbilisi', city: 'Tbilisi', region: 'Tbilisi', tags: ["Locals' Spot"], url: 'hotel.html' },
+      { name: 'Stamba Hotel', city: 'Tbilisi', region: 'Tbilisi', tags: ["Locals' Spot"], url: 'hotel.html' },
+      { name: 'Glarros Oldtown', city: 'Tbilisi', region: 'Tbilisi', tags: ['Old Town'], url: 'hotel.html' },
+      { name: 'Hotel Ambasadori', city: 'Tbilisi', region: 'Tbilisi', tags: ['Old Town'], url: 'hotel.html' },
+      { name: 'Veranda Hotel', city: 'Tbilisi', region: 'Tbilisi', tags: ['Old Town'], url: 'hotel.html' },
+      { name: 'Iota Hotel', city: 'Tbilisi', region: 'Tbilisi', tags: ['Old Town'], url: 'hotel.html' },
+      { name: 'The Biltmore Tbilisi', city: 'Tbilisi', region: 'Tbilisi', tags: ['Old Town'], url: 'hotel.html' },
+      { name: 'Qarvasla Hotel', city: 'Tbilisi', region: 'Tbilisi', tags: ['Old Town', 'NEW'], url: 'hotel.html' },
+      { name: 'Communal Hotel Sololaki', city: 'Tbilisi', region: 'Tbilisi', tags: ['Featured'], url: 'hotel.html' },
+      { name: 'Blue Fox Hotel', city: 'Tbilisi', region: 'Tbilisi', tags: ['Old Town'], url: 'hotel.html' },
+      { name: 'Bellhop Tbilisi', city: 'Tbilisi', region: 'Tbilisi', tags: ["Locals' Spot", 'NEW'], url: 'hotel.html' },
+      { name: 'Unfound Door', city: 'Tbilisi', region: 'Tbilisi', tags: ["Locals' Spot"], url: 'hotel.html' },
+      { name: 'Communal Hotel Plekhanovi', city: 'Tbilisi', region: 'Tbilisi', tags: ["Locals' Spot"], url: 'hotel.html' },
+      { name: 'Glarros Oldtown', city: 'Tbilisi', region: 'Tbilisi', tags: ['Old Town'], url: 'hotel.html' },
+      { name: 'Duende Hotel', city: 'Lagodekhi', region: 'Kakheti', tags: ['Into the Wild'], url: 'hotel.html' },
+      { name: 'Pabellon Hotel', city: 'Kvareli', region: 'Kakheti', tags: ['Wine Country', 'NEW'], url: 'hotel.html' },
+      { name: 'Communal Telavi', city: 'Telavi', region: 'Kakheti', tags: ['Wine Country'], url: 'hotel.html' },
+      { name: 'Bodbe Hotel', city: 'Sighnaghi', region: 'Kakheti', tags: ['Wine Country', 'NEW'], url: 'hotel.html' },
+      { name: 'Esquisse Design Hotel', city: 'Telavi', region: 'Kakheti', tags: ['Wine Country'], url: 'hotel.html' },
+      { name: 'Kabadoni Boutique Hotel', city: 'Sighnaghi', region: 'Kakheti', tags: ['Wine Country'], url: 'hotel.html' },
+      { name: 'Vazisubani Estate', city: 'Gurjaani', region: 'Kakheti', tags: ['Wine Country'], url: 'hotel.html' },
+      { name: 'Kvareli Lake Resort', city: 'Kvareli', region: 'Kakheti', tags: ['Wine Country'], url: 'hotel.html' },
+      { name: 'Samzeo Kvareli', city: 'Kvareli', region: 'Kakheti', tags: ['Wine Country', 'NEW'], url: 'hotel.html' },
+      { name: 'Rooms Hotel Kazbegi', city: 'Stepantsminda', region: 'Stepantsminda', tags: ['One of a Kind'], url: 'hotel.html' },
+      { name: 'Marco Polo Gudauri', city: 'Gudauri', region: 'Gudauri', tags: ['Ski Hotel'], url: 'hotel.html' },
+      { name: 'Gudauri Lodge', city: 'Gudauri', region: 'Gudauri', tags: ['Ski Hotel'], url: 'hotel.html' },
+      { name: 'Communal Hotel Kutaisi', city: 'Kutaisi', region: 'Kutaisi', tags: ['Culture City'], url: 'hotel.html' },
+      { name: 'Hotel Memoire Kutaisi', city: 'Kutaisi', region: 'Kutaisi', tags: ['Culture City'], url: 'hotel.html' },
+      { name: 'Grand Opera Hotel', city: 'Kutaisi', region: 'Kutaisi', tags: ['Culture City'], url: 'hotel.html' }
+    ];
+
+    // Search autocomplete
+    (function() {
+      var input = document.getElementById('heroSearchInput');
+      var dropdown = document.getElementById('searchDropdown');
+      var highlighted = -1;
+
+      function render(results, query) {
+        if (!results.length && !query) { dropdown.classList.remove('active'); return; }
+        var html = '';
+        var shown = results.slice(0, 5);
+        shown.forEach(function(h, i) {
+          html += '<a href="' + h.url + '" class="search-dropdown__item" data-index="' + i + '">'
+            + '<span class="search-dropdown__name">' + highlight(h.name, query) + '</span>'
+            + '<span class="search-dropdown__city">' + h.city + '</span></a>';
+        });
+        if (query) {
+          html += '<a href="hotels.html?q=' + encodeURIComponent(query) + '" class="search-dropdown__all">View all results for "' + escHtml(query) + '"</a>';
+        }
+        dropdown.innerHTML = html;
+        dropdown.classList.add('active');
+        highlighted = -1;
+      }
+
+      function highlight(text, query) {
+        if (!query) return escHtml(text);
+        var idx = text.toLowerCase().indexOf(query.toLowerCase());
+        if (idx === -1) return escHtml(text);
+        return escHtml(text.substring(0, idx)) + '<strong>' + escHtml(text.substring(idx, idx + query.length)) + '</strong>' + escHtml(text.substring(idx + query.length));
+      }
+
+      function escHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+      function search(query) {
+        if (!query.trim()) { render([], ''); return; }
+        var q = query.toLowerCase();
+        var results = hotels.filter(function(h) {
+          return h.name.toLowerCase().indexOf(q) !== -1 || h.city.toLowerCase().indexOf(q) !== -1 || h.region.toLowerCase().indexOf(q) !== -1;
+        });
+        // dedupe by name
+        var seen = {};
+        results = results.filter(function(h) { if (seen[h.name]) return false; seen[h.name] = true; return true; });
+        render(results, query);
+      }
+
+      input.addEventListener('input', function() { search(this.value); });
+      input.addEventListener('focus', function() { if (this.value) search(this.value); });
+
+      input.addEventListener('keydown', function(e) {
+        var items = dropdown.querySelectorAll('.search-dropdown__item');
+        if (e.key === 'ArrowDown') { e.preventDefault(); highlighted = Math.min(highlighted + 1, items.length - 1); updateHighlight(items); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); highlighted = Math.max(highlighted - 1, 0); updateHighlight(items); }
+        else if (e.key === 'Enter') {
+          e.preventDefault();
+          if (highlighted >= 0 && items[highlighted]) { window.location.href = items[highlighted].href; }
+          else if (this.value.trim()) { window.location.href = 'hotels.html?q=' + encodeURIComponent(this.value.trim()); }
+        }
+        else if (e.key === 'Escape') { dropdown.classList.remove('active'); }
+      });
+
+      function updateHighlight(items) {
+        items.forEach(function(el, i) {
+          el.classList.toggle('highlighted', i === highlighted);
+        });
+      }
+
+      document.addEventListener('click', function(e) {
+        if (!document.querySelector('.hero__search-field--where').contains(e.target)) {
+          dropdown.classList.remove('active');
+        }
+      });
+    })();
+
+    // Calendar date picker for hero
+    (function() {
+      var datesField = document.getElementById('heroDatesField');
+      var checkin = document.getElementById('heroCheckin');
+      var checkout = document.getElementById('heroCheckout');
+      var display = document.getElementById('heroDatesDisplay');
+      var popup = document.getElementById('heroCalendarPopup');
+      var grid = document.getElementById('heroCalGrid');
+      var monthLabel = document.getElementById('heroCalMonthLabel');
+      var hint = document.getElementById('heroCalHint');
+
+      var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var DOW = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+
+      var toISO = function(d) { return d.toISOString().split('T')[0]; };
+      function fmt(dateStr) {
+        if (!dateStr) return '';
+        var d = new Date(dateStr + 'T00:00:00');
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      }
+
+      var state = {
+        selecting: 'checkin',
+        viewMonth: new Date().getMonth(),
+        viewYear: new Date().getFullYear(),
+        checkin: null,
+        checkout: null,
+        isOpen: false
+      };
+
+      function positionPopup() {
+        var rect = datesField.getBoundingClientRect();
+        popup.style.top = (rect.bottom + 8) + 'px';
+        popup.style.left = Math.max(8, rect.left + rect.width / 2 - 160) + 'px';
+      }
+
+      function openCal(mode) {
+        state.selecting = mode || 'checkin';
+        if (state.selecting === 'checkin' && state.checkin) {
+          state.viewMonth = state.checkin.getMonth();
+          state.viewYear = state.checkin.getFullYear();
+        } else if (state.selecting === 'checkout' && state.checkout) {
+          state.viewMonth = state.checkout.getMonth();
+          state.viewYear = state.checkout.getFullYear();
+        } else {
+          var now = new Date();
+          state.viewMonth = now.getMonth();
+          state.viewYear = now.getFullYear();
+        }
+        state.isOpen = true;
+        popup.classList.add('active');
+        positionPopup();
+        hint.textContent = state.selecting === 'checkin' ? 'Select check-in date' : 'Select check-out date';
+        render();
+      }
+
+      function closeCal() {
+        state.isOpen = false;
+        popup.classList.remove('active');
+      }
+
+      function updateDisplay() {
+        if (checkin.value && checkout.value) {
+          display.textContent = fmt(checkin.value) + ' — ' + fmt(checkout.value);
+          display.classList.add('hero__search-field-text--filled');
+        } else if (checkin.value) {
+          display.textContent = fmt(checkin.value) + ' — Check-out';
+          display.classList.add('hero__search-field-text--filled');
+        } else {
+          display.textContent = 'Add dates';
+          display.classList.remove('hero__search-field-text--filled');
+        }
+      }
+
+      function render() {
+        monthLabel.textContent = MONTH_NAMES[state.viewMonth] + ' ' + state.viewYear;
+        var today = new Date(); today.setHours(0,0,0,0);
+        function getDayPrice(date) {
+          var dow = date.getDay();
+          var base = 120;
+          var seed = date.getDate() * 7 + date.getMonth() * 13;
+          var variation = (seed % 5) * 5 - 10;
+          if (dow === 0 || dow === 5 || dow === 6) base += 24;
+          return base + variation;
+        }
+
+        var firstDay = new Date(state.viewYear, state.viewMonth, 1);
+        var startDow = (firstDay.getDay() + 6) % 7;
+        var daysInMonth = new Date(state.viewYear, state.viewMonth + 1, 0).getDate();
+
+        var html = '';
+        for (var i = 0; i < 7; i++) html += '<div class="calendar-popup__dow">' + DOW[i] + '</div>';
+        for (var i = 0; i < startDow; i++) html += '<div class="calendar-popup__day calendar-popup__day--empty"></div>';
+
+        for (var d = 1; d <= daysInMonth; d++) {
+          var date = new Date(state.viewYear, state.viewMonth, d);
+          date.setHours(0,0,0,0);
+          var iso = toISO(date);
+          var classes = 'calendar-popup__day';
+          var disabled = false;
+          if (state.selecting === 'checkin' && date < today) disabled = true;
+          if (state.selecting === 'checkout' && state.checkin && date <= state.checkin) disabled = true;
+          if (state.selecting === 'checkout' && !state.checkin && date < today) disabled = true;
+          if (disabled) classes += ' calendar-popup__day--disabled';
+          if (date.getTime() === today.getTime()) classes += ' calendar-popup__day--today';
+          var isCI = state.checkin && date.getTime() === state.checkin.getTime();
+          var isCO = state.checkout && date.getTime() === state.checkout.getTime();
+          if (isCI || isCO) classes += ' calendar-popup__day--selected';
+          if (state.checkin && state.checkout && date > state.checkin && date < state.checkout) classes += ' calendar-popup__day--in-range';
+          if (isCI && state.checkout) classes += ' calendar-popup__day--in-range calendar-popup__day--range-start';
+          if (isCO && state.checkin) classes += ' calendar-popup__day--in-range calendar-popup__day--range-end';
+          var price = disabled ? '' : '<span class="calendar-popup__day-price">$' + getDayPrice(date) + '</span>';
+          html += '<div class="' + classes + '" data-date="' + iso + '">' + d + price + '</div>';
+        }
+        grid.innerHTML = html;
+
+        grid.querySelectorAll('.calendar-popup__day[data-date]').forEach(function(el) {
+          el.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (this.classList.contains('calendar-popup__day--disabled')) return;
+            var clicked = new Date(this.dataset.date + 'T00:00:00');
+            if (state.selecting === 'checkin') {
+              state.checkin = clicked;
+              if (state.checkout && state.checkout <= clicked) { state.checkout = null; checkout.value = ''; }
+              checkin.value = toISO(clicked);
+              state.selecting = 'checkout';
+              hint.textContent = 'Select check-out date';
+              updateDisplay();
+              render();
+            } else {
+              state.checkout = clicked;
+              checkout.value = toISO(clicked);
+              updateDisplay();
+              render();
+              setTimeout(closeCal, 200);
+            }
+          });
+        });
+      }
+
+      document.getElementById('heroCalPrev').addEventListener('click', function(e) {
+        e.stopPropagation();
+        state.viewMonth--;
+        if (state.viewMonth < 0) { state.viewMonth = 11; state.viewYear--; }
+        render();
+      });
+      document.getElementById('heroCalNext').addEventListener('click', function(e) {
+        e.stopPropagation();
+        state.viewMonth++;
+        if (state.viewMonth > 11) { state.viewMonth = 0; state.viewYear++; }
+        render();
+      });
+
+      datesField.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (state.isOpen) { closeCal(); return; }
+        if (window._closeHeroGuest) window._closeHeroGuest();
+        openCal('checkin');
+      });
+      popup.addEventListener('click', function(e) { e.stopPropagation(); });
+
+      document.addEventListener('click', function(e) {
+        if (state.isOpen && !popup.contains(e.target) && !datesField.contains(e.target)) closeCal();
+      });
+
+      // Expose closeCal globally for guest stepper to call
+      window._closeHeroCal = closeCal;
+    })();
+
+    // Guest stepper for hero
+    (function() {
+      var guestsField = document.getElementById('heroGuestsField');
+      var guestsDisplay = document.getElementById('heroGuestsDisplay');
+      var guestsInput = document.getElementById('heroGuests');
+      var popup = document.getElementById('heroGuestPopup');
+      var adultVal = document.getElementById('heroAdultVal');
+      var childVal = document.getElementById('heroChildVal');
+
+      var state = { adults: 2, children: 0, isOpen: false };
+
+      function updateUI() {
+        adultVal.textContent = state.adults;
+        childVal.textContent = state.children;
+        document.getElementById('heroAdultMinus').disabled = state.adults <= 1;
+        document.getElementById('heroAdultPlus').disabled = state.adults >= 6;
+        document.getElementById('heroChildMinus').disabled = state.children <= 0;
+        document.getElementById('heroChildPlus').disabled = state.children >= 4;
+        var total = state.adults + state.children;
+        guestsDisplay.textContent = total + ' guest' + (total > 1 ? 's' : '');
+        guestsDisplay.classList.add('hero__search-field-text--filled');
+        guestsInput.value = state.adults;
+      }
+
+      function positionGuestPopup() {
+        var rect = guestsField.getBoundingClientRect();
+        popup.style.top = (rect.bottom + 8) + 'px';
+        popup.style.left = Math.max(8, rect.right - 280) + 'px';
+      }
+
+      function openPopup() {
+        state.isOpen = true;
+        popup.classList.add('active');
+        positionGuestPopup();
+        updateUI();
+      }
+      function closePopup() {
+        state.isOpen = false;
+        popup.classList.remove('active');
+      }
+      // Expose for calendar to call
+      window._closeHeroGuest = closePopup;
+
+      document.getElementById('heroAdultMinus').addEventListener('click', function(e) { e.stopPropagation(); if (state.adults > 1) { state.adults--; updateUI(); } });
+      document.getElementById('heroAdultPlus').addEventListener('click', function(e) { e.stopPropagation(); if (state.adults < 6) { state.adults++; updateUI(); } });
+      document.getElementById('heroChildMinus').addEventListener('click', function(e) { e.stopPropagation(); if (state.children > 0) { state.children--; updateUI(); } });
+      document.getElementById('heroChildPlus').addEventListener('click', function(e) { e.stopPropagation(); if (state.children < 4) { state.children++; updateUI(); } });
+      document.getElementById('heroGuestDone').addEventListener('click', function(e) { e.stopPropagation(); closePopup(); });
+
+      guestsField.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (state.isOpen) { closePopup(); return; }
+        if (window._closeHeroCal) window._closeHeroCal();
+        openPopup();
+      });
+      popup.addEventListener('click', function(e) { e.stopPropagation(); });
+
+      document.addEventListener('click', function(e) {
+        if (state.isOpen && !popup.contains(e.target) && !guestsField.contains(e.target)) closePopup();
+      });
+    })();
+
+    // Search button
+    (function() {
+      var btn = document.getElementById('heroSearchBtn');
+      btn.addEventListener('click', function() {
+        var q = document.getElementById('heroSearchInput').value.trim();
+        var params = [];
+        if (q) params.push('q=' + encodeURIComponent(q));
+        window.location.href = 'hotels.html' + (params.length ? '?' + params.join('&') : '');
+      });
+    })();
+
+    // Mobile menu
+    (function() {
+      var btn = document.querySelector('.header__hamburger');
+      var menu = document.getElementById('mobileMenu');
+      btn.addEventListener('click', function() {
+        menu.classList.toggle('active');
+      });
+      document.addEventListener('click', function(e) {
+        if (!menu.contains(e.target) && !btn.contains(e.target)) {
+          menu.classList.remove('active');
+        }
+      });
+    })();
+
+    // FAQ accordion with smooth animation
+    function closeItem(el) {
+      var answer = el.querySelector('.faq__answer');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+      requestAnimationFrame(function() {
+        answer.style.maxHeight = '0';
+      });
+      el.classList.remove('open');
+    }
+    function openItem(el) {
+      var answer = el.querySelector('.faq__answer');
+      el.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+      answer.addEventListener('transitionend', function handler() {
+        if (el.classList.contains('open')) answer.style.maxHeight = 'none';
+        answer.removeEventListener('transitionend', handler);
+      });
+    }
+    document.querySelectorAll('.faq__question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = this.closest('.faq__item');
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq__item.open').forEach(function(el) {
+          if (el !== item) closeItem(el);
+        });
+        if (isOpen) { closeItem(item); } else { openItem(item); }
+      });
+    });
+
+    // Featured slider
+    (function() {
+      var track = document.getElementById('featuredTrack');
+      var leftBtn = document.getElementById('featuredLeft');
+      var rightBtn = document.getElementById('featuredRight');
+      var dotsWrap = document.getElementById('featuredDots');
+      if (!track) return;
+
+      var cards = track.querySelectorAll('.card');
+      var isDragging = false, startX = 0, scrollStart = 0, dragMoved = false;
+
+      // Build dots
+      cards.forEach(function(_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'featured-slider__dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', function() {
+          cards[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+        });
+        dotsWrap.appendChild(dot);
+      });
+
+      var dots = dotsWrap.querySelectorAll('.featured-slider__dot');
+
+      function updateState() {
+        var scrollLeft = track.scrollLeft;
+        var maxScroll = track.scrollWidth - track.clientWidth;
+        leftBtn.disabled = scrollLeft <= 2;
+        rightBtn.disabled = scrollLeft >= maxScroll - 2;
+
+        // Find active card
+        var cardWidth = cards[0].offsetWidth + 20; // gap
+        var activeIndex = Math.round(scrollLeft / cardWidth);
+        activeIndex = Math.max(0, Math.min(activeIndex, cards.length - 1));
+        dots.forEach(function(d, i) {
+          d.classList.toggle('active', i === activeIndex);
+        });
+      }
+
+      track.addEventListener('scroll', updateState);
+      updateState();
+
+      // Arrow clicks
+      leftBtn.addEventListener('click', function() {
+        var cardWidth = cards[0].offsetWidth + 20;
+        track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      });
+      rightBtn.addEventListener('click', function() {
+        var cardWidth = cards[0].offsetWidth + 20;
+        track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      });
+
+      // Drag to scroll (mouse)
+      track.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        dragMoved = false;
+        startX = e.pageX - track.offsetLeft;
+        scrollStart = track.scrollLeft;
+        track.style.scrollBehavior = 'auto';
+      });
+      track.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        var x = e.pageX - track.offsetLeft;
+        var walk = x - startX;
+        if (Math.abs(walk) > 5) dragMoved = true;
+        track.scrollLeft = scrollStart - walk;
+      });
+      function stopDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        track.style.scrollBehavior = 'smooth';
+      }
+      track.addEventListener('mouseup', stopDrag);
+      track.addEventListener('mouseleave', stopDrag);
+
+      // Prevent click on cards after drag
+      track.addEventListener('click', function(e) {
+        if (dragMoved) {
+          e.preventDefault();
+          e.stopPropagation();
+          dragMoved = false;
+        }
+      }, true);
+    })();
+
+    // Carousel navigation
+    document.querySelectorAll('.carousel').forEach(function(carousel) {
+      var track = carousel.querySelector('.carousel__track');
+      var leftBtn = carousel.querySelector('.carousel__arrow--left');
+      var rightBtn = carousel.querySelector('.carousel__arrow--right');
+      if (!track) return;
+      var scrollAmount = function() { return track.offsetWidth * 0.85; };
+      if (leftBtn) leftBtn.addEventListener('click', function() { track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' }); });
+      if (rightBtn) rightBtn.addEventListener('click', function() { track.scrollBy({ left: scrollAmount(), behavior: 'smooth' }); });
+    });
+  </script>
+</body>
+</html>
