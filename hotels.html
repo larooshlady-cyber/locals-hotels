@@ -41,58 +41,309 @@
     button { border: none; background: none; cursor: pointer; font-family: inherit; }
     ul, li { list-style: none; }
 
+    /* ========== TOP BAR ========== */
+    .topbar {
+      background: var(--shark);
+      color: var(--white);
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+    }
+    .topbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .topbar__text {
+      opacity: 0.9;
+    }
+    .topbar__link {
+      color: var(--white);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: opacity 0.2s;
+    }
+    .topbar__link:hover { opacity: 0.7; }
+    .topbar__close {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      opacity: 0.5;
+      transition: opacity 0.2s;
+      cursor: pointer;
+    }
+    .topbar__close:hover { opacity: 1; }
+    .topbar.hidden { display: none; }
+
     /* ========== HEADER ========== */
     .header {
       position: sticky;
       top: 0;
       z-index: 100;
       background: var(--white);
-      border-bottom: 1px solid var(--mischka);
+      border-bottom: 1px solid transparent;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .header.scrolled {
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom-color: rgba(0,0,0,0.06);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.04);
     }
     .header__inner {
-      max-width: 1366px;
+      max-width: 1600px;
       margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      height: 72px;
+      padding: 0 48px;
+    }
+
+    /* ---- Logo ---- */
+    .header__logo {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      height: 55px;
-      padding: 0 16px;
-    }
-    .header__logo img {
-      height: 17px;
-      width: auto;
-    }
-    .header__nav { display: flex; gap: 0; align-items: center; }
-    .header__nav-item {
-      padding: 8px 16px;
-      font-size: 14px;
-      font-weight: 400;
+      gap: 14px;
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
-      line-height: 14px;
-      color: var(--abbey);
-      border-radius: 4px;
-      transition: background 0.2s, color 0.2s;
+      color: var(--shark);
+      transition: all 0.3s ease;
+      justify-self: start;
     }
-    .header__nav-item:hover,
+    .header__logo:hover {
+      letter-spacing: 3.5px;
+    }
+    .header__logo-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--shark);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+    .header__logo-icon::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
+      transition: transform 0.6s ease;
+      transform: translateX(-100%);
+    }
+    .header__logo:hover .header__logo-icon::after {
+      transform: translateX(100%);
+    }
+    .header__logo:hover .header__logo-icon {
+      border-radius: 12px;
+      transform: rotate(-4deg) scale(1.08);
+      box-shadow: 0 4px 16px rgba(33, 37, 41, 0.25);
+    }
+    .header__logo img { display: none; }
+    .header__logo-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--mischka);
+      opacity: 0.6;
+      margin-left: 2px;
+    }
+    .header__logo-tagline {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--hit-gray);
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    /* ---- Nav (centered) ---- */
+    .header__nav {
+      display: flex;
+      gap: 2px;
+      align-items: center;
+      justify-self: center;
+      background: var(--athens-gray);
+      border-radius: 100px;
+      padding: 4px;
+      position: relative;
+    }
+    .header__nav-item {
+      padding: 10px 24px;
+      font-size: 12.5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      line-height: 1;
+      color: var(--abbey);
+      border-radius: 100px;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      white-space: nowrap;
+      z-index: 1;
+    }
+    .header__nav-item:hover {
+      color: var(--shark);
+    }
     .header__nav-item--active {
+      background: var(--white);
+      color: var(--shark);
+      font-weight: 600;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .header__nav-item--active:hover {
+      background: var(--white);
+      color: var(--shark);
+    }
+
+    /* ---- Right actions ---- */
+    .header__actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-self: end;
+    }
+    .header__action-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      color: var(--abbey);
+      position: relative;
+    }
+    .header__action-btn:hover {
+      background: var(--athens-gray);
+      color: var(--shark);
+      transform: scale(1.06);
+    }
+    .header__action-btn svg {
+      width: 19px;
+      height: 19px;
+    }
+    .header__action-btn--heart:hover {
+      color: var(--mexican-red);
+      background: rgba(162, 37, 34, 0.06);
+    }
+    .header__divider {
+      width: 1px;
+      height: 24px;
+      background: var(--mischka);
+      margin: 0 6px;
+    }
+    .header__action-btn--cta {
+      width: auto;
+      padding: 0 24px;
+      height: 40px;
+      border-radius: 100px;
       background: var(--shark);
       color: var(--white);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      gap: 8px;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
     }
+    .header__action-btn--cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+      transition: left 0.5s ease;
+    }
+    .header__action-btn--cta:hover::before {
+      left: 100%;
+    }
+    .header__action-btn--cta:hover {
+      background: var(--black);
+      color: var(--white);
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+    .header__action-btn--cta svg {
+      width: 14px;
+      height: 14px;
+    }
+    .header__lang {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--abbey);
+      letter-spacing: 0.5px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      transition: all 0.25s;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .header__lang svg {
+      width: 14px;
+      height: 14px;
+      opacity: 0.5;
+    }
+    .header__lang:hover {
+      background: var(--athens-gray);
+      color: var(--shark);
+    }
+
+    /* ---- Hamburger ---- */
     .header__hamburger {
       display: none;
-      width: 32px;
-      height: 32px;
+      width: 40px;
+      height: 40px;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       gap: 5px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    .header__hamburger:hover {
+      background: var(--athens-gray);
     }
     .header__hamburger span {
       display: block;
-      width: 20px;
-      height: 2px;
+      width: 18px;
+      height: 1.5px;
       background: var(--shark);
-      border-radius: 1px;
+      border-radius: 2px;
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s;
     }
 
     /* ========== PAGE HEADER ========== */
@@ -100,9 +351,9 @@
       padding: 0;
     }
     .page-header__inner {
-      max-width: 1366px;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 24px 16px 0;
+      padding: 32px 40px 0;
     }
     .page-header__breadcrumb {
       font-size: 14px;
@@ -127,9 +378,9 @@
       padding: 0 0 8px;
     }
     .filters__inner {
-      max-width: 1366px;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 0 16px;
+      padding: 0 40px;
     }
     .filters__row {
       display: flex;
@@ -216,9 +467,15 @@
       display: flex;
       flex-direction: column;
     }
+    .hotel-card {
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    a.hotel-card:hover {
+      transform: translateY(-4px);
+    }
     .hotel-card__image-wrap {
       position: relative;
-      border-radius: 8px;
+      border-radius: 14px;
       overflow: hidden;
       aspect-ratio: 323.5 / 347.5;
       background: var(--mischka);
@@ -227,10 +484,10 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     a.hotel-card:hover .hotel-card__image {
-      transform: scale(1.06);
+      transform: scale(1.05);
     }
     .hotel-card__gradient-top {
       position: absolute;
@@ -302,23 +559,23 @@
       flex-wrap: wrap;
     }
     .hotel-card__name {
-      font-size: 13.2px;
-      font-weight: 500;
+      font-size: 12px;
+      font-weight: 600;
       text-transform: uppercase;
-      line-height: 14px;
-      color: var(--shark);
-      letter-spacing: 0.3px;
+      line-height: 1;
+      color: var(--nevada);
+      letter-spacing: 0.8px;
     }
     .hotel-card__title {
-      font-size: 16.7px;
+      font-size: 17px;
       font-weight: 700;
       line-height: 24px;
       color: var(--shark);
-      margin-top: 4px;
+      margin-top: 5px;
       transition: color 0.3s;
     }
     a.hotel-card:hover .hotel-card__title {
-      color: var(--abbey);
+      color: var(--mexican-red);
     }
     .hotel-card__location {
       display: flex;
@@ -341,9 +598,9 @@
       padding: 24px 0;
     }
     .articles__inner {
-      max-width: 1366px;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 0 16px;
+      padding: 0 40px;
     }
     .articles__heading {
       font-family: var(--font-display);
@@ -530,17 +787,20 @@
     /* ========== FOOTER ========== */
     .footer {
       border-top: 1px solid var(--mischka);
+      background: var(--athens-gray);
     }
     .footer__inner {
-      max-width: 1366px;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 0 16px;
+      padding: 0 40px;
     }
     .footer__brand {
       font-size: 16px;
-      font-weight: 600;
-      color: var(--mexican-red);
-      padding: 24px 0 16px;
+      font-weight: 700;
+      color: var(--shark);
+      padding: 32px 0 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
     .footer__grid {
       display: flex;
@@ -620,6 +880,7 @@
     }
 
     @media (max-width: 768px) {
+      .topbar { font-size: 11px; padding: 7px 40px 7px 16px; }
       .header__nav { display: none; }
       .header__hamburger { display: flex; }
 
@@ -701,7 +962,7 @@
       }
     }
 
-    @media (min-width: 769px) and (max-width: 1398px) {
+    @media (min-width: 769px) and (max-width: 1632px) {
       .page-header__inner,
       .filters__inner,
       .articles__inner,
@@ -718,10 +979,22 @@
 <body>
 
   <!-- ========== HEADER ========== -->
+  <div class="topbar" id="topbar">
+    <div class="topbar__inner">
+      <span class="topbar__text">New hotels just added in Kakheti wine region</span>
+      <a href="hotels.html?region=Kakheti" class="topbar__link">Explore now &rarr;</a>
+    </div>
+    <button class="topbar__close" id="topbarClose" aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M11 3L3 11M3 3l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <!-- ========== HEADER ========== -->
   <header class="header">
     <div class="header__inner">
       <a href="index.html" class="header__logo">
-        <img src="https://www.figma.com/api/mcp/asset/7e6d60f3-0457-40ef-b253-2093b38d45d4" alt="Locals' Hotels">
+        <span class="header__logo-icon">L</span>
+        Locals' Hotels
       </a>
       <nav class="header__nav">
         <a href="index.html" class="header__nav-item">Home</a>
@@ -729,11 +1002,25 @@
         <a href="#" class="header__nav-item">Journal</a>
         <a href="#" class="header__nav-item">Contact</a>
       </nav>
-      <button class="header__hamburger" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <div class="header__actions">
+        <button class="header__action-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+        <button class="header__action-btn header__action-btn--heart" aria-label="Saved">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <a href="#" class="header__lang">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          EN
+        </a>
+        <span class="header__divider"></span>
+        <a href="#" class="header__action-btn header__action-btn--cta">Become Local</a>
+        <button class="header__hamburger" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -818,7 +1105,7 @@
         <!-- Card 1: Artizan Design Hotel -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/c26926c5-f24f-4960-b2d1-f594d0fc75b7" alt="Artizan Design Hotel">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80" alt="Artizan Design Hotel">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -839,7 +1126,7 @@
         <!-- Card 2: Hotel Afisha -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/3ab9394c-8c10-4f11-be38-9b2e177ba6a2" alt="Hotel Afisha">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=600&q=80" alt="Hotel Afisha">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -861,7 +1148,7 @@
         <!-- Card 3: Blueberry Nights -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/cce45575-0da9-4c21-b5f7-ec14610d0ba6" alt="Blueberry Nights">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" alt="Blueberry Nights">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -882,7 +1169,7 @@
         <!-- Card 4: Rooms Hotel Tbilisi -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/ecfbd526-f66d-40d2-ab8c-0f11460ce7bb" alt="Rooms Hotel Tbilisi">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80" alt="Rooms Hotel Tbilisi">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -903,7 +1190,7 @@
         <!-- Card 5: Stamba Hotel -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/4ca4b088-be76-434a-941a-e17462269e43" alt="Stamba Hotel">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=80" alt="Stamba Hotel">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -924,7 +1211,7 @@
         <!-- Card 6: Puris Moedani Boutique Hotel -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/dedce9e7-b4fa-46c0-a753-a212ca3941ef" alt="Puris Moedani Boutique Hotel">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80" alt="Puris Moedani Boutique Hotel">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -945,7 +1232,7 @@
         <!-- Card 7: Writers House Residency -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/9211ef27-c911-4996-9fff-eeef30abde06" alt="Writers House Residency">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" alt="Writers House Residency">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -966,7 +1253,7 @@
         <!-- Card 8: Bazzar Boutique Hotel -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/68cba179-6e27-4708-a9f1-50cebce6b3fe" alt="Bazzar Boutique Hotel">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=600&q=80" alt="Bazzar Boutique Hotel">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -987,7 +1274,7 @@
         <!-- Card 9: Qarvasla Hotel -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/a4771a10-3200-4564-8b02-5bd49ee3f86c" alt="Qarvasla Hotel">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80" alt="Qarvasla Hotel">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1009,7 +1296,7 @@
         <!-- Card 10: Communal Hotel Sololaki -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/0375cc82-a2c5-4538-898b-287bdbf97b93" alt="Communal Hotel Sololaki">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" alt="Communal Hotel Sololaki">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1030,7 +1317,7 @@
         <!-- Card 11: Blue Fox Hotel -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/d2da4c2a-ce40-4083-a821-841a567fade6" alt="Blue Fox Hotel">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1568084680786-a84f91d1153c?w=600&q=80" alt="Blue Fox Hotel">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1051,7 +1338,7 @@
         <!-- Card 12: Bellhop Tbilisi -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/2ca060f6-7108-4b88-8aa6-aca91b9b679a" alt="Bellhop Tbilisi">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&q=80" alt="Bellhop Tbilisi">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1073,7 +1360,7 @@
         <!-- Card 13: Unfound Door -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/976e0408-8fe6-4a4b-9987-133d007f04ac" alt="Unfound Door">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&q=80" alt="Unfound Door">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1094,7 +1381,7 @@
         <!-- Card 14: Communal Hotel Plekhanovi -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/6bf64e47-d8ce-48ef-9eeb-59c8bd37bcf7" alt="Communal Hotel Plekhanovi">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=80" alt="Communal Hotel Plekhanovi">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1115,7 +1402,7 @@
         <!-- Card 15: Glarros Oldtown -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/90a9c6aa-11cd-4a39-a111-292e63c42e80" alt="Glarros Oldtown">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80" alt="Glarros Oldtown">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1136,7 +1423,7 @@
         <!-- Card 16: Duende Hotel -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/48a52583-5738-462b-a097-ece49d72ec65" alt="Duende Hotel">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80" alt="Duende Hotel">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1157,7 +1444,7 @@
         <!-- Card 17: Pabellon Hotel -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/164ac6b6-d36e-4d14-9b56-729507aefa53" alt="Pabellon Hotel">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80" alt="Pabellon Hotel">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1179,7 +1466,7 @@
         <!-- Card 18: Communal Telavi -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/5401ab4a-646a-4354-81ee-5aa264da5dcf" alt="Communal Telavi">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=600&q=80" alt="Communal Telavi">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1200,7 +1487,7 @@
         <!-- Card 19: Bodbe Hotel -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/ae560d5d-d381-4a2d-b0f5-b841b53c35ca" alt="Bodbe Hotel">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" alt="Bodbe Hotel">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1222,7 +1509,7 @@
         <!-- Card 20: Esquisse Design Hotel -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/a031b6ff-4ff2-448f-a71e-64efc9fc0d2b" alt="Esquisse Design Hotel">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80" alt="Esquisse Design Hotel">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1243,7 +1530,7 @@
         <!-- Card 21: Kabadoni Boutique Hotel -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/f6238e1c-bd2c-456a-a28c-9c5d828f891a" alt="Kabadoni Boutique Hotel">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=80" alt="Kabadoni Boutique Hotel">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1264,7 +1551,7 @@
         <!-- Card 22: Vazisubani Estate -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/30a35303-8494-4844-902f-9dadf2da0b25" alt="Vazisubani Estate">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80" alt="Vazisubani Estate">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1285,7 +1572,7 @@
         <!-- Card 23: Kvareli Lake Resort -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/9c909128-c61c-495b-ad29-907a75ae26ee" alt="Kvareli Lake Resort">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" alt="Kvareli Lake Resort">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1306,7 +1593,7 @@
         <!-- Card 24: Samzeo Kvareli -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/cff51478-d81d-4d1e-9888-c3a4cd0d7103" alt="Samzeo Kvareli">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=600&q=80" alt="Samzeo Kvareli">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1328,7 +1615,7 @@
         <!-- Card 25: Rooms Hotel Kazbegi -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/07f34476-6926-40b3-8767-85d8076ca486" alt="Rooms Hotel Kazbegi">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80" alt="Rooms Hotel Kazbegi">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1349,7 +1636,7 @@
         <!-- Card 26: Marco Polo Gudauri -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/46771278-fe9c-4491-8df4-9733fa346a87" alt="Marco Polo Gudauri">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" alt="Marco Polo Gudauri">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1370,7 +1657,7 @@
         <!-- Card 27: Gudauri Lodge -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/ddd626e1-2f82-4619-a8fa-73fc6b4183b3" alt="Gudauri Lodge">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1568084680786-a84f91d1153c?w=600&q=80" alt="Gudauri Lodge">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1391,7 +1678,7 @@
         <!-- Card 28: Communal Hotel Kutaisi -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/be9f480d-2f31-45c5-b0a1-873029dcfd87" alt="Communal Hotel Kutaisi">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&q=80" alt="Communal Hotel Kutaisi">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1412,7 +1699,7 @@
         <!-- Card 29: Hotel Memoire Kutaisi -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/7d7b95dd-67a6-4a91-ac0b-8285efcb2162" alt="Hotel Memoire Kutaisi">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&q=80" alt="Hotel Memoire Kutaisi">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1433,7 +1720,7 @@
         <!-- Card 30: Grand Opera Hotel -->
         <a href="hotel.html" class="hotel-card">
           <div class="hotel-card__image-wrap">
-            <img class="hotel-card__image" src="https://www.figma.com/api/mcp/asset/bb05fb42-186c-40ea-b0cd-18fcd4d69759" alt="Grand Opera Hotel">
+            <img class="hotel-card__image" src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=80" alt="Grand Opera Hotel">
             <div class="hotel-card__gradient-top"></div>
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
@@ -1464,7 +1751,7 @@
         <div class="articles__track">
           <div class="articles__card">
             <div class="articles__card-image-wrap">
-              <img src="https://www.figma.com/api/mcp/asset/a8ca95b1-541d-451e-9d9d-55143d1bdf26" alt="Article image">
+              <img src="https://images.unsplash.com/photo-1565008576549-57569a49371d?w=1600&q=80" alt="Article image">
               <div class="articles__card-gradient"></div>
             </div>
             <h3 class="articles__card-title">Hello How are you? I'm Under the water</h3>
@@ -1515,6 +1802,30 @@
   </footer>
 
   <script>
+    // Topbar close
+    (function() {
+      var btn = document.getElementById('topbarClose');
+      var bar = document.getElementById('topbar');
+      if (btn && bar) {
+        btn.addEventListener('click', function() {
+          bar.style.transition = 'all 0.3s ease';
+          bar.style.maxHeight = '0';
+          bar.style.padding = '0 16px';
+          bar.style.opacity = '0';
+          bar.style.overflow = 'hidden';
+          setTimeout(function() { bar.classList.add('hidden'); }, 300);
+        });
+      }
+    })();
+
+    // Header scroll effect
+    (function() {
+      var header = document.querySelector('.header');
+      window.addEventListener('scroll', function() {
+        header.classList.toggle('scrolled', window.scrollY > 10);
+      });
+    })();
+
     // Mobile menu
     (function() {
       var btn = document.querySelector('.header__hamburger');
