@@ -2806,6 +2806,22 @@
     </div>
   </div>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="Hotel photo">
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="lightbox__thumbs" id="lightboxThumbs"></div>
+    <div class="lightbox__counter" id="lightboxCounter">1 / 24</div>
+  </div>
+
   <script>
     // Topbar close
     (function() {
@@ -3452,20 +3468,5 @@
 
   <script src="auth-modal.js"></script>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox__close" id="lightboxClose" aria-label="Close">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
-    <img class="lightbox__img" id="lightboxImg" src="" alt="Hotel photo">
-    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-    </button>
-    <div class="lightbox__thumbs" id="lightboxThumbs"></div>
-    <div class="lightbox__counter" id="lightboxCounter">1 / 24</div>
-  </div>
 </body>
 </html>
