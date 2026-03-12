@@ -2630,7 +2630,7 @@
   </footer>
 
   <!-- ========== MULTI-STEP BOOKING MODAL ========== -->
-  <div class="booking-modal" id="bookingModal">
+  <div class="booking-modal" id="multiStepBooking">
     <div class="booking-modal__overlay"></div>
     <div class="booking-modal__content">
       <div class="booking-modal__top-row">
@@ -3244,7 +3244,7 @@
         return el ? el.textContent.trim() : '';
       }
 
-      var modal = document.getElementById('bookingModal');
+      var modal = document.getElementById('multiStepBooking');
       if (!modal) return;
       var modalCloseBtn = document.getElementById('bookingModalClose');
       var modalOverlay = modal.querySelector('.booking-modal__overlay');
