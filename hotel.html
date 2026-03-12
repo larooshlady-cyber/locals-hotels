@@ -524,95 +524,342 @@
       overflow: hidden;
     }
 
-    /* ========== SIDEBAR: ROOMS HEADER (dark card) ========== */
-    .sidebar-rooms-header {
-      background: var(--shark);
+    /* ========== SIDEBAR: BOOKING WIDGET ========== */
+    .booking-widget-wrap {
+      position: sticky;
+      top: 148px;
+      padding-top: 0;
+    }
+    .booking-widget__signin {
+      display: block;
+      width: 100%;
+      background: var(--mexican-red);
       color: var(--white);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 20px 24px;
+      border-radius: 12px 12px 0 0;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .booking-widget__signin:hover {
+      background: #a52a2a;
+    }
+    .booking-widget {
+      background: var(--white);
+      border: 1px solid var(--mischka);
+      border-radius: 12px;
       padding: 24px;
+      margin-top: -12px;
+      position: relative;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     }
-    .sidebar-rooms-header__title {
-      font-family: var(--font-display);
-      font-size: 24px;
+    .booking-widget__price-label {
+      font-size: 13px;
+      color: var(--abbey);
+      font-weight: 400;
+    }
+    .booking-widget__price {
+      font-size: 36px;
       font-weight: 700;
-      margin-bottom: 14px;
+      color: var(--shark);
+      line-height: 1.1;
     }
-    .sidebar-rooms-header__dates {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
+    .booking-widget__price-note {
+      font-size: 12px;
+      color: var(--hit-gray);
+      margin-bottom: 20px;
     }
-    .sidebar-rooms-header__date-label {
-      font-size: 11px;
-      font-weight: 500;
-      opacity: 0.6;
-    }
-    .sidebar-rooms-header__date-row {
+    .booking-widget__date-row {
       display: flex;
       align-items: center;
-      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--mischka);
       border-radius: 8px;
-      padding: 10px 14px;
-      margin-bottom: 14px;
-      cursor: pointer;
-      transition: background 0.15s;
+      margin-bottom: 12px;
+      position: relative;
     }
-    .sidebar-rooms-header__date-row:hover { background: rgba(255,255,255,0.18); }
-    .sidebar-rooms-header__date-val {
+    .booking-widget__date-field {
+      flex: 1;
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+    .booking-widget__date-field label {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--hit-gray);
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .booking-widget__date-display {
       font-size: 14px;
       font-weight: 600;
-      flex: 1;
+      color: var(--shark);
+      cursor: pointer;
+      white-space: nowrap;
     }
-    .sidebar-rooms-header__date-val + .sidebar-rooms-header__date-val {
-      text-align: right;
+    .booking-widget__date-arrow {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--hit-gray);
+    }
+    .booking-widget__date-arrow svg {
+      width: 18px;
+      height: 18px;
+    }
+    .booking-widget__guests-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .booking-widget__guest-field {
+      flex: 1;
+      border: 1px solid var(--mischka);
+      border-radius: 8px;
+      padding: 12px 16px;
+      position: relative;
+      cursor: pointer;
+    }
+    .booking-widget__guest-field label {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--hit-gray);
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .booking-widget__guest-display {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--shark);
+      cursor: pointer;
+    }
+    .booking-widget__view-rooms {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: var(--shark);
+      color: var(--white);
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .booking-widget__view-rooms:hover {
+      background: var(--mine-shaft);
+    }
+    .booking-widget__contact {
+      padding-top: 16px;
+      text-align: center;
+    }
+    .booking-widget__contact-label {
+      font-size: 12px;
+      color: var(--hit-gray);
+      margin-bottom: 4px;
+    }
+    .booking-widget__contact-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--shark);
+      text-decoration: underline;
     }
 
-    /* Sidebar Calendar Popup */
-    .sidebar-calendar-popup {
-      max-height: 0;
-      overflow: hidden;
+    /* ========== CALENDAR DATE PICKER ========== */
+    .calendar-popup {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
       background: var(--white);
-      padding: 0 24px;
-      transition: max-height 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding 0.35s;
+      border: 1px solid var(--mischka);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      z-index: 50;
+      padding: 20px;
+      min-width: 300px;
     }
-    .sidebar-calendar-popup.active { max-height: 500px; padding: 20px 24px 24px; }
-    .sidebar-calendar-popup .calendar-popup__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-    .sidebar-calendar-popup .calendar-popup__nav { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--shark); transition: background 0.15s; border: none; background: none; }
-    .sidebar-calendar-popup .calendar-popup__nav:hover { background: var(--athens-gray); }
-    .sidebar-calendar-popup .calendar-popup__nav svg { width: 16px; height: 16px; }
-    .sidebar-calendar-popup .calendar-popup__month-label { font-size: 15px; font-weight: 600; color: var(--shark); }
-    .sidebar-calendar-popup .calendar-popup__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
-    .sidebar-calendar-popup .calendar-popup__dow { font-size: 11px; font-weight: 600; color: var(--hit-gray); text-transform: uppercase; padding: 4px 0 8px; }
-    .sidebar-calendar-popup .calendar-popup__day { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 44px; font-size: 13px; font-weight: 500; color: var(--shark); border-radius: 8px; cursor: pointer; transition: background 0.12s, color 0.12s; }
-    .sidebar-calendar-popup .calendar-popup__day-num { line-height: 1; }
-    .sidebar-calendar-popup .calendar-popup__day-price { font-size: 9px; font-weight: 500; color: var(--hit-gray); margin-top: 2px; line-height: 1; }
-    .sidebar-calendar-popup .calendar-popup__day--selected .calendar-popup__day-price { color: rgba(255,255,255,0.7); }
-    .sidebar-calendar-popup .calendar-popup__day--disabled .calendar-popup__day-price { color: var(--mischka); }
-    .sidebar-calendar-popup .calendar-popup__day-price--low { color: #2e7d32; }
-    .sidebar-calendar-popup .calendar-popup__day--selected .calendar-popup__day-price--low { color: rgba(255,255,255,0.7); }
-    .sidebar-calendar-popup .calendar-popup__day:hover:not(.calendar-popup__day--disabled):not(.calendar-popup__day--empty) { background: var(--athens-gray); }
-    .sidebar-calendar-popup .calendar-popup__day--empty { cursor: default; }
-    .sidebar-calendar-popup .calendar-popup__day--disabled { color: var(--mischka); cursor: default; }
-    .sidebar-calendar-popup .calendar-popup__day--today { font-weight: 700; box-shadow: inset 0 0 0 1px var(--mischka); }
-    .sidebar-calendar-popup .calendar-popup__day--selected { background: var(--shark) !important; color: var(--white) !important; font-weight: 600; }
-    .sidebar-calendar-popup .calendar-popup__day--in-range { background: var(--athens-gray); border-radius: 0; }
-    .sidebar-calendar-popup .calendar-popup__day--range-start { border-radius: 8px 0 0 8px; }
-    .sidebar-calendar-popup .calendar-popup__day--range-end { border-radius: 0 8px 8px 0; }
-    .sidebar-calendar-popup .calendar-popup__day--range-start.calendar-popup__day--range-end { border-radius: 8px; }
-    .sidebar-calendar-popup .calendar-popup__hint { font-size: 12px; color: var(--hit-gray); text-align: center; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--athens-gray); }
-    .sidebar-calendar-popup .calendar-popup__hint strong { color: var(--shark); font-weight: 600; }
-    .sidebar-rooms-header__group {
-      font-size: 12px;
-      opacity: 0.55;
-      margin-bottom: 2px;
+    .calendar-popup.active { display: block; }
+    .calendar-popup__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
     }
-    .sidebar-rooms-header__group-link {
-      font-size: 13px;
+    .calendar-popup__nav {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--shark);
+      transition: background 0.15s;
+      border: none;
+      background: none;
+    }
+    .calendar-popup__nav:hover { background: var(--athens-gray); }
+    .calendar-popup__nav svg { width: 16px; height: 16px; }
+    .calendar-popup__month-label {
+      font-size: 15px;
       font-weight: 600;
-      color: var(--white);
-      border-bottom: 1px solid rgba(255,255,255,0.4);
-      transition: border-color 0.2s;
+      color: var(--shark);
     }
-    .sidebar-rooms-header__group-link:hover { border-color: var(--white); }
+    .calendar-popup__grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      text-align: center;
+    }
+    .calendar-popup__dow {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--hit-gray);
+      text-transform: uppercase;
+      padding: 4px 0 8px;
+    }
+    .calendar-popup__day {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--shark);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s;
+      gap: 1px;
+    }
+    .calendar-popup__day-price {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--hit-gray);
+      line-height: 1;
+    }
+    .calendar-popup__day--selected .calendar-popup__day-price {
+      color: rgba(255,255,255,0.7);
+    }
+    .calendar-popup__day--disabled .calendar-popup__day-price {
+      color: var(--mischka);
+    }
+    .calendar-popup__day:hover:not(.calendar-popup__day--disabled):not(.calendar-popup__day--empty) {
+      background: var(--athens-gray);
+    }
+    .calendar-popup__day--empty { cursor: default; }
+    .calendar-popup__day--disabled { color: var(--mischka); cursor: default; }
+    .calendar-popup__day--today { font-weight: 700; box-shadow: inset 0 0 0 1px var(--mischka); }
+    .calendar-popup__day--selected { background: var(--shark) !important; color: var(--white) !important; font-weight: 600; }
+    .calendar-popup__day--in-range { background: var(--athens-gray); border-radius: 0; }
+    .calendar-popup__day--range-start { border-radius: 8px 0 0 8px; }
+    .calendar-popup__day--range-end { border-radius: 0 8px 8px 0; }
+    .calendar-popup__day--range-start.calendar-popup__day--range-end { border-radius: 8px; }
+    .calendar-popup__hint {
+      font-size: 12px;
+      color: var(--hit-gray);
+      text-align: center;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--athens-gray);
+    }
+
+    /* ========== GUEST STEPPER POPUP ========== */
+    .guest-stepper-popup {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border: 1px solid var(--mischka);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      z-index: 50;
+      padding: 20px;
+    }
+    .guest-stepper-popup.active { display: block; }
+    .guest-stepper__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+    }
+    .guest-stepper__row + .guest-stepper__row {
+      border-top: 1px solid var(--athens-gray);
+    }
+    .guest-stepper__label-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .guest-stepper__label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--shark);
+    }
+    .guest-stepper__sublabel {
+      font-size: 12px;
+      color: var(--hit-gray);
+    }
+    .guest-stepper__controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .guest-stepper__btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--mischka);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--shark);
+      transition: border-color 0.15s, background 0.15s;
+      background: var(--white);
+    }
+    .guest-stepper__btn:hover:not(:disabled) {
+      border-color: var(--shark);
+    }
+    .guest-stepper__btn:disabled {
+      color: var(--mischka);
+      cursor: default;
+    }
+    .guest-stepper__btn svg { width: 14px; height: 14px; }
+    .guest-stepper__value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--shark);
+      min-width: 20px;
+      text-align: center;
+    }
+    .guest-stepper__done {
+      display: block;
+      width: 100%;
+      margin-top: 16px;
+      padding: 10px;
+      background: var(--shark);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+    .guest-stepper__done:hover { background: var(--mine-shaft); }
 
     /* ========== SIDEBAR: ROOM CARDS ========== */
     .sidebar-room {
@@ -764,6 +1011,369 @@
     .sidebar-room__book-btn svg {
       width: 14px;
       height: 14px;
+    }
+
+    /* ========== BOOKING MODAL (MULTI-STEP) ========== */
+    .booking-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .booking-modal.active { display: flex; }
+    .booking-modal__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    .booking-modal__content {
+      position: relative;
+      background: var(--white);
+      border-radius: 12px;
+      padding: 24px 28px 28px;
+      max-width: 540px;
+      width: calc(100% - 32px);
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      scrollbar-width: thin;
+    }
+    .booking-modal__top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .booking-modal__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--shark);
+    }
+    .booking-modal__close {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      cursor: pointer;
+      background: none;
+      border: 1px solid var(--mischka);
+      color: var(--abbey);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .booking-modal__close:hover {
+      background: var(--athens-gray);
+      border-color: var(--abbey);
+    }
+    .booking-steps { margin-bottom: 24px; }
+    .booking-steps__bar {
+      height: 3px;
+      background: var(--mischka);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .booking-steps__fill {
+      height: 100%;
+      background: var(--shark);
+      border-radius: 2px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 33.33%;
+    }
+    .booking-steps__labels {
+      display: flex;
+      justify-content: space-between;
+    }
+    .booking-steps__label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--hit-gray);
+      transition: color 0.3s;
+    }
+    .booking-steps__label--active { color: var(--shark); font-weight: 600; }
+    .booking-steps__label--completed { color: var(--abbey); }
+    .booking-step { animation: stepFadeIn 0.3s ease-out; }
+    @keyframes stepFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .booking-step__room-header {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--athens-gray);
+    }
+    .booking-step__room-img {
+      width: 100px;
+      height: 72px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .booking-step__room-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+    }
+    .booking-step__room-name {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--shark);
+      line-height: 22px;
+    }
+    .booking-step__room-dates,
+    .booking-step__room-guests {
+      font-size: 13px;
+      color: var(--abbey);
+      line-height: 18px;
+    }
+    .booking-step__section-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--shark);
+      margin-bottom: 12px;
+    }
+    .rate-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .rate-card { cursor: pointer; display: block; }
+    .rate-card__radio { position: absolute; opacity: 0; width: 0; height: 0; }
+    .rate-card__inner {
+      border: 1.5px solid var(--mischka);
+      border-radius: 8px;
+      padding: 14px 16px;
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .rate-card:hover .rate-card__inner { border-color: var(--abbey); }
+    .rate-card__radio:checked ~ .rate-card__inner {
+      border-color: var(--shark);
+      background: var(--athens-gray);
+      box-shadow: 0 0 0 1px var(--shark);
+    }
+    .rate-card__header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .rate-card__name { font-size: 15px; font-weight: 600; color: var(--shark); }
+    .rate-card__tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 4px;
+      line-height: 16px;
+    }
+    .rate-card__tag--warning { background: #FFF3CD; color: #856404; }
+    .rate-card__tag--success { background: #D1E7DD; color: #0F5132; }
+    .rate-card__pricing { display: flex; align-items: baseline; gap: 8px; }
+    .rate-card__per-night { font-size: 18px; font-weight: 700; color: var(--shark); }
+    .rate-card__total { font-size: 13px; color: var(--abbey); }
+    .rate-card__savings {
+      font-size: 12px;
+      color: var(--mexican-red);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+    .booking-step__actions { margin-top: 20px; }
+    .booking-step__actions--split { display: flex; gap: 12px; }
+    .booking-step__btn {
+      padding: 14px 24px;
+      border-radius: 6px;
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+      border: none;
+      width: 100%;
+    }
+    .booking-step__btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .booking-step__btn--primary { background: var(--shark); color: var(--white); }
+    .booking-step__btn--primary:hover:not(:disabled) { background: var(--mine-shaft); }
+    .booking-step__btn--secondary {
+      background: var(--athens-gray);
+      color: var(--shark);
+      flex: 0 0 auto;
+      width: auto;
+      padding: 14px 20px;
+    }
+    .booking-step__btn--secondary:hover { background: var(--mischka); }
+    .booking-step__btn--pay { background: var(--mexican-red); color: var(--white); flex: 1; }
+    .booking-step__btn--pay:hover:not(:disabled) { background: #8B1F1D; }
+    .guest-form { display: flex; flex-direction: column; gap: 14px; }
+    .guest-form__row { display: flex; gap: 12px; }
+    .guest-form__row > .guest-form__field { flex: 1; }
+    .guest-form__field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--abbey);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .guest-form__field input,
+    .guest-form__field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--mischka);
+      border-radius: 6px;
+      font-family: var(--font);
+      font-size: 14px;
+      color: var(--shark);
+      background: var(--white);
+      transition: border-color 0.2s;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .guest-form__field input:focus,
+    .guest-form__field textarea:focus { border-color: var(--shark); }
+    .guest-form__field input.invalid { border-color: var(--mexican-red); }
+    .guest-form__field textarea { resize: vertical; min-height: 60px; }
+    .booking-step__summary-card,
+    .booking-step__order-summary {
+      background: var(--athens-gray);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+    }
+    .booking-step__summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      font-size: 13px;
+      line-height: 20px;
+    }
+    .booking-step__summary-row span { color: var(--abbey); }
+    .booking-step__summary-row strong { color: var(--shark); font-weight: 600; }
+    .booking-step__summary-row--total { padding-top: 10px; }
+    .booking-step__summary-row--total span,
+    .booking-step__summary-row--total strong { font-size: 16px; font-weight: 700; color: var(--shark); }
+    .booking-step__summary-divider { height: 1px; background: var(--mischka); margin: 6px 0; }
+    .payment-form { display: flex; flex-direction: column; gap: 14px; }
+    .payment-form__row { display: flex; gap: 12px; }
+    .payment-form__row > .payment-form__field { flex: 1; }
+    .payment-form__field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--abbey);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .payment-form__field input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--mischka);
+      border-radius: 6px;
+      font-family: var(--font);
+      font-size: 14px;
+      color: var(--shark);
+      background: var(--white);
+      transition: border-color 0.2s;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .payment-form__field input:focus { border-color: var(--shark); }
+    .booking-processing {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+      gap: 20px;
+    }
+    .booking-processing__spinner {
+      width: 44px;
+      height: 44px;
+      border: 3px solid var(--mischka);
+      border-top-color: var(--shark);
+      border-radius: 50%;
+      animation: spinRotate 0.8s linear infinite;
+    }
+    @keyframes spinRotate { to { transform: rotate(360deg); } }
+    .booking-processing__text { font-size: 15px; font-weight: 500; color: var(--abbey); }
+    .booking-confirmation { text-align: center; padding: 16px 0; }
+    .booking-confirmation__checkmark { margin-bottom: 16px; }
+    .booking-confirmation__checkmark svg { display: inline-block; }
+    .booking-confirmation__check-path {
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: checkDraw 0.6s 0.2s ease-out forwards;
+    }
+    @keyframes checkDraw { to { stroke-dashoffset: 0; } }
+    .booking-confirmation__title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--shark);
+      margin-bottom: 4px;
+    }
+    .booking-confirmation__ref { font-size: 14px; color: var(--abbey); margin-bottom: 20px; }
+    .booking-confirmation__ref strong { color: var(--shark); font-family: monospace; letter-spacing: 0.5px; }
+    .booking-confirmation__details {
+      background: var(--athens-gray);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    /* ========== MOBILE BOOKING BAR ========== */
+    .mobile-booking-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-top: 1px solid var(--mischka);
+      padding: 12px 16px;
+      z-index: 90;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+    }
+    .mobile-booking-bar__info {
+      font-size: 13px;
+      color: var(--abbey);
+      line-height: 18px;
+    }
+    .mobile-booking-bar__info strong {
+      display: block;
+      font-size: 14px;
+      color: var(--shark);
+    }
+    .mobile-booking-bar__btn {
+      padding: 10px 20px;
+      background: var(--mine-shaft);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
     }
 
     /* ========== MEMBER BANNER ========== */
@@ -2130,46 +2740,101 @@
       <!-- Sticky Sidebar -->
       <aside class="hotel-sidebar" id="rooms">
         <div class="hotel-sidebar__inner">
-
-          <!-- Rooms Header (dark card) -->
-          <div class="sidebar-rooms-header">
-            <div class="sidebar-rooms-header__title">Rooms</div>
-            <div class="sidebar-rooms-header__dates">
-              <span class="sidebar-rooms-header__date-label">Check-in</span>
-              <span class="sidebar-rooms-header__date-label">Check-out</span>
+          <div class="booking-widget" style="border: none; box-shadow: none; margin-top: 0; border-radius: 14px 14px 0 0;">
+            <div class="booking-widget__price-label">Starting at:</div>
+            <div class="booking-widget__price">$99</div>
+            <div class="booking-widget__price-note">taxes included per/nt</div>
+            <div class="booking-widget__date-row" id="dateRow">
+              <div class="booking-widget__date-field" id="checkinField">
+                <label>CHECK-IN</label>
+                <span class="booking-widget__date-display" id="checkinDisplay">Select date</span>
+              </div>
+              <div class="booking-widget__date-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </div>
+              <div class="booking-widget__date-field" id="checkoutField">
+                <label>CHECK-OUT</label>
+                <span class="booking-widget__date-display" id="checkoutDisplay">Select date</span>
+              </div>
+              <input type="hidden" id="checkinDate">
+              <input type="hidden" id="checkoutDate">
+              <!-- Calendar Popup -->
+              <div class="calendar-popup" id="calendarPopup">
+                <div class="calendar-popup__header">
+                  <button class="calendar-popup__nav" id="calPrev" aria-label="Previous month">
+                    <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                  <span class="calendar-popup__month-label" id="calMonthLabel"></span>
+                  <button class="calendar-popup__nav" id="calNext" aria-label="Next month">
+                    <svg viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+                <div class="calendar-popup__grid" id="calGrid"></div>
+                <div class="calendar-popup__hint" id="calHint">Select check-in date</div>
+              </div>
             </div>
-            <div class="sidebar-rooms-header__date-row" id="sidebarDateRow">
-              <span class="sidebar-rooms-header__date-val" id="sidebarCheckinVal">2026-03-25</span>
-              <span class="sidebar-rooms-header__date-val" id="sidebarCheckoutVal">2026-03-26</span>
+            <div class="booking-widget__guests-row" id="guestsRow">
+              <div class="booking-widget__guest-field" id="adultsField">
+                <label>ADULTS</label>
+                <span class="booking-widget__guest-display" id="adultsDisplay">2</span>
+              </div>
+              <div class="booking-widget__guest-field" id="childrenField">
+                <label>CHILDREN</label>
+                <span class="booking-widget__guest-display" id="childrenDisplay">0</span>
+              </div>
+              <input type="hidden" id="guestCount" value="2">
+              <input type="hidden" id="childCount" value="0">
+              <!-- Guest Stepper Popup -->
+              <div class="guest-stepper-popup" id="guestStepperPopup">
+                <div class="guest-stepper__row">
+                  <div class="guest-stepper__label-group">
+                    <span class="guest-stepper__label">Adults</span>
+                    <span class="guest-stepper__sublabel">Ages 13 or above</span>
+                  </div>
+                  <div class="guest-stepper__controls">
+                    <button class="guest-stepper__btn" id="adultMinus" aria-label="Decrease adults">
+                      <svg viewBox="0 0 14 14" fill="none"><path d="M3 7h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </button>
+                    <span class="guest-stepper__value" id="adultStepperVal">2</span>
+                    <button class="guest-stepper__btn" id="adultPlus" aria-label="Increase adults">
+                      <svg viewBox="0 0 14 14" fill="none"><path d="M7 3v8M3 7h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="guest-stepper__row">
+                  <div class="guest-stepper__label-group">
+                    <span class="guest-stepper__label">Children</span>
+                    <span class="guest-stepper__sublabel">Ages 0–12</span>
+                  </div>
+                  <div class="guest-stepper__controls">
+                    <button class="guest-stepper__btn" id="childMinus" aria-label="Decrease children">
+                      <svg viewBox="0 0 14 14" fill="none"><path d="M3 7h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </button>
+                    <span class="guest-stepper__value" id="childStepperVal">0</span>
+                    <button class="guest-stepper__btn" id="childPlus" aria-label="Increase children">
+                      <svg viewBox="0 0 14 14" fill="none"><path d="M7 3v8M3 7h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </button>
+                  </div>
+                </div>
+                <button class="guest-stepper__done" id="guestStepperDone">Done</button>
+              </div>
             </div>
-            <div class="sidebar-rooms-header__group">Booking for a group?</div>
-            <a href="contact.html" class="sidebar-rooms-header__group-link">Get in Touch</a>
-          </div>
-
-          <!-- Calendar Popup (inline below header) -->
-          <div class="sidebar-calendar-popup" id="sidebarCalPopup">
-            <div class="calendar-popup__header">
-              <button class="calendar-popup__nav" id="sidebarCalPrev" aria-label="Previous month">
-                <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-              <span class="calendar-popup__month-label" id="sidebarCalMonthLabel"></span>
-              <button class="calendar-popup__nav" id="sidebarCalNext" aria-label="Next month">
-                <svg viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
+            <button type="button" class="booking-widget__view-rooms" id="viewRoomsBtn">View rooms</button>
+            <div class="booking-widget__contact">
+              <div class="booking-widget__contact-label">Booking for a group?</div>
+              <a href="mailto:hello@localshotels.com?subject=Group%20Booking%20Inquiry%20-%20Artizan%20Design%20Hotel" class="booking-widget__contact-link">Get in Touch</a>
             </div>
-            <div class="calendar-popup__grid" id="sidebarCalGrid"></div>
-            <div class="calendar-popup__hint" id="sidebarCalHint">Select check-in date</div>
           </div>
 
           <!-- Room 1 -->
-          <div class="sidebar-room booking-widget__room">
-            <h3 class="sidebar-room__name booking-widget__room-name">Standard King Room</h3>
-            <div class="sidebar-room__specs booking-widget__room-specs">
+          <div class="sidebar-room" data-room="Standard King Room">
+            <h3 class="sidebar-room__name">Standard King Room</h3>
+            <div class="sidebar-room__specs">
               <span>Fits 2 Guests</span>
               <span>King Bed</span>
               <span>23 m&sup2; / 248 ft&sup2;</span>
             </div>
-            <div class="sidebar-room__images booking-widget__room-images">
+            <div class="sidebar-room__images">
               <div class="sidebar-room__img-wrap">
                 <img src="images/economy-single-room.jpg" alt="Standard King Room">
               </div>
@@ -2179,28 +2844,28 @@
               </div>
             </div>
             <div class="sidebar-room__meta">
-              <a class="sidebar-room__amenities-link booking-widget__room-details">Amenities &amp; Details</a>
-              <span class="sidebar-room__view booking-widget__room-view">Street view</span>
+              <a class="sidebar-room__amenities-link">Amenities &amp; Details</a>
+              <span class="sidebar-room__view">Street view</span>
             </div>
             <div class="sidebar-room__footer">
               <div class="sidebar-room__price-row">
-                <span class="sidebar-room__price-old price-original">$125</span>
-                <span class="sidebar-room__price price-current">$99</span>
+                <span class="sidebar-room__price-old">$125</span>
+                <span class="sidebar-room__price">$99</span>
                 <span class="sidebar-room__price-night">/ night</span>
               </div>
-              <button class="sidebar-room__book-btn booking-widget__room-reserve">Book Now</button>
+              <button class="sidebar-room__book-btn" data-book>Book Now</button>
             </div>
           </div>
 
           <!-- Room 2 -->
-          <div class="sidebar-room booking-widget__room">
-            <h3 class="sidebar-room__name booking-widget__room-name">Standard Twin Room</h3>
-            <div class="sidebar-room__specs booking-widget__room-specs">
+          <div class="sidebar-room" data-room="Standard Twin Room">
+            <h3 class="sidebar-room__name">Standard Twin Room</h3>
+            <div class="sidebar-room__specs">
               <span>Fits 2 Guests</span>
               <span>Twin Beds</span>
               <span>23 m&sup2; / 248 ft&sup2;</span>
             </div>
-            <div class="sidebar-room__images booking-widget__room-images">
+            <div class="sidebar-room__images">
               <div class="sidebar-room__img-wrap">
                 <img src="images/queen-room-with-balcony-1.jpg" alt="Standard Twin Room">
               </div>
@@ -2210,28 +2875,28 @@
               </div>
             </div>
             <div class="sidebar-room__meta">
-              <a class="sidebar-room__amenities-link booking-widget__room-details">Amenities &amp; Details</a>
-              <span class="sidebar-room__view booking-widget__room-view">City view</span>
+              <a class="sidebar-room__amenities-link">Amenities &amp; Details</a>
+              <span class="sidebar-room__view">City view</span>
             </div>
             <div class="sidebar-room__footer">
               <div class="sidebar-room__price-row">
-                <span class="sidebar-room__price-old price-original">$199</span>
-                <span class="sidebar-room__price price-current">$159</span>
+                <span class="sidebar-room__price-old">$199</span>
+                <span class="sidebar-room__price">$159</span>
                 <span class="sidebar-room__price-night">/ night</span>
               </div>
-              <button class="sidebar-room__book-btn booking-widget__room-reserve">Book Now</button>
+              <button class="sidebar-room__book-btn" data-book>Book Now</button>
             </div>
           </div>
 
           <!-- Room 3 -->
-          <div class="sidebar-room booking-widget__room">
-            <h3 class="sidebar-room__name booking-widget__room-name">Deluxe King Room</h3>
-            <div class="sidebar-room__specs booking-widget__room-specs">
+          <div class="sidebar-room" data-room="Deluxe King Room">
+            <h3 class="sidebar-room__name">Deluxe King Room</h3>
+            <div class="sidebar-room__specs">
               <span>Fits 2 Guests</span>
               <span>King Bed</span>
               <span>25 m&sup2; / 269 ft&sup2;</span>
             </div>
-            <div class="sidebar-room__images booking-widget__room-images">
+            <div class="sidebar-room__images">
               <div class="sidebar-room__img-wrap">
                 <img src="images/deluxe-double-3.jpg" alt="Deluxe King Room">
               </div>
@@ -2241,15 +2906,15 @@
               </div>
             </div>
             <div class="sidebar-room__meta">
-              <a class="sidebar-room__amenities-link booking-widget__room-details">Amenities &amp; Details</a>
-              <span class="sidebar-room__view booking-widget__room-view">Garden view</span>
+              <a class="sidebar-room__amenities-link">Amenities &amp; Details</a>
+              <span class="sidebar-room__view">Garden view</span>
             </div>
             <div class="sidebar-room__footer">
               <div class="sidebar-room__price-row">
-                <span class="sidebar-room__price price-current">$179</span>
+                <span class="sidebar-room__price">$179</span>
                 <span class="sidebar-room__price-night">/ night</span>
               </div>
-              <button class="sidebar-room__book-btn booking-widget__room-reserve">Book Now</button>
+              <button class="sidebar-room__book-btn" data-book>Book Now</button>
             </div>
           </div>
 
@@ -2304,6 +2969,200 @@
     </div>
   </footer>
 
+  <!-- ========== MULTI-STEP BOOKING MODAL ========== -->
+  <div class="booking-modal" id="bookingModal">
+    <div class="booking-modal__overlay"></div>
+    <div class="booking-modal__content">
+
+      <div class="booking-modal__top-row">
+        <h3 class="booking-modal__title">Booking</h3>
+        <button class="booking-modal__close" id="bookingModalClose" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M11 3L3 11M3 3l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <div class="booking-steps" id="bookingSteps">
+        <div class="booking-steps__bar">
+          <div class="booking-steps__fill" id="stepsProgressFill"></div>
+        </div>
+        <div class="booking-steps__labels">
+          <span class="booking-steps__label booking-steps__label--active" data-step="1">Select Rate</span>
+          <span class="booking-steps__label" data-step="2">Guest Details</span>
+          <span class="booking-steps__label" data-step="3">Payment</span>
+        </div>
+      </div>
+
+      <div class="booking-step" id="bookingStep1" data-step="1">
+        <div class="booking-step__room-header">
+          <img class="booking-step__room-img" id="step1RoomImg" src="" alt="">
+          <div class="booking-step__room-info">
+            <h3 class="booking-step__room-name" id="step1RoomName"></h3>
+            <div class="booking-step__room-dates" id="step1Dates"></div>
+            <div class="booking-step__room-guests" id="step1Guests"></div>
+          </div>
+        </div>
+        <h4 class="booking-step__section-title">Choose your rate</h4>
+        <div class="rate-cards" id="rateCards">
+          <label class="rate-card" data-rate="nonrefundable">
+            <input type="radio" name="selectedRate" value="nonrefundable" class="rate-card__radio">
+            <div class="rate-card__inner">
+              <div class="rate-card__header">
+                <span class="rate-card__name">Non-refundable</span>
+                <span class="rate-card__tag rate-card__tag--warning">No cancellation</span>
+              </div>
+              <div class="rate-card__pricing">
+                <span class="rate-card__per-night" id="rateNonrefundablePerNight"></span>
+                <span class="rate-card__total" id="rateNonrefundableTotal"></span>
+              </div>
+              <div class="rate-card__savings" id="rateNonrefundableSavings"></div>
+            </div>
+          </label>
+          <label class="rate-card" data-rate="flexible">
+            <input type="radio" name="selectedRate" value="flexible" class="rate-card__radio">
+            <div class="rate-card__inner">
+              <div class="rate-card__header">
+                <span class="rate-card__name">Flexible</span>
+                <span class="rate-card__tag rate-card__tag--success">Free cancellation until 24h before</span>
+              </div>
+              <div class="rate-card__pricing">
+                <span class="rate-card__per-night" id="rateFlexiblePerNight"></span>
+                <span class="rate-card__total" id="rateFlexibleTotal"></span>
+              </div>
+            </div>
+          </label>
+          <label class="rate-card" data-rate="breakfast">
+            <input type="radio" name="selectedRate" value="breakfast" class="rate-card__radio">
+            <div class="rate-card__inner">
+              <div class="rate-card__header">
+                <span class="rate-card__name">Breakfast Included</span>
+                <span class="rate-card__tag rate-card__tag--success">Free cancellation + Breakfast for 2</span>
+              </div>
+              <div class="rate-card__pricing">
+                <span class="rate-card__per-night" id="rateBreakfastPerNight"></span>
+                <span class="rate-card__total" id="rateBreakfastTotal"></span>
+              </div>
+            </div>
+          </label>
+        </div>
+        <div class="booking-step__actions">
+          <button class="booking-step__btn booking-step__btn--primary" id="step1Continue" disabled>Continue</button>
+        </div>
+      </div>
+
+      <div class="booking-step" id="bookingStep2" data-step="2" style="display:none;">
+        <div class="booking-step__summary-card">
+          <div class="booking-step__summary-row"><span>Room</span><strong id="step2SummaryRoom"></strong></div>
+          <div class="booking-step__summary-row"><span>Rate</span><strong id="step2SummaryRate"></strong></div>
+          <div class="booking-step__summary-row"><span>Dates</span><strong id="step2SummaryDates"></strong></div>
+          <div class="booking-step__summary-row"><span>Guests</span><strong id="step2SummaryGuests"></strong></div>
+        </div>
+        <h4 class="booking-step__section-title">Guest information</h4>
+        <form class="guest-form" id="guestForm" novalidate>
+          <div class="guest-form__row">
+            <div class="guest-form__field">
+              <label for="guestFirstName">First name *</label>
+              <input type="text" id="guestFirstName" required autocomplete="given-name">
+            </div>
+            <div class="guest-form__field">
+              <label for="guestLastName">Last name *</label>
+              <input type="text" id="guestLastName" required autocomplete="family-name">
+            </div>
+          </div>
+          <div class="guest-form__field">
+            <label for="guestEmail">Email address *</label>
+            <input type="email" id="guestEmail" required autocomplete="email">
+          </div>
+          <div class="guest-form__field">
+            <label for="guestPhone">Phone number *</label>
+            <input type="tel" id="guestPhone" required autocomplete="tel">
+          </div>
+          <div class="guest-form__field">
+            <label for="guestRequests">Special requests</label>
+            <textarea id="guestRequests" rows="3" placeholder="Any special requests or preferences..."></textarea>
+          </div>
+        </form>
+        <div class="booking-step__actions booking-step__actions--split">
+          <button type="button" class="booking-step__btn booking-step__btn--secondary" id="step2Back">Back</button>
+          <button type="button" class="booking-step__btn booking-step__btn--primary" id="step2Continue">Continue</button>
+        </div>
+      </div>
+
+      <div class="booking-step" id="bookingStep3" data-step="3" style="display:none;">
+        <div class="booking-step__order-summary">
+          <h4 class="booking-step__section-title">Order summary</h4>
+          <div class="booking-step__summary-row"><span id="step3RoomName"></span><span id="step3RateLabel"></span></div>
+          <div class="booking-step__summary-row"><span id="step3DateRange"></span><span id="step3NightsCount"></span></div>
+          <div class="booking-step__summary-divider"></div>
+          <div class="booking-step__summary-row booking-step__summary-row--total"><span>Total</span><strong id="step3TotalPrice"></strong></div>
+        </div>
+        <h4 class="booking-step__section-title">Payment details</h4>
+        <form class="payment-form" id="paymentForm" novalidate>
+          <div class="payment-form__field">
+            <label for="cardName">Cardholder name</label>
+            <input type="text" id="cardName" placeholder="Name on card" autocomplete="cc-name">
+          </div>
+          <div class="payment-form__field">
+            <label for="cardNumber">Card number</label>
+            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric" autocomplete="cc-number">
+          </div>
+          <div class="payment-form__row">
+            <div class="payment-form__field">
+              <label for="cardExpiry">Expiry</label>
+              <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" inputmode="numeric" autocomplete="cc-exp">
+            </div>
+            <div class="payment-form__field">
+              <label for="cardCvv">CVV</label>
+              <input type="text" id="cardCvv" placeholder="123" maxlength="3" inputmode="numeric" autocomplete="cc-csc">
+            </div>
+          </div>
+        </form>
+        <div class="booking-step__actions booking-step__actions--split">
+          <button type="button" class="booking-step__btn booking-step__btn--secondary" id="step3Back">Back</button>
+          <button type="button" class="booking-step__btn booking-step__btn--pay" id="step3Pay"><span id="step3PayText">Pay</span></button>
+        </div>
+      </div>
+
+      <div class="booking-processing" id="bookingProcessing" style="display:none;">
+        <div class="booking-processing__spinner"></div>
+        <p class="booking-processing__text">Processing your payment...</p>
+      </div>
+
+      <div class="booking-step" id="bookingStep4" data-step="4" style="display:none;">
+        <div class="booking-confirmation">
+          <div class="booking-confirmation__checkmark">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="32" r="30" stroke="#198754" stroke-width="3"/>
+              <path class="booking-confirmation__check-path" d="M20 33l8 8 16-18" stroke="#198754" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="booking-confirmation__title">Booking Confirmed!</h3>
+          <p class="booking-confirmation__ref">Reference: <strong id="confirmationRef"></strong></p>
+          <div class="booking-confirmation__details">
+            <div class="booking-step__summary-row"><span>Hotel</span><strong>Artizan Design Hotel</strong></div>
+            <div class="booking-step__summary-row"><span>Room</span><strong id="confirmRoom"></strong></div>
+            <div class="booking-step__summary-row"><span>Rate</span><strong id="confirmRate"></strong></div>
+            <div class="booking-step__summary-row"><span>Check-in</span><strong id="confirmCheckin"></strong></div>
+            <div class="booking-step__summary-row"><span>Check-out</span><strong id="confirmCheckout"></strong></div>
+            <div class="booking-step__summary-row"><span>Guest</span><strong id="confirmGuest"></strong></div>
+            <div class="booking-step__summary-divider"></div>
+            <div class="booking-step__summary-row booking-step__summary-row--total"><span>Total paid</span><strong id="confirmTotal"></strong></div>
+          </div>
+          <button class="booking-step__btn booking-step__btn--primary" id="confirmDone">Done</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== MOBILE BOOKING BAR ========== -->
+  <div class="mobile-booking-bar" id="mobileBookingBar">
+    <div class="mobile-booking-bar__info">
+      <strong>Artizan Design Hotel</strong>
+      <span id="mobileBarDates">Select dates above</span>
+    </div>
+    <button class="mobile-booking-bar__btn" id="mobileBarBtn">Book Now</button>
+  </div>
+
   <script>
     // Topbar close
     (function() {
@@ -2333,14 +3192,16 @@
     (function() {
       var btn = document.querySelector('.header__hamburger');
       var menu = document.getElementById('mobileMenu');
-      btn.addEventListener('click', function() {
-        menu.classList.toggle('active');
-      });
-      document.addEventListener('click', function(e) {
-        if (!menu.contains(e.target) && !btn.contains(e.target)) {
-          menu.classList.remove('active');
-        }
-      });
+      if (btn && menu) {
+        btn.addEventListener('click', function() {
+          menu.classList.toggle('active');
+        });
+        document.addEventListener('click', function(e) {
+          if (!menu.contains(e.target) && !btn.contains(e.target)) {
+            menu.classList.remove('active');
+          }
+        });
+      }
     })();
 
     // Show/Hide details toggle
@@ -2349,14 +3210,10 @@
       var content = document.getElementById('detailsContent');
       if (!btn || !content) return;
       var isOpen = true;
-
-      // Set initial state
       content.style.maxHeight = content.scrollHeight + 'px';
-
       btn.addEventListener('click', function() {
         if (isOpen) {
           content.style.maxHeight = content.scrollHeight + 'px';
-          // Force reflow
           void content.offsetHeight;
           content.classList.add('collapsed');
           content.style.maxHeight = '0';
@@ -2381,6 +3238,7 @@
     // Heart button toggle
     (function() {
       var btn = document.getElementById('heartBtn');
+      if (!btn) return;
       var count = 448;
       var liked = false;
       btn.addEventListener('click', function() {
@@ -2423,7 +3281,7 @@
       if (!tabsNav) return;
       var tabs = tabsNav.querySelectorAll('.hotel-tabs__tab[href^="#"]');
       var sections = [];
-      var scrollOffset = 160; // header + tabs height + buffer
+      var scrollOffset = 160;
 
       tabs.forEach(function(tab) {
         var id = tab.getAttribute('href').substring(1);
@@ -2431,7 +3289,6 @@
         if (el) sections.push({ id: id, el: el, tab: tab });
       });
 
-      // Smooth scroll on click
       tabs.forEach(function(tab) {
         tab.addEventListener('click', function(e) {
           e.preventDefault();
@@ -2444,7 +3301,6 @@
         });
       });
 
-      // Active tab tracking on scroll
       function updateActiveTab() {
         var scrollPos = window.pageYOffset + scrollOffset + 20;
         var activeSection = sections[0];
@@ -2467,143 +3323,6 @@
       updateActiveTab();
     })();
 
-    // Sidebar Calendar
-    (function() {
-      var dateRow = document.getElementById('sidebarDateRow');
-      var ciVal = document.getElementById('sidebarCheckinVal');
-      var coVal = document.getElementById('sidebarCheckoutVal');
-      var popup = document.getElementById('sidebarCalPopup');
-      var grid = document.getElementById('sidebarCalGrid');
-      var monthLabel = document.getElementById('sidebarCalMonthLabel');
-      var hint = document.getElementById('sidebarCalHint');
-      if (!dateRow || !popup) return;
-
-      var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-      var DOW = ['Mo','Tu','We','Th','Fr','Sa','Su'];
-      var toISO = function(d) { return d.toISOString().split('T')[0]; };
-
-      var state = { selecting: 'checkin', viewMonth: 2, viewYear: 2026, checkin: new Date('2026-03-25T00:00:00'), checkout: new Date('2026-03-26T00:00:00'), isOpen: false };
-
-      function getDayPrice(date) {
-        var dow = date.getDay();
-        var month = date.getMonth();
-        var day = date.getDate();
-        var seed = date.getFullYear() * 10000 + month * 100 + day;
-        var rng = ((seed * 9301 + 49297) % 233280) / 233280;
-        var base = 120;
-        if (month >= 5 && month <= 8) base = 180;
-        else if (month === 11 || month === 0) base = 160;
-        else if (month >= 2 && month <= 4) base = 140;
-        if (dow === 5 || dow === 6) base += 40;
-        return Math.round(base + (rng * 60 - 30));
-      }
-
-      function calcTotalPrice(ci, co) {
-        if (!ci || !co) return 0;
-        var total = 0, d = new Date(ci.getTime());
-        while (d < co) { total += getDayPrice(d); d.setDate(d.getDate() + 1); }
-        return total;
-      }
-
-      function openCal(mode) {
-        state.selecting = mode || 'checkin';
-        if (state.selecting === 'checkin' && state.checkin) {
-          state.viewMonth = state.checkin.getMonth(); state.viewYear = state.checkin.getFullYear();
-        } else if (state.selecting === 'checkout' && state.checkout) {
-          state.viewMonth = state.checkout.getMonth(); state.viewYear = state.checkout.getFullYear();
-        } else {
-          var now = new Date(); state.viewMonth = now.getMonth(); state.viewYear = now.getFullYear();
-        }
-        state.isOpen = true;
-        popup.classList.add('active');
-        hint.textContent = state.selecting === 'checkin' ? 'Select check-in date' : 'Select check-out date';
-        render();
-      }
-
-      function closeCal() { state.isOpen = false; popup.classList.remove('active'); }
-
-      function updateDisplay() {
-        ciVal.textContent = state.checkin ? toISO(state.checkin) : '—';
-        coVal.textContent = state.checkout ? toISO(state.checkout) : '—';
-        if (state.checkin && state.checkout) {
-          var nights = Math.round((state.checkout - state.checkin) / 86400000);
-          var total = calcTotalPrice(state.checkin, state.checkout);
-          hint.innerHTML = nights + ' night' + (nights > 1 ? 's' : '') + ' &middot; <strong>$' + total + ' total</strong>';
-        }
-      }
-
-      function render() {
-        monthLabel.textContent = MONTH_NAMES[state.viewMonth] + ' ' + state.viewYear;
-        var today = new Date(); today.setHours(0,0,0,0);
-        var firstDay = new Date(state.viewYear, state.viewMonth, 1);
-        var startDow = (firstDay.getDay() + 6) % 7;
-        var daysInMonth = new Date(state.viewYear, state.viewMonth + 1, 0).getDate();
-        var monthPrices = [];
-        for (var mp = 1; mp <= daysInMonth; mp++) monthPrices.push(getDayPrice(new Date(state.viewYear, state.viewMonth, mp)));
-        var minPrice = Math.min.apply(null, monthPrices);
-        var lowThreshold = minPrice + 15;
-        var html = '';
-        for (var i = 0; i < 7; i++) html += '<div class="calendar-popup__dow">' + DOW[i] + '</div>';
-        for (var i = 0; i < startDow; i++) html += '<div class="calendar-popup__day calendar-popup__day--empty"></div>';
-        for (var d = 1; d <= daysInMonth; d++) {
-          var date = new Date(state.viewYear, state.viewMonth, d); date.setHours(0,0,0,0);
-          var iso = toISO(date);
-          var price = getDayPrice(date);
-          var classes = 'calendar-popup__day';
-          var disabled = false;
-          if (state.selecting === 'checkin' && date < today) disabled = true;
-          if (state.selecting === 'checkout' && state.checkin && date <= state.checkin) disabled = true;
-          if (state.selecting === 'checkout' && !state.checkin && date < today) disabled = true;
-          if (disabled) classes += ' calendar-popup__day--disabled';
-          if (date.getTime() === today.getTime()) classes += ' calendar-popup__day--today';
-          var isCI = state.checkin && date.getTime() === state.checkin.getTime();
-          var isCO = state.checkout && date.getTime() === state.checkout.getTime();
-          if (isCI || isCO) classes += ' calendar-popup__day--selected';
-          if (state.checkin && state.checkout && date > state.checkin && date < state.checkout) classes += ' calendar-popup__day--in-range';
-          if (isCI && state.checkout) classes += ' calendar-popup__day--in-range calendar-popup__day--range-start';
-          if (isCO && state.checkin) classes += ' calendar-popup__day--in-range calendar-popup__day--range-end';
-          var priceClass = 'calendar-popup__day-price';
-          if (!disabled && price <= lowThreshold) priceClass += ' calendar-popup__day-price--low';
-          html += '<div class="' + classes + '" data-date="' + iso + '">';
-          html += '<span class="calendar-popup__day-num">' + d + '</span>';
-          html += '<span class="' + priceClass + '">$' + price + '</span>';
-          html += '</div>';
-        }
-        grid.innerHTML = html;
-        grid.querySelectorAll('.calendar-popup__day[data-date]').forEach(function(el) {
-          el.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (this.classList.contains('calendar-popup__day--disabled')) return;
-            var clicked = new Date(this.dataset.date + 'T00:00:00');
-            if (state.selecting === 'checkin') {
-              state.checkin = clicked;
-              if (state.checkout && state.checkout <= clicked) state.checkout = null;
-              state.selecting = 'checkout';
-              hint.textContent = 'Select check-out date';
-              updateDisplay(); render();
-            } else {
-              state.checkout = clicked;
-              updateDisplay(); render();
-              setTimeout(closeCal, 200);
-            }
-          });
-        });
-      }
-
-      document.getElementById('sidebarCalPrev').addEventListener('click', function(e) { e.stopPropagation(); state.viewMonth--; if (state.viewMonth < 0) { state.viewMonth = 11; state.viewYear--; } render(); });
-      document.getElementById('sidebarCalNext').addEventListener('click', function(e) { e.stopPropagation(); state.viewMonth++; if (state.viewMonth > 11) { state.viewMonth = 0; state.viewYear++; } render(); });
-
-      dateRow.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (state.isOpen) { closeCal(); return; }
-        openCal('checkin');
-      });
-      popup.addEventListener('click', function(e) { e.stopPropagation(); });
-      document.addEventListener('click', function(e) {
-        if (state.isOpen && !popup.contains(e.target) && !dateRow.contains(e.target)) closeCal();
-      });
-    })();
-
     // Amenities toggle
     (function() {
       var btn = document.getElementById('amenitiesToggle');
@@ -2617,6 +3336,604 @@
         btn.querySelector('span').textContent = isOpen ? 'Show Less' : 'Show All 27 Amenities';
       });
     })();
+
+    // ===== BOOKING FLOW =====
+    (function() {
+      'use strict';
+
+      // Room pricing data
+      var ROOM_DATA = {
+        'Standard King Room':  { base: 99,  image: 'images/economy-single-room.jpg' },
+        'Standard Twin Room':  { base: 159, image: 'images/queen-room-with-balcony-1.jpg' },
+        'Deluxe King Room':    { base: 179, image: 'images/deluxe-double-3.jpg' }
+      };
+
+      var RATE_TIERS = {
+        nonrefundable: { label: 'Non-refundable',    multiplier: 1.0,  tag: 'No cancellation',                    tagType: 'warning' },
+        flexible:      { label: 'Flexible',           multiplier: 1.15, tag: 'Free cancellation until 24h before',  tagType: 'success' },
+        breakfast:     { label: 'Breakfast Included', multiplier: 1.25, tag: 'Free cancellation + Breakfast for 2', tagType: 'success' }
+      };
+
+      function calculateNights(checkinVal, checkoutVal) {
+        if (!checkinVal || !checkoutVal) return 1;
+        var ci = new Date(checkinVal + 'T00:00:00');
+        var co = new Date(checkoutVal + 'T00:00:00');
+        var diff = Math.round((co - ci) / (1000 * 60 * 60 * 24));
+        return diff > 0 ? diff : 1;
+      }
+
+      function generateBookingRef() {
+        var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        var ref = 'LH-';
+        for (var i = 0; i < 8; i++) ref += chars.charAt(Math.floor(Math.random() * chars.length));
+        return ref;
+      }
+
+      function capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+
+      // ===== DATE PICKER =====
+      var checkinInput = document.getElementById('checkinDate');
+      var checkoutInput = document.getElementById('checkoutDate');
+
+      function formatDate(dateStr) {
+        if (!dateStr) return '\u2014';
+        var d = new Date(dateStr + 'T00:00:00');
+        return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+      }
+
+      function formatDateShort(dateStr) {
+        if (!dateStr) return 'Select date';
+        var d = new Date(dateStr + 'T00:00:00');
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+
+      function toISO(d) { return d.toISOString().split('T')[0]; }
+
+      var cal = {
+        selecting: 'checkin',
+        viewMonth: new Date().getMonth(),
+        viewYear: new Date().getFullYear(),
+        checkin: null,
+        checkout: null,
+        isOpen: false
+      };
+
+      var calPopup = document.getElementById('calendarPopup');
+      var calGrid = document.getElementById('calGrid');
+      var calMonthLabel = document.getElementById('calMonthLabel');
+      var calHint = document.getElementById('calHint');
+      var checkinDisplay = document.getElementById('checkinDisplay');
+      var checkoutDisplay = document.getElementById('checkoutDisplay');
+      var checkinField = document.getElementById('checkinField');
+      var checkoutField = document.getElementById('checkoutField');
+
+      var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var DOW = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+
+      function openCalendar(mode) {
+        cal.selecting = mode || 'checkin';
+        if (cal.selecting === 'checkin' && cal.checkin) {
+          cal.viewMonth = cal.checkin.getMonth();
+          cal.viewYear = cal.checkin.getFullYear();
+        } else if (cal.selecting === 'checkout' && cal.checkout) {
+          cal.viewMonth = cal.checkout.getMonth();
+          cal.viewYear = cal.checkout.getFullYear();
+        } else {
+          var now = new Date();
+          cal.viewMonth = now.getMonth();
+          cal.viewYear = now.getFullYear();
+        }
+        cal.isOpen = true;
+        calPopup.classList.add('active');
+        calHint.textContent = cal.selecting === 'checkin' ? 'Select check-in date' : 'Select check-out date';
+        renderCalendar();
+      }
+
+      function closeCalendar() {
+        cal.isOpen = false;
+        calPopup.classList.remove('active');
+      }
+
+      function getDayPrice(date) {
+        var dow = date.getDay();
+        var base = 120;
+        var seed = date.getDate() * 7 + date.getMonth() * 13;
+        var variation = (seed % 5) * 5 - 10;
+        if (dow === 0 || dow === 5 || dow === 6) base += 24;
+        return base + variation;
+      }
+
+      function renderCalendar() {
+        calMonthLabel.textContent = MONTH_NAMES[cal.viewMonth] + ' ' + cal.viewYear;
+        var today = new Date();
+        today.setHours(0,0,0,0);
+
+        var firstDay = new Date(cal.viewYear, cal.viewMonth, 1);
+        var startDow = (firstDay.getDay() + 6) % 7;
+        var daysInMonth = new Date(cal.viewYear, cal.viewMonth + 1, 0).getDate();
+
+        var html = '';
+        for (var i = 0; i < 7; i++) {
+          html += '<div class="calendar-popup__dow">' + DOW[i] + '</div>';
+        }
+        for (var i = 0; i < startDow; i++) {
+          html += '<div class="calendar-popup__day calendar-popup__day--empty"></div>';
+        }
+
+        for (var d = 1; d <= daysInMonth; d++) {
+          var date = new Date(cal.viewYear, cal.viewMonth, d);
+          date.setHours(0,0,0,0);
+          var iso = toISO(date);
+          var classes = 'calendar-popup__day';
+
+          var disabled = false;
+          if (cal.selecting === 'checkin' && date < today) disabled = true;
+          if (cal.selecting === 'checkout' && cal.checkin && date <= cal.checkin) disabled = true;
+          if (cal.selecting === 'checkout' && !cal.checkin && date < today) disabled = true;
+          if (disabled) classes += ' calendar-popup__day--disabled';
+          if (date.getTime() === today.getTime()) classes += ' calendar-popup__day--today';
+
+          var isCheckin = cal.checkin && date.getTime() === cal.checkin.getTime();
+          var isCheckout = cal.checkout && date.getTime() === cal.checkout.getTime();
+          if (isCheckin || isCheckout) classes += ' calendar-popup__day--selected';
+          if (cal.checkin && cal.checkout && date > cal.checkin && date < cal.checkout) classes += ' calendar-popup__day--in-range';
+          if (isCheckin && cal.checkout) classes += ' calendar-popup__day--in-range calendar-popup__day--range-start';
+          if (isCheckout && cal.checkin) classes += ' calendar-popup__day--in-range calendar-popup__day--range-end';
+
+          var price = disabled ? '' : '<span class="calendar-popup__day-price">$' + getDayPrice(date) + '</span>';
+          html += '<div class="' + classes + '" data-date="' + iso + '">' + d + price + '</div>';
+        }
+
+        calGrid.innerHTML = html;
+
+        calGrid.querySelectorAll('.calendar-popup__day[data-date]').forEach(function(el) {
+          el.addEventListener('click', function() {
+            if (this.classList.contains('calendar-popup__day--disabled') || this.classList.contains('calendar-popup__day--empty')) return;
+            var clicked = new Date(this.dataset.date + 'T00:00:00');
+
+            if (cal.selecting === 'checkin') {
+              cal.checkin = clicked;
+              if (cal.checkout && cal.checkout <= clicked) {
+                cal.checkout = null;
+                checkoutInput.value = '';
+                checkoutDisplay.textContent = 'Select date';
+              }
+              checkinInput.value = toISO(clicked);
+              checkinDisplay.textContent = formatDateShort(toISO(clicked));
+              updateMobileBarDates();
+              cal.selecting = 'checkout';
+              calHint.textContent = 'Select check-out date';
+              renderCalendar();
+            } else {
+              cal.checkout = clicked;
+              checkoutInput.value = toISO(clicked);
+              checkoutDisplay.textContent = formatDateShort(toISO(clicked));
+              updateMobileBarDates();
+              renderCalendar();
+              setTimeout(closeCalendar, 200);
+            }
+          });
+        });
+      }
+
+      document.getElementById('calPrev').addEventListener('click', function(e) {
+        e.stopPropagation();
+        cal.viewMonth--;
+        if (cal.viewMonth < 0) { cal.viewMonth = 11; cal.viewYear--; }
+        renderCalendar();
+      });
+      document.getElementById('calNext').addEventListener('click', function(e) {
+        e.stopPropagation();
+        cal.viewMonth++;
+        if (cal.viewMonth > 11) { cal.viewMonth = 0; cal.viewYear++; }
+        renderCalendar();
+      });
+
+      checkinField.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (cal.isOpen && cal.selecting === 'checkin') { closeCalendar(); return; }
+        closeGuestStepper();
+        openCalendar('checkin');
+      });
+      checkoutField.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (cal.isOpen && cal.selecting === 'checkout') { closeCalendar(); return; }
+        closeGuestStepper();
+        openCalendar('checkout');
+      });
+
+      calPopup.addEventListener('click', function(e) { e.stopPropagation(); });
+
+      // Init with today/tomorrow
+      (function initDates() {
+        var today = new Date();
+        today.setHours(0,0,0,0);
+        var tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        cal.checkin = today;
+        cal.checkout = tomorrow;
+        checkinInput.value = toISO(today);
+        checkoutInput.value = toISO(tomorrow);
+        checkinDisplay.textContent = formatDateShort(toISO(today));
+        checkoutDisplay.textContent = formatDateShort(toISO(tomorrow));
+      })();
+
+      function updateMobileBarDates() {
+        var bar = document.getElementById('mobileBarDates');
+        if (bar && checkinInput.value && checkoutInput.value) {
+          bar.textContent = formatDateShort(checkinInput.value) + ' \u2013 ' + formatDateShort(checkoutInput.value);
+        }
+      }
+      updateMobileBarDates();
+
+      // ===== GUEST STEPPER =====
+      var guestPopup = document.getElementById('guestStepperPopup');
+      var adultsDisplay = document.getElementById('adultsDisplay');
+      var childrenDisplay = document.getElementById('childrenDisplay');
+      var adultStepperVal = document.getElementById('adultStepperVal');
+      var childStepperVal = document.getElementById('childStepperVal');
+      var guestCountInput = document.getElementById('guestCount');
+      var childCountInput = document.getElementById('childCount');
+      var guestStepper = { adults: 2, children: 0, isOpen: false };
+
+      function openGuestStepper() {
+        guestStepper.isOpen = true;
+        guestPopup.classList.add('active');
+        updateStepperUI();
+      }
+      function closeGuestStepper() {
+        guestStepper.isOpen = false;
+        guestPopup.classList.remove('active');
+      }
+      function updateStepperUI() {
+        adultStepperVal.textContent = guestStepper.adults;
+        childStepperVal.textContent = guestStepper.children;
+        document.getElementById('adultMinus').disabled = guestStepper.adults <= 1;
+        document.getElementById('childMinus').disabled = guestStepper.children <= 0;
+        document.getElementById('adultPlus').disabled = guestStepper.adults >= 6;
+        document.getElementById('childPlus').disabled = guestStepper.children >= 4;
+        adultsDisplay.textContent = guestStepper.adults;
+        childrenDisplay.textContent = guestStepper.children;
+        guestCountInput.value = guestStepper.adults;
+        childCountInput.value = guestStepper.children;
+      }
+
+      document.getElementById('adultMinus').addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (guestStepper.adults > 1) { guestStepper.adults--; updateStepperUI(); }
+      });
+      document.getElementById('adultPlus').addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (guestStepper.adults < 6) { guestStepper.adults++; updateStepperUI(); }
+      });
+      document.getElementById('childMinus').addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (guestStepper.children > 0) { guestStepper.children--; updateStepperUI(); }
+      });
+      document.getElementById('childPlus').addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (guestStepper.children < 4) { guestStepper.children++; updateStepperUI(); }
+      });
+      document.getElementById('guestStepperDone').addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeGuestStepper();
+      });
+
+      document.getElementById('adultsField').addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (guestStepper.isOpen) { closeGuestStepper(); return; }
+        closeCalendar();
+        openGuestStepper();
+      });
+      document.getElementById('childrenField').addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (guestStepper.isOpen) { closeGuestStepper(); return; }
+        closeCalendar();
+        openGuestStepper();
+      });
+
+      guestPopup.addEventListener('click', function(e) { e.stopPropagation(); });
+
+      // View rooms button
+      var viewRoomsBtn = document.getElementById('viewRoomsBtn');
+      if (viewRoomsBtn) {
+        viewRoomsBtn.addEventListener('click', function() {
+          var firstRoom = document.querySelector('.sidebar-room');
+          if (firstRoom) firstRoom.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+      }
+
+      // Close popups on outside click
+      document.addEventListener('click', function(e) {
+        if (cal.isOpen && !calPopup.contains(e.target)) closeCalendar();
+        if (guestStepper.isOpen && !guestPopup.contains(e.target)) closeGuestStepper();
+      });
+
+      // ===== MULTI-STEP BOOKING MODAL =====
+      var modal = document.getElementById('bookingModal');
+      var modalCloseBtn = document.getElementById('bookingModalClose');
+      var modalOverlay = modal.querySelector('.booking-modal__overlay');
+      var progressFill = document.getElementById('stepsProgressFill');
+      var stepsLabels = document.querySelectorAll('.booking-steps__label');
+      var stepsBar = document.getElementById('bookingSteps');
+
+      var booking = {
+        room: '', roomData: null, rate: null,
+        nights: 1, perNight: 0, total: 0,
+        step: 1, isProcessing: false,
+        guest: { firstName: '', lastName: '', email: '', phone: '', requests: '' }
+      };
+
+      function goToStep(stepNum) {
+        booking.step = stepNum;
+        document.querySelectorAll('.booking-step').forEach(function(s) { s.style.display = 'none'; });
+        document.getElementById('bookingProcessing').style.display = 'none';
+
+        var target = document.getElementById('bookingStep' + stepNum);
+        if (target) {
+          target.style.display = 'block';
+          target.style.animation = 'none';
+          target.offsetHeight;
+          target.style.animation = '';
+        }
+
+        var topRow = modal.querySelector('.booking-modal__top-row');
+        if (stepNum <= 3) {
+          stepsBar.style.display = '';
+          if (topRow) topRow.style.display = '';
+          progressFill.style.width = (stepNum * 33.33) + '%';
+          stepsLabels.forEach(function(lbl) {
+            var lblStep = parseInt(lbl.dataset.step);
+            lbl.classList.remove('booking-steps__label--active', 'booking-steps__label--completed');
+            if (lblStep === stepNum) lbl.classList.add('booking-steps__label--active');
+            else if (lblStep < stepNum) lbl.classList.add('booking-steps__label--completed');
+          });
+        } else {
+          stepsBar.style.display = 'none';
+          if (topRow) topRow.style.display = 'none';
+        }
+        modal.querySelector('.booking-modal__content').scrollTop = 0;
+      }
+
+      function updateRateCardPrices(basePrice, nights) {
+        var keys = ['nonrefundable', 'flexible', 'breakfast'];
+        keys.forEach(function(key) {
+          var tier = RATE_TIERS[key];
+          var perNight = Math.round(basePrice * tier.multiplier);
+          var total = perNight * nights;
+          var perNightEl = document.getElementById('rate' + capitalize(key) + 'PerNight');
+          var totalEl = document.getElementById('rate' + capitalize(key) + 'Total');
+          if (perNightEl) perNightEl.textContent = '$' + perNight + '/night';
+          if (totalEl) totalEl.textContent = '$' + total + ' total for ' + nights + (nights === 1 ? ' night' : ' nights');
+        });
+        var baseSavings = Math.round(basePrice * RATE_TIERS.flexible.multiplier) - basePrice;
+        var savingsEl = document.getElementById('rateNonrefundableSavings');
+        if (savingsEl) savingsEl.textContent = 'Save $' + (baseSavings * nights) + ' vs Flexible';
+      }
+
+      function getGuestText() {
+        var adults = guestCountInput ? guestCountInput.value : '2';
+        var children = childCountInput ? childCountInput.value : '0';
+        var text = adults + ' adult' + (parseInt(adults) > 1 ? 's' : '');
+        if (parseInt(children) > 0) text += ', ' + children + ' child' + (parseInt(children) > 1 ? 'ren' : '');
+        return text;
+      }
+
+      function openBookingModal(roomName) {
+        var room = ROOM_DATA[roomName];
+        if (!room) return;
+
+        booking.room = roomName;
+        booking.roomData = room;
+        booking.rate = null;
+        booking.isProcessing = false;
+        booking.nights = calculateNights(checkinInput.value, checkoutInput.value);
+
+        document.querySelectorAll('.rate-card__radio').forEach(function(r) { r.checked = false; });
+        document.getElementById('step1Continue').disabled = true;
+
+        document.getElementById('step1RoomImg').src = room.image;
+        document.getElementById('step1RoomName').textContent = roomName;
+        document.getElementById('step1Dates').textContent =
+          formatDate(checkinInput.value) + ' \u2013 ' + formatDate(checkoutInput.value) +
+          ' (' + booking.nights + (booking.nights === 1 ? ' night' : ' nights') + ')';
+        document.getElementById('step1Guests').textContent = getGuestText();
+
+        updateRateCardPrices(room.base, booking.nights);
+
+        document.getElementById('guestForm').reset();
+        document.querySelectorAll('.guest-form__field input').forEach(function(f) { f.classList.remove('invalid'); });
+        document.getElementById('paymentForm').reset();
+
+        goToStep(1);
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeBookingModal() {
+        if (booking.isProcessing) return;
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      // Book Now buttons on sidebar room cards
+      document.querySelectorAll('[data-book]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var card = this.closest('.sidebar-room');
+          var roomName = card ? card.getAttribute('data-room') : '';
+          openBookingModal(roomName);
+        });
+      });
+
+      // Close handlers
+      modalCloseBtn.addEventListener('click', closeBookingModal);
+      modalOverlay.addEventListener('click', function() {
+        if (booking.step === 1 || booking.step === 4) closeBookingModal();
+      });
+
+      // Rate card selection
+      document.querySelectorAll('.rate-card__radio').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+          booking.rate = this.value;
+          document.getElementById('step1Continue').disabled = false;
+        });
+      });
+
+      // Step 1 Continue
+      document.getElementById('step1Continue').addEventListener('click', function() {
+        if (!booking.rate) return;
+        var tier = RATE_TIERS[booking.rate];
+        booking.perNight = Math.round(booking.roomData.base * tier.multiplier);
+        booking.total = booking.perNight * booking.nights;
+
+        document.getElementById('step2SummaryRoom').textContent = booking.room;
+        document.getElementById('step2SummaryRate').textContent = tier.label + ' \u2013 $' + booking.perNight + '/night';
+        document.getElementById('step2SummaryDates').textContent =
+          formatDate(checkinInput.value) + ' \u2013 ' + formatDate(checkoutInput.value);
+        document.getElementById('step2SummaryGuests').textContent = getGuestText();
+        goToStep(2);
+      });
+
+      // Step 2 Back
+      document.getElementById('step2Back').addEventListener('click', function() { goToStep(1); });
+
+      // Step 2 Continue (validation)
+      document.getElementById('step2Continue').addEventListener('click', function() {
+        var firstName = document.getElementById('guestFirstName');
+        var lastName = document.getElementById('guestLastName');
+        var email = document.getElementById('guestEmail');
+        var phone = document.getElementById('guestPhone');
+        [firstName, lastName, email, phone].forEach(function(f) { f.classList.remove('invalid'); });
+
+        var valid = true;
+        if (!firstName.value.trim()) { firstName.classList.add('invalid'); valid = false; }
+        if (!lastName.value.trim()) { lastName.classList.add('invalid'); valid = false; }
+        if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) { email.classList.add('invalid'); valid = false; }
+        if (!phone.value.trim()) { phone.classList.add('invalid'); valid = false; }
+        if (!valid) return;
+
+        booking.guest.firstName = firstName.value.trim();
+        booking.guest.lastName = lastName.value.trim();
+        booking.guest.email = email.value.trim();
+        booking.guest.phone = phone.value.trim();
+        booking.guest.requests = document.getElementById('guestRequests').value.trim();
+
+        var tier = RATE_TIERS[booking.rate];
+        document.getElementById('step3RoomName').textContent = booking.room;
+        document.getElementById('step3RateLabel').textContent = tier.label;
+        document.getElementById('step3DateRange').textContent =
+          formatDate(checkinInput.value) + ' \u2013 ' + formatDate(checkoutInput.value);
+        document.getElementById('step3NightsCount').textContent =
+          booking.nights + (booking.nights === 1 ? ' night' : ' nights');
+        document.getElementById('step3TotalPrice').textContent = '$' + booking.total;
+        document.getElementById('step3PayText').textContent = 'Pay $' + booking.total;
+        goToStep(3);
+      });
+
+      // Step 3 Back
+      document.getElementById('step3Back').addEventListener('click', function() { goToStep(2); });
+
+      // Card number auto-format
+      document.getElementById('cardNumber').addEventListener('input', function() {
+        var val = this.value.replace(/\D/g, '');
+        if (val.length > 16) val = val.substring(0, 16);
+        var formatted = '';
+        for (var i = 0; i < val.length; i++) {
+          if (i > 0 && i % 4 === 0) formatted += ' ';
+          formatted += val[i];
+        }
+        this.value = formatted;
+      });
+
+      // Expiry auto-format
+      document.getElementById('cardExpiry').addEventListener('input', function() {
+        var val = this.value.replace(/\D/g, '');
+        if (val.length > 4) val = val.substring(0, 4);
+        if (val.length >= 2) {
+          this.value = val.substring(0, 2) + '/' + val.substring(2);
+        } else {
+          this.value = val;
+        }
+      });
+
+      // CVV digits only
+      document.getElementById('cardCvv').addEventListener('input', function() {
+        this.value = this.value.replace(/\D/g, '').substring(0, 3);
+      });
+
+      // Step 3 Pay
+      document.getElementById('step3Pay').addEventListener('click', function() {
+        var cardName = document.getElementById('cardName').value.trim();
+        var cardNum = document.getElementById('cardNumber').value.replace(/\s/g, '');
+        var cardExp = document.getElementById('cardExpiry').value;
+        var cardCvv = document.getElementById('cardCvv').value;
+        if (!cardName || cardNum.length < 16 || cardExp.length < 5 || cardCvv.length < 3) return;
+
+        booking.isProcessing = true;
+        document.querySelectorAll('.booking-step').forEach(function(s) { s.style.display = 'none'; });
+        document.getElementById('bookingProcessing').style.display = 'flex';
+        stepsBar.style.display = 'none';
+        var tr = modal.querySelector('.booking-modal__top-row');
+        if (tr) tr.style.display = 'none';
+
+        setTimeout(function() {
+          booking.isProcessing = false;
+          var ref = generateBookingRef();
+          document.getElementById('confirmationRef').textContent = ref;
+          document.getElementById('confirmRoom').textContent = booking.room;
+          document.getElementById('confirmRate').textContent = RATE_TIERS[booking.rate].label;
+          document.getElementById('confirmCheckin').textContent = formatDate(checkinInput.value);
+          document.getElementById('confirmCheckout').textContent = formatDate(checkoutInput.value);
+          document.getElementById('confirmGuest').textContent = booking.guest.firstName + ' ' + booking.guest.lastName;
+          document.getElementById('confirmTotal').textContent = '$' + booking.total;
+          goToStep(4);
+        }, 2500);
+      });
+
+      // Confirmation Done
+      document.getElementById('confirmDone').addEventListener('click', closeBookingModal);
+
+      // ===== MOBILE BOOKING BAR =====
+      var mobileBar = document.getElementById('mobileBookingBar');
+      var mobileBarBtn = document.getElementById('mobileBarBtn');
+      var gallery = document.querySelector('.gallery');
+
+      function handleMobileBar() {
+        if (!gallery || !mobileBar) return;
+        var galleryBottom = gallery.getBoundingClientRect().bottom;
+        if (galleryBottom < 0) {
+          mobileBar.classList.add('visible');
+        } else {
+          mobileBar.classList.remove('visible');
+        }
+      }
+
+      if (mobileBarBtn) {
+        mobileBarBtn.addEventListener('click', function() {
+          var roomsSection = document.getElementById('rooms');
+          if (roomsSection) roomsSection.scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (cal.isOpen) { closeCalendar(); return; }
+          if (guestStepper.isOpen) { closeGuestStepper(); return; }
+          if (modal.classList.contains('active')) {
+            if (booking.isProcessing) return;
+            if (booking.step === 1 || booking.step === 4) closeBookingModal();
+            else if (booking.step === 2) goToStep(1);
+            else if (booking.step === 3) goToStep(2);
+          }
+        }
+      });
+
+      window.addEventListener('scroll', handleMobileBar);
+    })();
+
     // Lightbox Gallery
     (function() {
       var IMAGES = [
@@ -2634,7 +3951,6 @@
       var counter = document.getElementById('lightboxCounter');
       var thumbsWrap = document.getElementById('lightboxThumbs');
 
-      // Build thumbs
       var thumbsHtml = '';
       IMAGES.forEach(function(src, i) {
         thumbsHtml += '<img class="lightbox__thumb' + (i === 0 ? ' lightbox__thumb--active' : '') + '" src="' + src + '" data-index="' + i + '">';
@@ -2662,24 +3978,20 @@
         document.body.style.overflow = '';
       }
 
-      // Gallery item clicks
       document.querySelectorAll('.gallery__item').forEach(function(item, i) {
         item.addEventListener('click', function() { open(i); });
       });
 
-      // Controls
       document.getElementById('lightboxClose').addEventListener('click', close);
       document.getElementById('lightboxPrev').addEventListener('click', function() { show(current - 1); });
       document.getElementById('lightboxNext').addEventListener('click', function() { show(current + 1); });
 
-      // Thumb clicks
       thumbsWrap.addEventListener('click', function(e) {
         if (e.target.classList.contains('lightbox__thumb')) {
           show(parseInt(e.target.dataset.index));
         }
       });
 
-      // Keyboard navigation
       document.addEventListener('keydown', function(e) {
         if (!lb.classList.contains('active')) return;
         if (e.key === 'Escape') close();
@@ -2687,7 +3999,6 @@
         if (e.key === 'ArrowRight') show(current + 1);
       });
 
-      // Click backdrop to close
       lb.addEventListener('click', function(e) {
         if (e.target === lb) close();
       });
