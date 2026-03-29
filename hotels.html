@@ -81,7 +81,7 @@
       align-items: center;
       padding: 2px 8px;
       background: var(--mexican-red);
-      border-radius: 6px;
+      border-radius: 4px;
       font-size: 9px;
       font-weight: 800;
       letter-spacing: 1px;
@@ -125,7 +125,7 @@
       top: 0;
       z-index: 100;
       background: var(--white);
-      border-bottom: 1px solid transparent;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
       transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     .header.scrolled {
@@ -133,7 +133,6 @@
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border-bottom-color: rgba(0,0,0,0.06);
-      box-shadow: 0 4px 30px rgba(0,0,0,0.04);
     }
     .header__inner {
       max-width: 1600px;
@@ -166,7 +165,7 @@
       width: 34px;
       height: 34px;
       background: var(--shark);
-      border-radius: 6px;
+      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -195,7 +194,7 @@
     .header__logo:hover .header__logo-icon {
       border-radius: 6px;
       transform: rotate(-4deg) scale(1.08);
-      box-shadow: 0 4px 16px rgba(33, 37, 41, 0.25);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
     }
     .header__logo-img { height: 18px; width: auto; display: block; }
     .header__logo-sep {
@@ -275,7 +274,6 @@
     .header__action-btn:hover {
       background: var(--athens-gray);
       color: var(--shark);
-      transform: scale(1.06);
     }
     .header__action-btn svg {
       width: 19px;
@@ -323,8 +321,8 @@
     .header__action-btn--cta:hover {
       background: var(--black);
       color: var(--white);
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     .header__action-btn--cta svg {
       width: 14px;
@@ -598,9 +596,7 @@
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     .filters__search-btn:hover {
-      background: var(--black);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      box-shadow: none;
     }
     .filters__search-btn-text {
       font-size: 13px;
@@ -920,10 +916,9 @@
       padding: 16px 12px 28px;
       display: flex;
       flex-direction: column;
-      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: none;
     }
     a.hotel-card:hover {
-      transform: translateY(-6px);
     }
     .hotel-card__image-wrap {
       position: relative;
@@ -982,7 +977,7 @@
     }
     .hotel-card__image-dot.active {
       background: var(--white);
-      transform: scale(1.3);
+      transform: none;
     }
     .hotel-card__gradient-top {
       position: absolute;
@@ -997,8 +992,10 @@
       transition: opacity 0.4s;
     }
     a.hotel-card:hover .hotel-card__gradient-bottom {
-      opacity: 0.6;
+      opacity: 1;
     }
+    .hotel-card__image-wrap::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background 0.2s ease; pointer-events: none; z-index: 1; border-radius: inherit; }
+    a.hotel-card:hover .hotel-card__image-wrap::after { background: rgba(0,0,0,0.2); }
     .hotel-card__overlay-text {
       display: none;
     }
@@ -1025,12 +1022,9 @@
     }
     a.hotel-card:hover .hotel-card__save {
       opacity: 1;
-      transform: scale(1);
     }
     .hotel-card__save:hover {
-      background: var(--white);
-      transform: scale(1.1) !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      background: rgba(0,0,0,0.7);
     }
     .hotel-card__save svg {
       width: 16px;
@@ -1077,17 +1071,17 @@
       background: var(--mexican-red);
       color: var(--white);
     }
+    .hotel-card__badge--countdown {
+      background: var(--mexican-red);
+      color: var(--white);
+    }
     .hotel-card__badge--promo {
       background: rgba(255,255,255,0.92);
       color: var(--mexican-red);
       font-weight: 700;
     }
     .hotel-card__meta {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 14px;
-      flex-wrap: wrap;
+      display: none;
     }
     .hotel-card__name {
       font-size: 11px;
@@ -1110,7 +1104,7 @@
       overflow: hidden;
     }
     a.hotel-card:hover .hotel-card__title {
-      color: var(--mexican-red);
+      color: var(--shark);
     }
     .hotel-card__bottom-info {
       position: absolute;
@@ -1158,18 +1152,63 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 12px;
+      gap: 16px;
+      margin-top: 14px;
     }
-    .hotel-card__title-row .hotel-card__title {
-      margin-top: 0;
+    .hotel-card__info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      flex: 1;
+    }
+    .hotel-card__price-block {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .hotel-card__member-badge {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--mexican-red);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .hotel-card__discount {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 11px;
+      color: var(--mexican-red);
+      white-space: nowrap;
+      justify-content: flex-end;
+      margin-bottom: 4px;
+    }
+    .hotel-card__discount-label {
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--hit-gray);
+      margin-right: 1px;
+    }
+    .hotel-card__price-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .hotel-card__price-original {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--hit-gray);
+      text-decoration: line-through;
     }
     .hotel-card__price {
-      font-size: 15px;
+      font-size: 26px;
       font-weight: 700;
       color: var(--shark);
       white-space: nowrap;
-      flex-shrink: 0;
-      line-height: 23px;
+      line-height: 32px;
     }
     .hotel-card__price span {
       font-size: 11px;
@@ -1177,7 +1216,7 @@
       color: var(--hit-gray);
     }
     .hotel-card__tags {
-      display: flex;
+      display: none;
       flex-wrap: wrap;
       gap: 6px;
       margin-top: 8px;
@@ -1257,8 +1296,6 @@
     }
     .hotels-cta__btn:hover {
       background: var(--athens-gray);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
     }
     .hotels-cta__btn svg {
       width: 14px;
@@ -1460,7 +1497,7 @@
     .discover__card-title { position: absolute; bottom: 24px; left: 24px; right: 24px; font-family: var(--font-display); font-size: 22px; font-weight: 600; line-height: 30px; color: white; z-index: 2; }
 
     @media (max-width: 768px) {
-      .topbar { font-size: 11px; padding: 7px 40px 7px 16px; }
+      .topbar { font-size: 11px; padding: 7px 36px 7px 16px; }
       .header__inner {
         display: flex;
         justify-content: space-between;
@@ -1531,7 +1568,7 @@
         padding: 12px 0 10px;
       }
       .filter-pill {
-        padding: 7px 14px;
+        padding: 9px 16px;
         font-size: 12px;
       }
 
@@ -1545,11 +1582,25 @@
         font-size: 14px;
         line-height: 20px;
       }
-      .hotel-card__meta {
+      .hotel-card__title-row {
+        flex-direction: column;
         gap: 8px;
       }
+      .hotel-card__price-block {
+        text-align: left;
+      }
+      .hotel-card__price {
+        font-size: 22px;
+        line-height: 26px;
+      }
+      .hotel-card__price-original {
+        font-size: 14px;
+      }
       .hotel-card__name {
-        font-size: 12px;
+        font-size: 11px;
+      }
+      .hotel-card__image-wrap {
+        border-radius: 8px;
       }
 
       .discover__grid { grid-template-columns: 1fr; }
@@ -1559,9 +1610,9 @@
         grid-template-columns: 1fr;
         min-height: auto;
       }
-      .hotels-cta__content { padding: 32px 24px; }
+      .hotels-cta__content { padding: 28px 20px; }
       .hotels-cta__title { font-size: 22px; line-height: 30px; }
-      .hotels-cta__image { min-height: 200px; }
+      .hotels-cta__image { min-height: 160px; }
       .hotels-cta__image-gradient {
         background: linear-gradient(180deg, var(--shark) 0%, rgba(33,37,41,0) 40%);
       }
@@ -1584,6 +1635,13 @@
       .footer__col--contact {
         padding: 16px 0;
       }
+
+      .filter-calendar-popup { width: auto; min-width: 280px; max-width: calc(100vw - 32px); }
+      .filter-guest-popup { width: auto; min-width: 240px; max-width: calc(100vw - 32px); }
+      .hotel-card__image-wrap { aspect-ratio: 1 / 1; }
+      .hotel-grid__inner { padding: 0 16px; }
+      .hotel-card__badges { flex-wrap: wrap; gap: 4px; }
+      .filters__search-suggest { max-height: 60vh; }
     }
 
     @media (max-width: 480px) {
@@ -1879,6 +1937,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -1888,17 +1947,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.9</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Artizan Design Hotel</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Stylish Rooms and a Historic Artist's Museum in Tbilisi's Vera District</h3>
-            <span class="hotel-card__price">$85 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Design</span>
-            <span class="hotel-card__tag">Museum</span>
-            <span class="hotel-card__tag">Central</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Artizan Design Hotel</span>
+              <h3 class="hotel-card__title">Stylish Rooms and a Historic Artist's Museum in Tbilisi's Vera District</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$85</span>
+              <span class="hotel-card__price">$68 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -1921,6 +1982,7 @@
               <span class="hotel-card__badge hotel-card__badge--red">New</span>
               <span class="hotel-card__badge hotel-card__badge--gray">featured</span>
               <span class="hotel-card__badge hotel-card__badge--promo">-25%</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -1930,17 +1992,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.6</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Hotel Afisha</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">A Retro-Inspired Hotel Stay on One of Tbilisi's Fast Main Streets</h3>
-            <span class="hotel-card__price">$68 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Retro</span>
-            <span class="hotel-card__tag">City View</span>
-            <span class="hotel-card__tag">Modern</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Hotel Afisha</span>
+              <h3 class="hotel-card__title">A Retro-Inspired Hotel Stay on One of Tbilisi's Fast Main Streets</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$68</span>
+              <span class="hotel-card__price">$54 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -1961,6 +2025,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -1970,17 +2035,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.8</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Blueberry Nights</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Cinematic Escape Above Lolita Restaurant, Blending Design, Music, and Film</h3>
-            <span class="hotel-card__price">$92 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Boutique</span>
-            <span class="hotel-card__tag">Rooftop</span>
-            <span class="hotel-card__tag">Cozy</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Blueberry Nights</span>
+              <h3 class="hotel-card__title">Cinematic Escape Above Lolita Restaurant, Blending Design, Music, and Film</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$92</span>
+              <span class="hotel-card__price">$74 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2001,6 +2068,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2010,17 +2078,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.7</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Rooms Hotel Tbilisi</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Design Hotel in a Former Publishing House, at the Heart of Vera District</h3>
-            <span class="hotel-card__price">$120 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Design</span>
-            <span class="hotel-card__tag">Restaurant</span>
-            <span class="hotel-card__tag">Garden</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Rooms Hotel Tbilisi</span>
+              <h3 class="hotel-card__title">Design Hotel in a Former Publishing House, at the Heart of Vera District</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$120</span>
+              <span class="hotel-card__price">$96 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2041,6 +2111,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2050,17 +2121,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.9</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Stamba Hotel</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Tbilisi's Creative Landmark, in a Restored Soviet Publishing House</h3>
-            <span class="hotel-card__price">$150 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Luxury</span>
-            <span class="hotel-card__tag">Design</span>
-            <span class="hotel-card__tag">Rooftop</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Stamba Hotel</span>
+              <h3 class="hotel-card__title">Tbilisi's Creative Landmark, in a Restored Soviet Publishing House</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$150</span>
+              <span class="hotel-card__price">$120 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2081,6 +2154,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2090,17 +2164,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.5</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Puris Moedani Boutique Hotel</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Scenery Morning Beneath Ancient Narikala Fortress</h3>
-            <span class="hotel-card__price">$75 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Historic</span>
-            <span class="hotel-card__tag">Central</span>
-            <span class="hotel-card__tag">Cozy</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Puris Moedani Boutique Hotel</span>
+              <h3 class="hotel-card__title">Scenery Morning Beneath Ancient Narikala Fortress</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$75</span>
+              <span class="hotel-card__price">$60 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2121,6 +2197,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Historic</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2130,17 +2207,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.6</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Writers House Residency</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Art Nouveau Mansion Stay in Sololaki's Literary Landmark</h3>
-            <span class="hotel-card__price">$88 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Literary</span>
-            <span class="hotel-card__tag">Heritage</span>
-            <span class="hotel-card__tag">Central</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Writers House Residency</span>
+              <h3 class="hotel-card__title">Art Nouveau Mansion Stay in Sololaki's Literary Landmark</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$88</span>
+              <span class="hotel-card__price">$70 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2161,6 +2240,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2170,17 +2250,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.4</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Bazzar Boutique Hotel</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Intimate City Stay in the Heart of the Bazaar Quarter</h3>
-            <span class="hotel-card__price">$65 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Budget</span>
-            <span class="hotel-card__tag">Bazaar</span>
-            <span class="hotel-card__tag">Local</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Bazzar Boutique Hotel</span>
+              <h3 class="hotel-card__title">Intimate City Stay in the Heart of the Bazaar Quarter</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$65</span>
+              <span class="hotel-card__price">$52 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2202,6 +2284,7 @@
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--red">new</span>
               <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2211,17 +2294,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.7</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Qarvasla Hotel</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Moorish Arches and Courtyard Rooms at the Historic Crossroads of Old Tbilisi</h3>
-            <span class="hotel-card__price">$95 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Historic</span>
-            <span class="hotel-card__tag">Baths</span>
-            <span class="hotel-card__tag">Heritage</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Qarvasla Hotel</span>
+              <h3 class="hotel-card__title">Moorish Arches and Courtyard Rooms at the Historic Crossroads of Old Tbilisi</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$95</span>
+              <span class="hotel-card__price">$76 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2242,6 +2327,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">featured</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2251,17 +2337,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.8</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Communal Hotel Sololaki</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Bohemian Elegance in Tbilisi's Art Nouveau Streets</h3>
-            <span class="hotel-card__price">$78 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Community</span>
-            <span class="hotel-card__tag">Art</span>
-            <span class="hotel-card__tag">Local</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Communal Hotel Sololaki</span>
+              <h3 class="hotel-card__title">Bohemian Elegance in Tbilisi's Art Nouveau Streets</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$78</span>
+              <span class="hotel-card__price">$62 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2282,6 +2370,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2291,17 +2380,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.5</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Blue Fox Hotel</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Balconied Rooms with Local Murals in Old Town's Backstreets</h3>
-            <span class="hotel-card__price">$70 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Modern</span>
-            <span class="hotel-card__tag">Compact</span>
-            <span class="hotel-card__tag">Central</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Blue Fox Hotel</span>
+              <h3 class="hotel-card__title">Balconied Rooms with Local Murals in Old Town's Backstreets</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$70</span>
+              <span class="hotel-card__price">$56 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2323,6 +2414,7 @@
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--red">NEW</span>
               <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2332,17 +2424,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.8</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Bellhop Tbilisi</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">A Restaurant, Bar, and 12-Room Stay Inside a Restored Century-Old Townhouse</h3>
-            <span class="hotel-card__price">$110 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Design</span>
-            <span class="hotel-card__tag">Restaurant</span>
-            <span class="hotel-card__tag">Views</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Bellhop Tbilisi</span>
+              <h3 class="hotel-card__title">A Restaurant, Bar, and 12-Room Stay Inside a Restored Century-Old Townhouse</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$110</span>
+              <span class="hotel-card__price">$88 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2363,6 +2457,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2372,17 +2467,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.6</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Unfound Door</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Reimagined Cultural Monument for Design-First Travelers</h3>
-            <span class="hotel-card__price">$82 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Hidden Gem</span>
-            <span class="hotel-card__tag">Boutique</span>
-            <span class="hotel-card__tag">Quiet</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Unfound Door</span>
+              <h3 class="hotel-card__title">Reimagined Cultural Monument for Design-First Travelers</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$82</span>
+              <span class="hotel-card__price">$66 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2403,6 +2500,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Locals' Spot</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2412,17 +2510,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.5</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Communal Hotel Plekhanovi</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Design-led Boutique Stay in Tbilisi's Creative District</h3>
-            <span class="hotel-card__price">$62 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Community</span>
-            <span class="hotel-card__tag">Local</span>
-            <span class="hotel-card__tag">Budget</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Communal Hotel Plekhanovi</span>
+              <h3 class="hotel-card__title">Design-led Boutique Stay in Tbilisi's Creative District</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$62</span>
+              <span class="hotel-card__price">$50 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2443,6 +2543,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Old Town</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2452,17 +2553,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.7</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Glarros Oldtown</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Mosaic Textures Meet the Everyday Pattern of Tbilisi's Oldest District</h3>
-            <span class="hotel-card__price">$72 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Mosaic</span>
-            <span class="hotel-card__tag">Heritage</span>
-            <span class="hotel-card__tag">Central</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Glarros Oldtown</span>
+              <h3 class="hotel-card__title">Mosaic Textures Meet the Everyday Pattern of Tbilisi's Oldest District</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$72</span>
+              <span class="hotel-card__price">$58 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2483,6 +2586,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">into the wild</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2492,17 +2596,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.6</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Duende Hotel</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Forest Immersion, Wooden Architecture, and Outdoor Rituals in Kakheti's Wild Corner</h3>
-            <span class="hotel-card__price">$90 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Art</span>
-            <span class="hotel-card__tag">Terrace</span>
-            <span class="hotel-card__tag">Quiet</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Duende Hotel</span>
+              <h3 class="hotel-card__title">Forest Immersion, Wooden Architecture, and Outdoor Rituals in Kakheti's Wild Corner</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$90</span>
+              <span class="hotel-card__price">$72 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2524,6 +2630,7 @@
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--red">NEW</span>
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2533,17 +2640,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.3</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Pabellon Hotel</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Modern Design Retreat in Kakheti's Historic Vineyards, Inspired by Georgian Heritage</h3>
-            <span class="hotel-card__price">$55 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Modern</span>
-            <span class="hotel-card__tag">Business</span>
-            <span class="hotel-card__tag">Spacious</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Pabellon Hotel</span>
+              <h3 class="hotel-card__title">Modern Design Retreat in Kakheti's Historic Vineyards, Inspired by Georgian Heritage</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$55</span>
+              <span class="hotel-card__price">$44 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2564,6 +2673,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2573,17 +2683,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.7</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Communal Telavi</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Moorish-Inspired Boutique Stay with Pool and Local Fare in Telavi</h3>
-            <span class="hotel-card__price">$65 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Wine Region</span>
-            <span class="hotel-card__tag">Garden</span>
-            <span class="hotel-card__tag">Rustic</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Communal Telavi</span>
+              <h3 class="hotel-card__title">Moorish-Inspired Boutique Stay with Pool and Local Fare in Telavi</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$65</span>
+              <span class="hotel-card__price">$52 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2606,6 +2718,7 @@
               <span class="hotel-card__badge hotel-card__badge--red">new</span>
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
               <span class="hotel-card__badge hotel-card__badge--time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Limited</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2615,17 +2728,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.9</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Bodbe Hotel</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Contemporary Retreat with Panoramic Views Near Bodbe Monastery</h3>
-            <span class="hotel-card__price">$95 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Views</span>
-            <span class="hotel-card__tag">Vineyard</span>
-            <span class="hotel-card__tag">Romantic</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Bodbe Hotel</span>
+              <h3 class="hotel-card__title">Contemporary Retreat with Panoramic Views Near Bodbe Monastery</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$95</span>
+              <span class="hotel-card__price">$76 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2646,6 +2761,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2655,17 +2771,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.8</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Esquisse Design Hotel</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Chic Rooms and Slow Spa Days in Telavi, Kakheti's Wine Capital</h3>
-            <span class="hotel-card__price">$105 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Design</span>
-            <span class="hotel-card__tag">Panoramic</span>
-            <span class="hotel-card__tag">Wine</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Esquisse Design Hotel</span>
+              <h3 class="hotel-card__title">Chic Rooms and Slow Spa Days in Telavi, Kakheti's Wine Capital</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$105</span>
+              <span class="hotel-card__price">$84 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2686,6 +2804,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2695,17 +2814,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.7</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Kabadoni Boutique Hotel</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Boutique Hilltop Retreat with Panoramic Alazani Valley Views</h3>
-            <span class="hotel-card__price">$88 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Boutique</span>
-            <span class="hotel-card__tag">Heritage</span>
-            <span class="hotel-card__tag">Wine</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Kabadoni Boutique Hotel</span>
+              <h3 class="hotel-card__title">Boutique Hilltop Retreat with Panoramic Alazani Valley Views</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$88</span>
+              <span class="hotel-card__price">$70 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2726,6 +2847,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2735,17 +2857,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.6</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Vazisubani Estate</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">19th-Century Estate with Timeless Elegance, Vineyards, and Horseback Riding</h3>
-            <span class="hotel-card__price">$78 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Estate</span>
-            <span class="hotel-card__tag">Wine</span>
-            <span class="hotel-card__tag">Nature</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Vazisubani Estate</span>
+              <h3 class="hotel-card__title">19th-Century Estate with Timeless Elegance, Vineyards, and Horseback Riding</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$78</span>
+              <span class="hotel-card__price">$62 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2766,6 +2890,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2775,17 +2900,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.5</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Kvareli Lake Resort</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Lake Evenings, Bike Paths and Shared Silence in Northern Kakheti</h3>
-            <span class="hotel-card__price">$72 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Lake</span>
-            <span class="hotel-card__tag">Resort</span>
-            <span class="hotel-card__tag">Family</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Kvareli Lake Resort</span>
+              <h3 class="hotel-card__title">Lake Evenings, Bike Paths and Shared Silence in Northern Kakheti</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$72</span>
+              <span class="hotel-card__price">$58 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2807,6 +2934,7 @@
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--red">NEW</span>
               <span class="hotel-card__badge hotel-card__badge--gray">Wine Country</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2816,17 +2944,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.4</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Samzeo Kvareli</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">A Modern Resting Point in Historic Kvareli</h3>
-            <span class="hotel-card__price">$60 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Local</span>
-            <span class="hotel-card__tag">Vineyard</span>
-            <span class="hotel-card__tag">Budget</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Samzeo Kvareli</span>
+              <h3 class="hotel-card__title">A Modern Resting Point in Historic Kvareli</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$60</span>
+              <span class="hotel-card__price">$48 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2847,6 +2977,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">one of a kind</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2856,17 +2987,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.9</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Rooms Hotel Kazbegi</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">The Iconic Mountain Retreat that Redefined Georgian Hospitality</h3>
-            <span class="hotel-card__price">$140 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Mountain</span>
-            <span class="hotel-card__tag">Luxury</span>
-            <span class="hotel-card__tag">Views</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Rooms Hotel Kazbegi</span>
+              <h3 class="hotel-card__title">The Iconic Mountain Retreat that Redefined Georgian Hospitality</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$140</span>
+              <span class="hotel-card__price">$112 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2887,6 +3020,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Ski Hotel</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2896,17 +3030,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.6</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Marco Polo Gudauri</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Ski-in Ski-out Resort with Spa, Chalets, and the Spirit of Gudauri Since 1988</h3>
-            <span class="hotel-card__price">$95 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Ski</span>
-            <span class="hotel-card__tag">Resort</span>
-            <span class="hotel-card__tag">Mountain</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Marco Polo Gudauri</span>
+              <h3 class="hotel-card__title">Ski-in Ski-out Resort with Spa, Chalets, and the Spirit of Gudauri Since 1988</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$95</span>
+              <span class="hotel-card__price">$76 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2927,6 +3063,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Ski Hotel</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2936,17 +3073,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.5</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Gudauri Lodge</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Ski-in Ski-out Lodge with Spa & Caucasus Mountain Views</h3>
-            <span class="hotel-card__price">$80 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Ski</span>
-            <span class="hotel-card__tag">Cozy</span>
-            <span class="hotel-card__tag">Lodge</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Gudauri Lodge</span>
+              <h3 class="hotel-card__title">Ski-in Ski-out Lodge with Spa & Caucasus Mountain Views</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$80</span>
+              <span class="hotel-card__price">$64 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -2967,6 +3106,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Culture City</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -2976,17 +3116,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.6</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Communal Hotel Kutaisi</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Charming Townhouse with Local Eatery, Serving Authentic Plates and Natural Wine</h3>
-            <span class="hotel-card__price">$65 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Community</span>
-            <span class="hotel-card__tag">Local</span>
-            <span class="hotel-card__tag">Central</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Communal Hotel Kutaisi</span>
+              <h3 class="hotel-card__title">Charming Townhouse with Local Eatery, Serving Authentic Plates and Natural Wine</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$65</span>
+              <span class="hotel-card__price">$52 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -3007,6 +3149,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Culture City</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -3016,17 +3159,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.5</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Hotel Memoire Kutaisi</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Terrace Light, English Breakfasts and Walkable Old Town Days in Kutaisi</h3>
-            <span class="hotel-card__price">$58 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Heritage</span>
-            <span class="hotel-card__tag">Budget</span>
-            <span class="hotel-card__tag">Central</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Hotel Memoire Kutaisi</span>
+              <h3 class="hotel-card__title">Terrace Light, English Breakfasts and Walkable Old Town Days in Kutaisi</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$58</span>
+              <span class="hotel-card__price">$46 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -3047,6 +3192,7 @@
             <div class="hotel-card__gradient-bottom"></div>
             <div class="hotel-card__badges">
               <span class="hotel-card__badge hotel-card__badge--gray">Culture City</span>
+              <span class="hotel-card__badge hotel-card__badge--countdown countdown"></span>
             </div>
             <button class="hotel-card__save" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('saved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <span class="hotel-card__overlay-text">View hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -3056,17 +3202,19 @@
               <span class="hotel-card__rating"><svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H19l-5.19 3.99L16.18 18 10 13.97 3.82 18l2.37-6.75L1 7.26h6.61z"/></svg> 4.7</span>
             </div>
           </div>
-          <div class="hotel-card__meta">
-            <span class="hotel-card__name">Grand Opera Hotel</span>
-          </div>
           <div class="hotel-card__title-row">
-            <h3 class="hotel-card__title">Classical Elegance, Modern Comfort and Wine Cellars in Kutaisi</h3>
-            <span class="hotel-card__price">$75 <span>/ night</span></span>
-          </div>
-          <div class="hotel-card__tags">
-            <span class="hotel-card__tag">Opera</span>
-            <span class="hotel-card__tag">Elegant</span>
-            <span class="hotel-card__tag">Central</span>
+            <div class="hotel-card__info">
+              <span class="hotel-card__name">Grand Opera Hotel</span>
+              <h3 class="hotel-card__title">Classical Elegance, Modern Comfort and Wine Cellars in Kutaisi</h3>
+            </div>
+            <div class="hotel-card__price-block">
+              <span class="hotel-card__member-badge">Members price</span>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__price-wrap">
+              <span class="hotel-card__price-original">$75</span>
+              <span class="hotel-card__price">$60 <span>/ night</span></span>
+              </div>
+            </div>
           </div>
         </a>
 
@@ -3806,5 +3954,13 @@
     })();
   </script>
   <script src="auth-modal.js"></script>
+  <script>
+  (function(){
+    var labels = ['Ends today', 'Less than a day left', 'Expires soon', 'Few hours left', 'Limited time', 'Ending soon'];
+    document.querySelectorAll('.countdown').forEach(function(el, i) {
+      el.textContent = labels[i % labels.length];
+    });
+  })();
+  </script>
 </body>
 </html>

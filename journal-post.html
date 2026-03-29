@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The New Wave of Tbilisi Restaurants You Need to Know — Locals' Hotels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&family=Funnel+Display:wght@300..700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --white: #FFFFFF;
+      --athens-gray: #F8F9FA;
+      --mischka: #CED4DA;
+      --hit-gray: #ADB5BD;
+      --abbey: #495057;
+      --nevada: #677078;
+      --outer-space: #343A40;
+      --shark: #212529;
+      --black: #000000;
+      --black-60: rgba(0,0,0,0.6);
+      --mexican-red: #A22522;
+      --white-lilac: #E8E8F6;
+      --gray-muted: #6C757D;
+      --font: 'Funnel Sans', sans-serif;
+      --font-display: 'Funnel Display', sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--shark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { border: none; background: none; cursor: pointer; font-family: inherit; }
+    ul, li { list-style: none; }
+
+    /* ========== TOP BAR ========== */
+    .topbar {
+      background: linear-gradient(135deg, var(--shark) 0%, #1a1d21 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      position: relative;
+      overflow: hidden;
+    }
+    .topbar::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,255,255,0.015) 50px, rgba(255,255,255,0.015) 100px);
+    }
+    .topbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      position: relative;
+    }
+    .topbar__badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      background: var(--mexican-red);
+      border-radius: 4px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-right: 4px;
+    }
+    .topbar__text { opacity: 0.85; }
+    .topbar__link {
+      color: var(--white);
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      padding-bottom: 1px;
+      transition: border-color 0.2s, opacity 0.2s;
+    }
+    .topbar__link:hover { border-color: var(--white); }
+    .topbar__close {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      opacity: 0.4;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .topbar__close:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+    .topbar.hidden { display: none; }
+
+    /* ========== HEADER ========== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .header.scrolled {
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom-color: rgba(0,0,0,0.06);
+    }
+    .header__inner {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      height: 72px;
+      padding: 0 48px;
+    }
+    .header__logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--shark);
+      transition: all 0.3s ease;
+      justify-self: start;
+    }
+    .header__logo:hover { letter-spacing: 3.5px; }
+    .header__logo-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--shark);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+    .header__logo-icon::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
+      transition: transform 0.6s ease;
+      transform: translateX(-100%);
+    }
+    .header__logo:hover .header__logo-icon::after { transform: translateX(100%); }
+    .header__logo:hover .header__logo-icon {
+      border-radius: 6px;
+      transform: rotate(-4deg) scale(1.08);
+      box-shadow: 0 4px 16px rgba(33, 37, 41, 0.25);
+    }
+    .header__logo-img { height: 18px; width: auto; display: block; }
+
+    .header__nav {
+      display: flex;
+      gap: 2px;
+      align-items: center;
+      justify-self: center;
+      background: var(--athens-gray);
+      border-radius: 6px;
+      padding: 4px;
+      position: relative;
+    }
+    .header__nav-item {
+      padding: 10px 24px;
+      font-size: 12.5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      line-height: 1;
+      color: var(--abbey);
+      border-radius: 6px;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      white-space: nowrap;
+      z-index: 1;
+    }
+    .header__nav-item:hover { color: var(--shark); }
+    .header__nav-item--active {
+      background: var(--white);
+      color: var(--shark);
+      font-weight: 600;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .header__actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-self: end;
+    }
+    .header__action-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      color: var(--abbey);
+      position: relative;
+    }
+    .header__action-btn:hover {
+      background: var(--athens-gray);
+      color: var(--shark);
+      transform: scale(1.06);
+    }
+    .header__action-btn svg { width: 19px; height: 19px; }
+    .header__action-btn--heart:hover {
+      color: var(--mexican-red);
+      background: rgba(162, 37, 34, 0.06);
+    }
+    .header__divider {
+      width: 1px;
+      height: 24px;
+      background: var(--mischka);
+      margin: 0 6px;
+    }
+    .header__action-btn--cta {
+      width: auto;
+      padding: 0 24px;
+      height: 40px;
+      border-radius: 6px;
+      background: var(--shark);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      gap: 8px;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+    .header__action-btn--cta::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+      transition: left 0.5s ease;
+    }
+    .header__action-btn--cta:hover::before { left: 100%; }
+    .header__action-btn--cta:hover {
+      background: var(--black);
+      transform: scale(1.02);
+    }
+    .header__lang {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--abbey);
+      padding: 8px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .header__lang svg { width: 16px; height: 16px; }
+    .header__lang:hover { background: var(--athens-gray); color: var(--shark); }
+    .header__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+    }
+    .header__hamburger span {
+      width: 18px;
+      height: 1.5px;
+      background: var(--shark);
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: var(--white);
+      border-bottom: 1px solid var(--mischka);
+      padding: 8px 24px 16px;
+    }
+    .mobile-menu.active { display: flex; }
+    .mobile-menu__link {
+      padding: 14px 0;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--abbey);
+      border-bottom: 1px solid var(--athens-gray);
+    }
+    .mobile-menu__link--active {
+      color: var(--mexican-red);
+      font-weight: 600;
+    }
+
+    /* ========== POST HERO ========== */
+    .post-hero {
+      position: relative;
+      width: 100%;
+      min-height: 520px;
+      overflow: hidden;
+    }
+    .post-hero__bg {
+      position: absolute;
+      inset: 0;
+    }
+    .post-hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .post-hero__gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%);
+    }
+    .post-hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 520px;
+      padding-bottom: 56px;
+    }
+    .post-hero__breadcrumb {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 24px;
+    }
+    .post-hero__breadcrumb a {
+      color: rgba(255,255,255,0.6);
+      transition: color 0.2s;
+    }
+    .post-hero__breadcrumb a:hover { color: var(--white); }
+    .post-hero__category {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--white);
+      background: var(--mexican-red);
+      padding: 6px 14px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      width: fit-content;
+    }
+    .post-hero__title {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 56px;
+      color: var(--white);
+      max-width: 720px;
+      letter-spacing: -0.5px;
+    }
+    .post-hero__meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 20px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+    }
+    .post-hero__meta-divider {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+    }
+
+    /* ========== ARTICLE CONTENT ========== */
+    .post {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .post__layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 64px;
+      padding-top: 56px;
+      padding-bottom: 80px;
+    }
+    .post__content {
+      max-width: 720px;
+    }
+    .post__content p {
+      font-size: 18px;
+      line-height: 32px;
+      color: var(--abbey);
+      margin-bottom: 28px;
+    }
+    .post__content p:first-child::first-letter {
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 700;
+      float: left;
+      line-height: 48px;
+      padding-right: 12px;
+      padding-top: 6px;
+      color: var(--shark);
+    }
+    .post__content h2 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 36px;
+      color: var(--shark);
+      margin-top: 16px;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }
+    .post__content h3 {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 30px;
+      color: var(--shark);
+      margin-top: 12px;
+      margin-bottom: 16px;
+    }
+    .post__content blockquote {
+      border-left: 3px solid var(--mexican-red);
+      padding: 4px 0 4px 24px;
+      margin: 32px 0;
+    }
+    .post__content blockquote p {
+      font-size: 20px;
+      font-style: italic;
+      line-height: 34px;
+      color: var(--shark);
+      margin-bottom: 0;
+    }
+    .post__content figure {
+      margin: 40px 0;
+    }
+    .post__content figure img {
+      width: 100%;
+      border-radius: 12px;
+    }
+    .post__content figcaption {
+      font-size: 13px;
+      color: var(--hit-gray);
+      margin-top: 10px;
+      line-height: 20px;
+    }
+    .post__content ul {
+      margin-bottom: 28px;
+      padding-left: 0;
+    }
+    .post__content ul li {
+      font-size: 18px;
+      line-height: 32px;
+      color: var(--abbey);
+      padding-left: 20px;
+      position: relative;
+      margin-bottom: 8px;
+      list-style: none;
+    }
+    .post__content ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 13px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--mexican-red);
+    }
+
+    /* ---- Sidebar ---- */
+    .post__sidebar {
+      position: relative;
+    }
+    .post__sidebar-sticky {
+      position: sticky;
+      top: 100px;
+    }
+    .post__author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--mischka);
+      margin-bottom: 28px;
+    }
+    .post__author-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--athens-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--shark);
+      flex-shrink: 0;
+    }
+    .post__author-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--shark);
+      line-height: 1.3;
+    }
+    .post__author-role {
+      font-size: 13px;
+      color: var(--hit-gray);
+      margin-top: 2px;
+    }
+
+    .post__share-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--hit-gray);
+      margin-bottom: 14px;
+    }
+    .post__share-links {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    .post__share-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--mischka);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--abbey);
+      transition: all 0.2s;
+    }
+    .post__share-btn:hover {
+      border-color: var(--shark);
+      color: var(--shark);
+      background: var(--athens-gray);
+    }
+    .post__share-btn svg { width: 18px; height: 18px; }
+
+    .post__tags-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--hit-gray);
+      margin-bottom: 14px;
+    }
+    .post__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .post__tag {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--abbey);
+      padding: 6px 14px;
+      border: 1px solid var(--mischka);
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .post__tag:hover {
+      border-color: var(--shark);
+      color: var(--shark);
+    }
+
+    /* ========== RELATED POSTS ========== */
+    .related {
+      border-top: 1px solid var(--mischka);
+      padding: 64px 0 80px;
+    }
+    .related__inner {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .related__heading {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--shark);
+      margin-bottom: 32px;
+      letter-spacing: -0.3px;
+    }
+    .related__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .related__card {
+      display: flex;
+      flex-direction: column;
+      transition: opacity 0.2s;
+    }
+    .related__card:hover { opacity: 0.85; }
+    .related__card-image {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .related__card-category {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--mexican-red);
+      margin-top: 16px;
+    }
+    .related__card-title {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 26px;
+      color: var(--shark);
+      margin-top: 8px;
+    }
+    .related__card-meta {
+      font-size: 13px;
+      color: var(--hit-gray);
+      margin-top: 8px;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      border-top: 1px solid var(--mischka);
+      background: var(--athens-gray);
+      margin-top: 0;
+    }
+    .footer__inner {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .footer__brand {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--shark);
+      padding: 32px 0 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .footer__grid {
+      display: flex;
+      gap: 0;
+      padding-bottom: 24px;
+    }
+    .footer__col {
+      display: flex;
+      flex-direction: column;
+    }
+    .footer__col--pages {
+      width: 341.5px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--mischka);
+      padding-right: 1px;
+      justify-content: space-between;
+      min-height: 224px;
+    }
+    .footer__col--regions {
+      width: 341.5px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--mischka);
+      padding-left: 24px;
+    }
+    .footer__col--contact {
+      flex: 1;
+      padding: 24px;
+    }
+    .footer__nav-list li { padding: 13px 0; }
+    .footer__nav-list a {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--abbey);
+      line-height: 20px;
+      transition: color 0.2s;
+    }
+    .footer__nav-list a:hover { color: var(--shark); }
+    .footer__nav-list a.active { color: var(--mexican-red); }
+    .footer__copyright {
+      font-size: 12px;
+      line-height: 12px;
+      color: var(--gray-muted);
+    }
+    .footer__contact-label {
+      font-size: 14px;
+      line-height: 24px;
+      color: var(--gray-muted);
+      margin-bottom: 16px;
+    }
+    .footer__contact-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .footer__contact-links a {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--mexican-red);
+      line-height: 24px;
+    }
+    .footer__contact-links span {
+      font-size: 14px;
+      color: var(--gray-muted);
+    }
+
+    /* ========== REVEAL ========== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1100px) {
+      .related__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .topbar { font-size: 11px; padding: 7px 40px 7px 16px; }
+      .header__inner {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 16px;
+        height: 60px;
+      }
+      .header__nav { display: none; }
+      .header__action-btn, .header__lang, .header__divider { display: none; }
+      .header__action-btn--cta { display: flex; height: 36px; padding: 0 16px; font-size: 11px; }
+      .header__hamburger { display: flex; }
+
+      .post-hero { min-height: 380px; }
+      .post-hero__inner {
+        padding: 0 20px;
+        min-height: 380px;
+        padding-bottom: 36px;
+      }
+      .post-hero__title {
+        font-size: 30px;
+        line-height: 38px;
+      }
+      .post-hero__meta { font-size: 13px; gap: 10px; }
+
+      .post { padding: 0 20px; }
+      .post__layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding-top: 36px;
+        padding-bottom: 48px;
+      }
+      .post__content { max-width: 100%; }
+      .post__content p { font-size: 16px; line-height: 28px; }
+      .post__content h2 { font-size: 24px; line-height: 32px; }
+      .post__content h3 { font-size: 20px; line-height: 28px; }
+      .post__content blockquote p { font-size: 18px; line-height: 30px; }
+      .post__content p:first-child::first-letter {
+        font-size: 52px;
+        line-height: 40px;
+      }
+      .post__sidebar-sticky { position: static; }
+
+      .related { padding: 40px 0 48px; }
+      .related__inner { padding: 0 20px; }
+      .related__grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .related__heading { font-size: 24px; margin-bottom: 24px; }
+
+      .footer__inner { padding: 0 20px; }
+      .footer__grid { flex-direction: column; gap: 0; }
+      .footer__col--pages,
+      .footer__col--regions {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--mischka);
+        padding: 0 0 16px;
+        min-height: auto;
+      }
+      .footer__col--regions { padding-left: 0; padding-top: 8px; }
+      .footer__col--contact { padding: 16px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== TOP BAR ========== -->
+  <div class="topbar" id="topbar">
+    <div class="topbar__inner">
+      <span class="topbar__badge">New</span>
+      <span class="topbar__text">Members get up to 20% off every booking.</span>
+      <a href="signup.html" class="topbar__link">Join now</a>
+    </div>
+    <button class="topbar__close" id="topbarClose" aria-label="Close">
+      <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M11 3L3 11M3 3l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <!-- ========== HEADER ========== -->
+  <header class="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo">
+        <img src="https://localshotels.com/wp-content/uploads/2025/05/logo-horizontal-black-1024x97.webp" alt="Locals' Hotels" class="header__logo-img">
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-item">Home</a>
+        <a href="hotels.html" class="header__nav-item">Hotels</a>
+        <a href="journal.html" class="header__nav-item header__nav-item--active">Journal</a>
+        <a href="contact.html" class="header__nav-item">Contact</a>
+      </nav>
+      <div class="header__actions">
+        <button class="header__action-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+        <button class="header__action-btn header__action-btn--heart" aria-label="Saved">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <a href="#" class="header__lang">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          EN
+        </a>
+        <span class="header__divider"></span>
+        <a href="signup.html" class="header__action-btn header__action-btn--cta">Become Local</a>
+        <button class="header__hamburger" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-menu__link">Home</a>
+    <a href="hotels.html" class="mobile-menu__link">Hotels</a>
+    <a href="journal.html" class="mobile-menu__link mobile-menu__link--active">Journal</a>
+    <a href="contact.html" class="mobile-menu__link">Contact</a>
+  </nav>
+
+  <!-- ========== POST HERO ========== -->
+  <section class="post-hero">
+    <div class="post-hero__bg">
+      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=80" alt="Tbilisi restaurant scene">
+    </div>
+    <div class="post-hero__gradient"></div>
+    <div class="post-hero__inner">
+      <div class="post-hero__breadcrumb">
+        <a href="index.html">Home</a> / <a href="journal.html">Journal</a> / Article
+      </div>
+      <span class="post-hero__category">Food & Drink</span>
+      <h1 class="post-hero__title">The New Wave of Tbilisi Restaurants You Need to Know</h1>
+      <div class="post-hero__meta">
+        <span>February 18, 2025</span>
+        <span class="post-hero__meta-divider"></span>
+        <span>6 min read</span>
+        <span class="post-hero__meta-divider"></span>
+        <span>By Nino Kapanadze</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ARTICLE ========== -->
+  <div class="post reveal">
+    <div class="post__layout">
+      <article class="post__content">
+        <p>Georgia's capital is experiencing a culinary renaissance that feels both inevitable and surprising. In a city where grandmothers still roll khinkali by hand and corner bakeries pump out shotis puri from clay ovens at dawn, a new generation of chefs is rewriting the rules — not by abandoning tradition, but by building on it with fearless creativity.</p>
+
+        <p>Walk through the winding streets of Vera or the revitalized courtyards of Old Town, and you'll find restaurants that didn't exist two years ago. They're intimate, often tucked behind unmarked doors or hidden in renovated Soviet-era apartments. The menus are short, seasonal, and unapologetically Georgian — but with a twist that speaks to global influence without losing local soul.</p>
+
+        <h2>Where Tradition Meets the Unexpected</h2>
+
+        <p>The shift started quietly. Around 2022, a handful of young chefs who had trained in Copenhagen, Barcelona, and Tokyo began returning to Tbilisi. They didn't want to open fine-dining temples. Instead, they gravitated toward the city's raw, unpolished spaces — converting garages, basements, and even a former printing press into restaurants that feel more like dinner parties than establishments.</p>
+
+        <figure>
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1000&q=80" alt="Modern Georgian cuisine">
+          <figcaption>New-wave Georgian cuisine: familiar flavors, reimagined presentation</figcaption>
+        </figure>
+
+        <p>Take Shavi Lomi, which has long been the standard-bearer for modern Georgian cuisine. But the newer wave goes further. At places like Café Littera and the newer Tabla, chefs are deconstructing classics — turning ajapsandali into a cold-pressed terrine, or serving churchkhela as a dessert course with walnut ice cream and grape reduction.</p>
+
+        <h2>The Natural Wine Connection</h2>
+
+        <p>You can't talk about Tbilisi's food scene without talking about wine. Georgia's 8,000-year winemaking tradition has become the secret engine of its restaurant boom. Natural wine bars have multiplied across the city, and many of the best new restaurants double as wine bars, curating lists that showcase small-production qvevri wines from Kakheti, Kartli, and Imereti.</p>
+
+        <blockquote>
+          <p>"In Tbilisi, wine isn't a pairing — it's a conversation. Every bottle has a story, and every winemaker is someone's cousin."</p>
+        </blockquote>
+
+        <p>Venues like Vino Underground and g.Vino pioneered this movement, but the latest crop pushes further into experimentation. Wine flights are served alongside tasting menus that evolve with the harvest. It's an approach that feels simultaneously ancient and cutting-edge.</p>
+
+        <h3>Where to Go</h3>
+
+        <ul>
+          <li><strong>Café Littera</strong> — Set in the Writers' House courtyard, this is Georgian fine dining at its most elegant. The garden terrace in summer is unmissable.</li>
+          <li><strong>Tabla</strong> — A quieter, more experimental space in Vera. The seasonal tasting menu changes weekly and sources exclusively from Georgian farms.</li>
+          <li><strong>Shavi Lomi</strong> — The original modern Georgian restaurant. Still relevant, still surprising. Their pork belly with tkemali glaze is legendary.</li>
+          <li><strong>Barbarestan</strong> — Based on a 19th-century Georgian cookbook, every dish here is a history lesson. The presentation is modern; the recipes are 150 years old.</li>
+          <li><strong>Kakhelebi</strong> — For those who want traditional Kakhetian hospitality with a contemporary touch. The wine list alone is worth the visit.</li>
+        </ul>
+
+        <h2>The Neighborhood Effect</h2>
+
+        <p>What makes Tbilisi's food scene unique is its intimacy. This isn't a sprawling metropolis where trends happen in isolation. When a new restaurant opens in Sololaki, the chef from Vera comes for dinner. The sommelier from Old Town drops by with a bottle. There's a collaborative spirit that bigger cities have lost — or never had.</p>
+
+        <figure>
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1000&q=80" alt="Tbilisi restaurant interior">
+          <figcaption>Intimate dining spaces in converted Old Town courtyards</figcaption>
+        </figure>
+
+        <p>This interconnectedness means quality rises quickly. A great ingredient — say, a particular farmer's tomatoes from Lagodekhi — will appear on three menus within a week. Not because of competition, but because chefs share discoveries with genuine excitement.</p>
+
+        <p>For travelers, this creates an experience that's hard to find elsewhere. You're not just eating at restaurants — you're plugging into a living network of taste, tradition, and creative ambition. And the best part? In Tbilisi, a world-class meal with a bottle of natural wine still costs less than an appetizer in most European capitals.</p>
+
+        <p>The new wave isn't replacing the old. It's extending it. And for anyone who loves food, Georgia's capital has never been more exciting.</p>
+      </article>
+
+      <!-- ---- Sidebar ---- -->
+      <aside class="post__sidebar">
+        <div class="post__sidebar-sticky">
+          <div class="post__author">
+            <div class="post__author-avatar">NK</div>
+            <div>
+              <div class="post__author-name">Nino Kapanadze</div>
+              <div class="post__author-role">Food & Travel Editor</div>
+            </div>
+          </div>
+
+          <div class="post__share-label">Share</div>
+          <div class="post__share-links">
+            <button class="post__share-btn" aria-label="Share on Twitter">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733-16zM4 20l6.768-6.768M20 4l-6.768 6.768"/></svg>
+            </button>
+            <button class="post__share-btn" aria-label="Share on Facebook">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </button>
+            <button class="post__share-btn" aria-label="Copy link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+          </div>
+
+          <div class="post__tags-label">Tags</div>
+          <div class="post__tags">
+            <span class="post__tag">Georgian Cuisine</span>
+            <span class="post__tag">Tbilisi</span>
+            <span class="post__tag">Natural Wine</span>
+            <span class="post__tag">Editor's Pick</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ========== RELATED POSTS ========== -->
+  <section class="related reveal">
+    <div class="related__inner">
+      <h2 class="related__heading">More from Journal</h2>
+      <div class="related__grid">
+        <a href="#" class="related__card">
+          <img class="related__card-image" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80" alt="Boutique hotel">
+          <span class="related__card-category">Hotels</span>
+          <h3 class="related__card-title">What Makes a Hotel a "Locals' Hotel"?</h3>
+          <span class="related__card-meta">February 5, 2025 &middot; 4 min read</span>
+        </a>
+        <a href="#" class="related__card">
+          <img class="related__card-image" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Kazbegi mountains">
+          <span class="related__card-category">Travel Guide</span>
+          <h3 class="related__card-title">Kazbegi in Winter: A Guide to Georgia's Mountain Escape</h3>
+          <span class="related__card-meta">January 22, 2025 &middot; 7 min read</span>
+        </a>
+        <a href="#" class="related__card">
+          <img class="related__card-image" src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80" alt="Hotel courtyard">
+          <span class="related__card-category">Behind the Scenes</span>
+          <h3 class="related__card-title">Restoring Tbilisi: The Architects Saving Old Town's Soul</h3>
+          <span class="related__card-meta">January 10, 2025 &middot; 5 min read</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">Locals' Hotels</div>
+      <div class="footer__grid">
+        <div class="footer__col footer__col--pages">
+          <ul class="footer__nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="hotels.html">Hotels</a></li>
+            <li><a href="journal.html" class="active">Journal</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+          <div class="footer__copyright">All Rights Reserved, Locals Hotels 2025</div>
+        </div>
+        <div class="footer__col footer__col--regions">
+          <ul class="footer__nav-list">
+            <li><a href="hotels.html?region=Tbilisi">Tbilisi</a></li>
+            <li><a href="hotels.html?region=Kakheti">Kakheti</a></li>
+            <li><a href="hotels.html?region=Kutaisi">Kutaisi</a></li>
+          </ul>
+        </div>
+        <div class="footer__col footer__col--contact">
+          <div class="footer__contact-label">Have Questions?</div>
+          <div class="footer__contact-links">
+            <a href="mailto:hello@localshotels.com">E-mail us</a>
+            <span>/</span>
+            <a href="mailto:hello@localshotels.com">hello@localshotels.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Topbar close
+    (function() {
+      var btn = document.getElementById('topbarClose');
+      var bar = document.getElementById('topbar');
+      if (btn && bar) {
+        btn.addEventListener('click', function() {
+          bar.style.transition = 'all 0.3s ease';
+          bar.style.maxHeight = '0';
+          bar.style.padding = '0 16px';
+          bar.style.opacity = '0';
+          bar.style.overflow = 'hidden';
+          setTimeout(function() { bar.classList.add('hidden'); }, 300);
+        });
+      }
+    })();
+
+    // Header scroll effect
+    (function() {
+      var header = document.querySelector('.header');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 10) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+    })();
+
+    // Mobile menu toggle
+    (function() {
+      var btn = document.querySelector('.header__hamburger');
+      var menu = document.getElementById('mobileMenu');
+      if (btn && menu) {
+        btn.addEventListener('click', function() {
+          menu.classList.toggle('active');
+        });
+      }
+    })();
+
+    // Scroll reveal
+    (function() {
+      var reveals = document.querySelectorAll('.reveal');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function(el) { observer.observe(el); });
+    })();
+  </script>
+  <script src="auth-modal.js"></script>
+</body>
+</html>
