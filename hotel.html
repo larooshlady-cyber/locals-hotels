@@ -716,6 +716,20 @@
     }
     .bw__promo-input:focus { border-color: var(--shark); }
     .bw__promo-input::placeholder { color: var(--hit-gray); }
+    .bw__perk {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 10px 12px;
+      background: var(--athens-gray);
+      border-radius: 6px;
+      margin-bottom: 14px;
+      font-size: 12px;
+      line-height: 17px;
+      color: var(--abbey);
+    }
+    .bw__perk svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--mexican-red); margin-top: 0px; }
+    .bw__perk strong { color: var(--shark); font-weight: 600; }
     .bw__search-btn {
       width: 100%;
       padding: 14px;
@@ -2469,6 +2483,10 @@
                 <div class="bw__section-label">Promo code</div>
                 <div class="bw__promo">
                   <input type="text" class="bw__promo-input" placeholder="Enter promo code" id="bwPromo">
+                </div>
+                <div class="bw__perk">
+                  <svg viewBox="0 0 20 20" fill="none"><path d="M10 2a6 6 0 0 0-6 6c0 2.5 1.5 4.64 3.5 5.5V15a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1.5C14.5 12.64 16 10.5 16 8a6 6 0 0 0-6-6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.5 18h3M10 15v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <span><strong>24/7 Travel Concierge</strong> included with every booking</span>
                 </div>
                 <button class="bw__search-btn" id="bwSearchBtn" disabled>Search</button>
               </div>

@@ -917,7 +917,10 @@
       display: flex;
       flex-direction: column;
       transition: none;
+      color: inherit;
+      text-decoration: none;
     }
+    a.hotel-card:visited { color: inherit; }
     a.hotel-card:hover {
     }
     .hotel-card__image-wrap {
@@ -988,7 +991,7 @@
     .hotel-card__gradient-bottom {
       position: absolute;
       inset: 0;
-      background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 50%);
+      background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 45%);
       transition: opacity 0.4s;
     }
     a.hotel-card:hover .hotel-card__gradient-bottom {
@@ -1084,19 +1087,19 @@
       display: none;
     }
     .hotel-card__name {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       text-transform: uppercase;
       line-height: 1;
       color: var(--mexican-red);
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
     }
     .hotel-card__title {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
-      line-height: 23px;
+      line-height: 20px;
       color: var(--shark);
-      margin-top: 6px;
+      margin-top: 5px;
       transition: color 0.3s;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -1131,7 +1134,7 @@
       flex-shrink: 0;
     }
     .hotel-card__rating {
-      display: flex;
+      display: none;
       align-items: center;
       gap: 4px;
       font-size: 12px;
@@ -1166,24 +1169,19 @@
       flex-shrink: 0;
     }
     .hotel-card__member-badge {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--mexican-red);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 2px;
+      display: none;
     }
     .hotel-card__discount {
       display: inline-flex;
       align-items: center;
       gap: 3px;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
-      line-height: 11px;
+      line-height: 10px;
       color: var(--mexican-red);
       white-space: nowrap;
       justify-content: flex-end;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
     .hotel-card__discount-label {
       font-size: 10px;
@@ -1191,27 +1189,66 @@
       color: var(--hit-gray);
       margin-right: 1px;
     }
+    .hotel-card__discount-info {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1.5px solid var(--hit-gray);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--hit-gray);
+      line-height: 1;
+      margin-left: 3px;
+      position: relative;
+      flex-shrink: 0;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .hotel-card__discount-info:hover { border-color: var(--shark); color: var(--shark); }
+    .hotel-card__discount-tooltip {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: calc(100% + 6px);
+      width: 220px;
+      background: var(--shark);
+      color: var(--white);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 16px;
+      z-index: 200;
+      pointer-events: none;
+      text-transform: none;
+      letter-spacing: 0;
+      white-space: normal;
+    }
+    .hotel-card__discount-info:hover .hotel-card__discount-tooltip { display: block; }
     .hotel-card__price-wrap {
       display: flex;
       align-items: baseline;
-      gap: 6px;
+      gap: 4px;
       white-space: nowrap;
     }
     .hotel-card__price-original {
-      font-size: 16px;
+      font-size: 13px;
       font-weight: 500;
       color: var(--hit-gray);
       text-decoration: line-through;
     }
     .hotel-card__price {
-      font-size: 26px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--shark);
       white-space: nowrap;
-      line-height: 32px;
+      line-height: 24px;
     }
     .hotel-card__price span {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 400;
       color: var(--hit-gray);
     }
@@ -1954,7 +1991,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$85</span>
               <span class="hotel-card__price">$68 <span>/ night</span></span>
@@ -1999,7 +2036,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$68</span>
               <span class="hotel-card__price">$54 <span>/ night</span></span>
@@ -2042,7 +2079,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$92</span>
               <span class="hotel-card__price">$74 <span>/ night</span></span>
@@ -2085,7 +2122,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$120</span>
               <span class="hotel-card__price">$96 <span>/ night</span></span>
@@ -2128,7 +2165,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$150</span>
               <span class="hotel-card__price">$120 <span>/ night</span></span>
@@ -2171,7 +2208,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$75</span>
               <span class="hotel-card__price">$60 <span>/ night</span></span>
@@ -2214,7 +2251,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$88</span>
               <span class="hotel-card__price">$70 <span>/ night</span></span>
@@ -2257,7 +2294,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$65</span>
               <span class="hotel-card__price">$52 <span>/ night</span></span>
@@ -2301,7 +2338,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$95</span>
               <span class="hotel-card__price">$76 <span>/ night</span></span>
@@ -2344,7 +2381,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$78</span>
               <span class="hotel-card__price">$62 <span>/ night</span></span>
@@ -2387,7 +2424,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$70</span>
               <span class="hotel-card__price">$56 <span>/ night</span></span>
@@ -2431,7 +2468,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$110</span>
               <span class="hotel-card__price">$88 <span>/ night</span></span>
@@ -2474,7 +2511,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$82</span>
               <span class="hotel-card__price">$66 <span>/ night</span></span>
@@ -2517,7 +2554,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$62</span>
               <span class="hotel-card__price">$50 <span>/ night</span></span>
@@ -2560,7 +2597,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$72</span>
               <span class="hotel-card__price">$58 <span>/ night</span></span>
@@ -2603,7 +2640,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$90</span>
               <span class="hotel-card__price">$72 <span>/ night</span></span>
@@ -2647,7 +2684,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$55</span>
               <span class="hotel-card__price">$44 <span>/ night</span></span>
@@ -2690,7 +2727,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$65</span>
               <span class="hotel-card__price">$52 <span>/ night</span></span>
@@ -2735,7 +2772,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$95</span>
               <span class="hotel-card__price">$76 <span>/ night</span></span>
@@ -2778,7 +2815,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$105</span>
               <span class="hotel-card__price">$84 <span>/ night</span></span>
@@ -2821,7 +2858,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$88</span>
               <span class="hotel-card__price">$70 <span>/ night</span></span>
@@ -2864,7 +2901,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$78</span>
               <span class="hotel-card__price">$62 <span>/ night</span></span>
@@ -2907,7 +2944,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$72</span>
               <span class="hotel-card__price">$58 <span>/ night</span></span>
@@ -2951,7 +2988,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$60</span>
               <span class="hotel-card__price">$48 <span>/ night</span></span>
@@ -2994,7 +3031,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$140</span>
               <span class="hotel-card__price">$112 <span>/ night</span></span>
@@ -3037,7 +3074,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$95</span>
               <span class="hotel-card__price">$76 <span>/ night</span></span>
@@ -3080,7 +3117,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$80</span>
               <span class="hotel-card__price">$64 <span>/ night</span></span>
@@ -3123,7 +3160,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$65</span>
               <span class="hotel-card__price">$52 <span>/ night</span></span>
@@ -3166,7 +3203,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$58</span>
               <span class="hotel-card__price">$46 <span>/ night</span></span>
@@ -3209,7 +3246,7 @@
             </div>
             <div class="hotel-card__price-block">
               <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%</div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$75</span>
               <span class="hotel-card__price">$60 <span>/ night</span></span>
