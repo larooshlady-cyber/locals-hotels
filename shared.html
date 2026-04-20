@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     :root {
       --white: #FFFFFF;
@@ -35,6 +35,7 @@
       background: var(--white);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
     img { display: block; max-width: 100%; }
@@ -225,8 +226,10 @@
     }
     .mobile-menu.active { display: flex; }
     .mobile-menu__link {
-      display: block;
-      padding: 12px 0;
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      min-height: 44px;
       font-size: 16px;
       font-weight: 400;
       color: var(--abbey);
@@ -472,7 +475,7 @@
         padding: 0 18px;
         height: 36px;
       }
-      .header__hamburger { display: flex; }
+      .header__hamburger { display: flex; width: 44px; height: 44px; }
 
       .shared-hero {
         padding: 48px 20px;
@@ -502,6 +505,14 @@
       .shared-empty {
         padding: 60px 20px;
       }
+    }
+
+    /* ========== SMALL PHONE ========== */
+    @media (max-width: 480px) {
+      .shared-hero { padding: 36px 16px; }
+      .shared-hero__title { font-size: 22px; }
+      .shared-grid { padding: 24px 16px 0; }
+      .shared-actions { padding: 24px 16px 40px; }
     }
   </style>
 </head>
