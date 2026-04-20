@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shared Favorites — Locals' Hotels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --white: #FFFFFF;
+      --athens-gray: #F8F9FA;
+      --mischka: #CED4DA;
+      --hit-gray: #ADB5BD;
+      --abbey: #495057;
+      --nevada: #677078;
+      --outer-space: #343A40;
+      --shark: #212529;
+      --black: #000000;
+      --black-60: rgba(0,0,0,0.6);
+      --mexican-red: #A22522;
+      --white-lilac: #E8E8F6;
+      --gray-muted: #6C757D;
+      --font: 'Funnel Sans', sans-serif;
+      --font-display: 'Funnel Sans', sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--shark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { border: none; background: none; cursor: pointer; font-family: inherit; }
+    ul, li { list-style: none; }
+
+    /* ========== HEADER ========== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .header.scrolled {
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom-color: rgba(0,0,0,0.06);
+    }
+    .header__inner {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      height: 72px;
+      padding: 0 48px;
+    }
+
+    .header__logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--shark);
+      transition: all 0.3s ease;
+      justify-self: start;
+    }
+    .header__logo:hover { letter-spacing: 3.5px; }
+    .header__logo-img { height: 18px; width: auto; display: block; }
+
+    .header__nav {
+      display: flex;
+      gap: 2px;
+      align-items: center;
+      justify-self: center;
+      background: var(--athens-gray);
+      border-radius: 6px;
+      padding: 4px;
+      position: relative;
+    }
+    .header__nav-item {
+      padding: 10px 24px;
+      font-size: 12.5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      line-height: 1;
+      color: var(--abbey);
+      border-radius: 6px;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      white-space: nowrap;
+      z-index: 1;
+    }
+    .header__nav-item:hover { color: var(--shark); }
+    .header__nav-item--active {
+      background: var(--white);
+      color: var(--shark);
+      font-weight: 600;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .header__actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-self: end;
+    }
+    .header__action-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      color: var(--abbey);
+      position: relative;
+    }
+    .header__action-btn:hover {
+      background: var(--athens-gray);
+      color: var(--shark);
+    }
+    .header__action-btn svg { width: 19px; height: 19px; }
+    .header__action-btn--heart:hover {
+      color: var(--mexican-red);
+      background: rgba(162, 37, 34, 0.06);
+    }
+    .header__divider {
+      width: 1px;
+      height: 24px;
+      background: var(--mischka);
+      margin: 0 6px;
+    }
+    .header__action-btn--cta {
+      width: auto;
+      padding: 0 24px;
+      height: 40px;
+      border-radius: 6px;
+      background: var(--shark);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      gap: 8px;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+    .header__action-btn--cta:hover {
+      background: var(--black);
+      color: var(--white);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .header__lang {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--abbey);
+      letter-spacing: 0.5px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      transition: all 0.25s;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .header__lang svg { width: 14px; height: 14px; opacity: 0.5; }
+    .header__lang:hover {
+      background: var(--athens-gray);
+      color: var(--shark);
+    }
+
+    .header__hamburger {
+      display: none;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    .header__hamburger:hover { background: var(--athens-gray); }
+    .header__hamburger span {
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: var(--shark);
+      border-radius: 2px;
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s;
+    }
+
+    /* ========== MOBILE MENU ========== */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--mischka);
+      z-index: 99;
+      flex-direction: column;
+      padding: 8px 16px 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .mobile-menu.active { display: flex; }
+    .mobile-menu__link {
+      display: block;
+      padding: 12px 0;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--abbey);
+      border-bottom: 1px solid var(--athens-gray);
+      text-transform: uppercase;
+    }
+    .mobile-menu__link:last-child { border-bottom: none; }
+
+    /* ========== HERO ========== */
+    .shared-hero {
+      background: var(--athens-gray);
+      padding: 64px 48px;
+      text-align: center;
+    }
+    .shared-hero__inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .shared-hero__icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 20px;
+      color: var(--mexican-red);
+    }
+    .shared-hero__title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--shark);
+      margin-bottom: 12px;
+    }
+    .shared-hero__subtitle {
+      font-size: 15px;
+      color: var(--nevada);
+      line-height: 1.5;
+    }
+
+    /* ========== CARDS GRID ========== */
+    .shared-grid {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 48px 48px 0;
+    }
+    .shared-grid__list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .shared-card {
+      border: 1px solid var(--mischka);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--white);
+      transition: border-color 0.25s ease;
+    }
+    .shared-card:hover {
+      border-color: rgba(0,0,0,0.12);
+    }
+    .shared-card__img {
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+    }
+    .shared-card__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .shared-card__save {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      transition: all 0.2s ease;
+      z-index: 2;
+    }
+    .shared-card__save svg {
+      width: 18px;
+      height: 18px;
+      color: var(--abbey);
+      transition: color 0.2s ease;
+    }
+    .shared-card__save:hover svg,
+    .shared-card__save.saved svg {
+      color: var(--mexican-red);
+      fill: var(--mexican-red);
+    }
+    .shared-card__body {
+      padding: 20px;
+    }
+    .shared-card__name {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--shark);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .shared-card__city {
+      font-size: 13px;
+      color: var(--nevada);
+      margin-bottom: 16px;
+    }
+    .shared-card__link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--shark);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s ease;
+    }
+    .shared-card__link:hover {
+      gap: 10px;
+    }
+    .shared-card__link svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ========== ACTIONS BAR ========== */
+    .shared-actions {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 40px 48px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .shared-actions__save-all {
+      padding: 14px 32px;
+      background: var(--shark);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      border-radius: 6px;
+      transition: all 0.25s ease;
+    }
+    .shared-actions__save-all:hover {
+      background: var(--black);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .shared-actions__save-all:disabled {
+      opacity: 0.5;
+      cursor: default;
+      transform: none;
+      box-shadow: none;
+    }
+    .shared-actions__browse {
+      padding: 14px 32px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      border-radius: 6px;
+      border: 1px solid var(--mischka);
+      color: var(--shark);
+      transition: all 0.25s ease;
+      display: inline-block;
+    }
+    .shared-actions__browse:hover {
+      border-color: var(--shark);
+    }
+
+    /* ========== EMPTY STATE ========== */
+    .shared-empty {
+      display: none;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 80px 48px;
+      text-align: center;
+    }
+    .shared-empty.active { display: block; }
+    .shared-empty__icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 20px;
+      color: var(--mischka);
+    }
+    .shared-empty__title {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--shark);
+      margin-bottom: 8px;
+    }
+    .shared-empty__text {
+      font-size: 15px;
+      color: var(--nevada);
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+    .shared-empty__link {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--shark);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      border-radius: 6px;
+      transition: all 0.25s ease;
+    }
+    .shared-empty__link:hover {
+      background: var(--black);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1024px) {
+      .shared-grid__list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header__inner {
+        display: flex;
+        justify-content: space-between;
+        height: 64px;
+        padding: 0 16px;
+      }
+      .header__nav { display: none; }
+      .header__actions .header__action-btn:not(.header__action-btn--cta) { display: none; }
+      .header__lang { display: none; }
+      .header__divider { display: none; }
+      .header__action-btn--cta {
+        font-size: 11px;
+        padding: 0 18px;
+        height: 36px;
+      }
+      .header__hamburger { display: flex; }
+
+      .shared-hero {
+        padding: 48px 20px;
+      }
+      .shared-hero__title {
+        font-size: 24px;
+      }
+
+      .shared-grid {
+        padding: 32px 20px 0;
+      }
+      .shared-grid__list {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .shared-actions {
+        padding: 32px 20px 48px;
+        flex-direction: column;
+      }
+      .shared-actions__save-all,
+      .shared-actions__browse {
+        width: 100%;
+        text-align: center;
+      }
+
+      .shared-empty {
+        padding: 60px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo">
+        <img src="images/logo.svg" alt="Locals' Hotels" class="header__logo-img">
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-item">Home</a>
+        <a href="hotels.html" class="header__nav-item">Hotels</a>
+        <a href="restaurants.html" class="header__nav-item">Restaurants</a>
+        <a href="journal.html" class="header__nav-item">Journal</a>
+        <a href="contact.html" class="header__nav-item">Contact</a>
+      </nav>
+      <div class="header__actions">
+        <button class="header__action-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+        <button class="header__action-btn header__action-btn--heart" aria-label="Saved">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <a href="#" class="header__lang">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          EN
+        </a>
+        <span class="header__divider"></span>
+        <a href="signup.html" class="header__action-btn header__action-btn--cta">Become Local</a>
+        <button class="header__hamburger" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-menu__link">Home</a>
+    <a href="hotels.html" class="mobile-menu__link">Hotels</a>
+    <a href="restaurants.html" class="mobile-menu__link">Restaurants</a>
+    <a href="journal.html" class="mobile-menu__link">Journal</a>
+    <a href="contact.html" class="mobile-menu__link">Contact</a>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="shared-hero">
+    <div class="shared-hero__inner">
+      <svg class="shared-hero__icon" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+      <h1 class="shared-hero__title">A friend shared their favorite hotels with you</h1>
+      <p class="shared-hero__subtitle" id="sharedCount"></p>
+    </div>
+  </section>
+
+  <!-- ========== CARDS GRID ========== -->
+  <section class="shared-grid" id="sharedGrid" style="display:none;">
+    <div class="shared-grid__list" id="sharedList"></div>
+  </section>
+
+  <!-- ========== ACTIONS ========== -->
+  <div class="shared-actions" id="sharedActions" style="display:none;">
+    <button class="shared-actions__save-all" id="saveAllBtn">Save all to my list</button>
+    <a href="hotels.html" class="shared-actions__browse">Browse all hotels</a>
+  </div>
+
+  <!-- ========== EMPTY STATE ========== -->
+  <div class="shared-empty" id="sharedEmpty">
+    <svg class="shared-empty__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+    <h2 class="shared-empty__title">No hotels to show</h2>
+    <p class="shared-empty__text">This link doesn't contain any valid hotels. Browse our full collection instead.</p>
+    <a href="hotels.html" class="shared-empty__link">Browse all hotels</a>
+  </div>
+
+  <script>
+  (function() {
+    // Hotel data (same as index.html)
+    var hotelData = {
+      'artizan-design-hotel': { name: 'Artizan Design Hotel', city: 'Tbilisi, Vera', img: 'images/artizan-1.jpg', url: 'hotel.html' },
+      'glarros-oldtown': { name: 'Glarros Oldtown', city: 'Tbilisi, Old Town', img: 'images/glarros-9.jpg', url: 'hotel.html' },
+      'bellhop-tbilisi': { name: 'Bellhop Tbilisi', city: 'Tbilisi, Sololaki', img: 'images/748332753.jpg', url: 'hotel.html' },
+      'bodbe-hotel': { name: 'Bodbe Hotel', city: 'Sighnaghi, Kakheti', img: 'images/248057741.jpg', url: 'hotel.html' },
+      'rooms-hotel-kazbegi': { name: 'Rooms Hotel Kazbegi', city: 'Stepantsminda', img: 'images/334856159.jpg', url: 'hotel.html' },
+      'communal-hotel-kutaisi': { name: 'Communal Hotel Kutaisi', city: 'Kutaisi', img: 'images/communal-11-11.jpg', url: 'hotel.html' },
+      'rooms-hotel-tbilisi': { name: 'Rooms Hotel Tbilisi', city: 'Tbilisi, Vera', img: 'images/37024479.jpg', url: 'hotel.html' },
+      'stamba-hotel': { name: 'Stamba Hotel', city: 'Tbilisi, Chugureti', img: 'images/e05c7fc9.jpeg', url: 'hotel.html' },
+      'iota-hotel': { name: 'Iota Hotel Tbilisi', city: 'Tbilisi, Old Town', img: 'images/blueberry-nights-1.jpg', url: 'hotel.html' },
+      'blue-fox-hotel': { name: 'Blue Fox Hotel', city: 'Tbilisi, Mtatsminda', img: 'images/blue-fox-hotel-photo-1.jpg', url: 'hotel.html' },
+      'hotel-afisha': { name: 'Hotel Afisha', city: 'Tbilisi, Sololaki', img: 'images/hotel-afisha-8.jpg', url: 'hotel.html' },
+      'wine-terrace-kakheti': { name: 'Wine Terrace Resort', city: 'Telavi, Kakheti', img: 'images/692693230.jpg', url: 'hotel.html' },
+      'qarvasla-boutique': { name: 'Qarvasla Boutique Hotel', city: 'Tbilisi, Abanotubani', img: 'images/qarvasla-1-1.jpg', url: 'hotel.html' },
+      'unfound-door': { name: 'Unfound Door', city: 'Tbilisi, Vera', img: 'images/unfound-door-1.jpg', url: 'hotel.html' },
+      'panorama-kazbegi': { name: 'Panorama Kazbegi', city: 'Stepantsminda', img: 'images/293013607.jpg', url: 'hotel.html' },
+      'kakheti-wine-lodge': { name: 'Kakheti Wine Lodge', city: 'Sighnaghi, Kakheti', img: 'images/668570572.jpg', url: 'hotel.html' },
+      'tbilisi-art-residence': { name: 'Tbilisi Art Residence', city: 'Tbilisi, Sololaki', img: 'images/411213380.jpg', url: 'hotel.html' },
+      'old-town-terrace': { name: 'Old Town Terrace Hotel', city: 'Tbilisi, Old Town', img: 'images/395350020.jpg', url: 'hotel.html' },
+      'sulphur-springs-hotel': { name: 'Sulphur Springs Hotel', city: 'Tbilisi, Abanotubani', img: 'images/604771124.jpg', url: 'hotel.html' },
+      'vera-garden-hotel': { name: 'Vera Garden Hotel', city: 'Tbilisi, Vera', img: 'images/375812310.jpg', url: 'hotel.html' },
+      'mtatsminda-view': { name: 'Mtatsminda View Hotel', city: 'Tbilisi, Mtatsminda', img: 'images/565109306-1.jpg', url: 'hotel.html' },
+      'telavi-heritage': { name: 'Telavi Heritage Inn', city: 'Telavi, Kakheti', img: 'images/photo-telavi-1-1.jpg', url: 'hotel.html' },
+      'batumi-riviera': { name: 'Batumi Riviera Hotel', city: 'Batumi', img: 'images/719637093.jpg', url: 'hotel.html' },
+      'sololaki-loft': { name: 'Sololaki Loft Hotel', city: 'Tbilisi, Sololaki', img: 'images/218667969.jpg', url: 'hotel.html' },
+      'chugureti-house': { name: 'Chugureti House', city: 'Tbilisi, Chugureti', img: 'images/646560375-1.jpg', url: 'hotel.html' },
+      'nariqala-palace': { name: 'Nariqala Palace Hotel', city: 'Tbilisi, Old Town', img: 'images/118416216.jpg', url: 'hotel.html' },
+      'kutaisi-courtyard': { name: 'Kutaisi Courtyard Hotel', city: 'Kutaisi', img: 'images/17870169.jpg', url: 'hotel.html' }
+    };
+
+    var STORAGE_KEY = 'lh_favs';
+
+    function getFavs() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { return []; }
+    }
+
+    function saveFavs(favs) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(favs));
+    }
+
+    function isSaved(slug) {
+      return getFavs().indexOf(slug) !== -1;
+    }
+
+    function toggleSave(slug) {
+      var favs = getFavs();
+      var idx = favs.indexOf(slug);
+      if (idx === -1) {
+        favs.push(slug);
+      } else {
+        favs.splice(idx, 1);
+      }
+      saveFavs(favs);
+      return favs.indexOf(slug) !== -1;
+    }
+
+    // Parse URL params
+    var params = new URLSearchParams(window.location.search);
+    var favsParam = params.get('favs');
+    var slugs = favsParam ? favsParam.split(',').filter(function(s) { return hotelData[s]; }) : [];
+
+    var gridEl = document.getElementById('sharedGrid');
+    var listEl = document.getElementById('sharedList');
+    var actionsEl = document.getElementById('sharedActions');
+    var emptyEl = document.getElementById('sharedEmpty');
+    var countEl = document.getElementById('sharedCount');
+    var saveAllBtn = document.getElementById('saveAllBtn');
+
+    if (slugs.length === 0) {
+      emptyEl.classList.add('active');
+      return;
+    }
+
+    // Show grid
+    gridEl.style.display = '';
+    actionsEl.style.display = '';
+    countEl.textContent = slugs.length + ' hotel' + (slugs.length !== 1 ? 's' : '') + " from Locals' Hotels";
+
+    // Render cards
+    slugs.forEach(function(slug) {
+      var hotel = hotelData[slug];
+      var saved = isSaved(slug);
+      var card = document.createElement('div');
+      card.className = 'shared-card';
+      card.innerHTML =
+        '<div class="shared-card__img">' +
+          '<img src="' + hotel.img + '" alt="' + hotel.name + '" loading="lazy">' +
+          '<button class="shared-card__save' + (saved ? ' saved' : '') + '" data-slug="' + slug + '" aria-label="Save to favorites">' +
+            '<svg viewBox="0 0 24 24" fill="' + (saved ? 'currentColor' : 'none') + '" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>' +
+          '</button>' +
+        '</div>' +
+        '<div class="shared-card__body">' +
+          '<div class="shared-card__name">' + hotel.name + '</div>' +
+          '<div class="shared-card__city">' + hotel.city + '</div>' +
+          '<a href="' + hotel.url + '" class="shared-card__link">View Hotel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>' +
+        '</div>';
+      listEl.appendChild(card);
+    });
+
+    // Heart button clicks
+    listEl.addEventListener('click', function(e) {
+      var btn = e.target.closest('.shared-card__save');
+      if (!btn) return;
+      var slug = btn.getAttribute('data-slug');
+      var nowSaved = toggleSave(slug);
+      var svg = btn.querySelector('svg');
+      if (nowSaved) {
+        btn.classList.add('saved');
+        svg.setAttribute('fill', 'currentColor');
+      } else {
+        btn.classList.remove('saved');
+        svg.setAttribute('fill', 'none');
+      }
+      updateSaveAllBtn();
+    });
+
+    // Save all
+    function updateSaveAllBtn() {
+      var favs = getFavs();
+      var allSaved = slugs.every(function(s) { return favs.indexOf(s) !== -1; });
+      if (allSaved) {
+        saveAllBtn.textContent = 'All saved';
+        saveAllBtn.disabled = true;
+      } else {
+        saveAllBtn.textContent = 'Save all to my list';
+        saveAllBtn.disabled = false;
+      }
+    }
+
+    updateSaveAllBtn();
+
+    saveAllBtn.addEventListener('click', function() {
+      var favs = getFavs();
+      slugs.forEach(function(slug) {
+        if (favs.indexOf(slug) === -1) {
+          favs.push(slug);
+        }
+      });
+      saveFavs(favs);
+
+      // Update all heart buttons
+      listEl.querySelectorAll('.shared-card__save').forEach(function(btn) {
+        btn.classList.add('saved');
+        btn.querySelector('svg').setAttribute('fill', 'currentColor');
+      });
+      updateSaveAllBtn();
+    });
+
+    // Header scroll
+    var header = document.querySelector('.header');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 10) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Hamburger toggle
+    var hamburger = document.querySelector('.header__hamburger');
+    var mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', function() {
+        mobileMenu.classList.toggle('active');
+      });
+    }
+  })();
+  </script>
+  <script src="auth-modal.js"></script>
+  <script src="site-footer.js"></script>
+</body>
+</html>

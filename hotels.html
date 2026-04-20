@@ -6,7 +6,7 @@
   <title>Hotels — Locals' Hotels</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300;400;500;600;700&family=Funnel+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -26,7 +26,7 @@
       --white-lilac: #E8E8F6;
       --gray-muted: #6C757D;
       --font: 'Funnel Sans', sans-serif;
-      --font-display: 'Funnel Display', sans-serif;
+      --font-display: 'Funnel Sans', sans-serif;
     }
 
     body {
@@ -316,7 +316,6 @@
       transition: left 0.5s ease;
     }
     .header__action-btn--cta:hover::before {
-      left: 100%;
     }
     .header__action-btn--cta:hover {
       background: var(--black);
@@ -477,10 +476,16 @@
       z-index: 100;
       background: var(--white);
       overflow: visible;
-      transition: box-shadow 0.3s;
+      transition: box-shadow 0.3s, transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s;
     }
     .filters.stuck {
       box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+    .filters.hide-filters {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: none;
     }
     .filters__inner {
       max-width: 1600px;
@@ -997,8 +1002,8 @@
     a.hotel-card:hover .hotel-card__gradient-bottom {
       opacity: 1;
     }
-    .hotel-card__image-wrap::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background 0.2s ease; pointer-events: none; z-index: 1; border-radius: inherit; }
-    a.hotel-card:hover .hotel-card__image-wrap::after { background: rgba(0,0,0,0.2); }
+    .hotel-card__image-wrap::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.08); transition: background 0.2s ease; pointer-events: none; z-index: 1; border-radius: inherit; }
+    a.hotel-card:hover .hotel-card__image-wrap::after { background: rgba(0,0,0,0); }
     .hotel-card__overlay-text {
       display: none;
     }
@@ -1153,7 +1158,7 @@
     }
     .hotel-card__title-row {
       display: flex;
-      align-items: flex-start;
+      align-items: flex-end;
       justify-content: space-between;
       gap: 16px;
       margin-top: 14px;
@@ -1183,12 +1188,7 @@
       justify-content: flex-end;
       margin-bottom: 3px;
     }
-    .hotel-card__discount-label {
-      font-size: 10px;
-      font-weight: 400;
-      color: var(--hit-gray);
-      margin-right: 1px;
-    }
+    .hotel-card__discount-label { display: inline; }
     .hotel-card__discount-info {
       width: 14px;
       height: 14px;
@@ -1234,23 +1234,53 @@
       gap: 4px;
       white-space: nowrap;
     }
+    /* -- Logged-out: original price as main, hide member price -- */
+    .hotel-card__price { display: none; }
     .hotel-card__price-original {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--shark);
+      white-space: nowrap;
+      line-height: 24px;
+      text-decoration: none;
+    }
+    .hotel-card__price-original::after {
+      content: ' / night';
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--hit-gray);
+    }
+    /* -- Logged-in: strikethrough original + show member price -- */
+    .lh-signed-in .hotel-card__price-original {
       font-size: 13px;
       font-weight: 500;
       color: var(--hit-gray);
       text-decoration: line-through;
+      line-height: normal;
     }
-    .hotel-card__price {
+    .lh-signed-in .hotel-card__price-original::after { content: none; }
+    .lh-signed-in .hotel-card__price {
+      display: inline;
       font-size: 20px;
       font-weight: 700;
       color: var(--shark);
       white-space: nowrap;
       line-height: 24px;
     }
-    .hotel-card__price span {
+    .lh-signed-in .hotel-card__price span {
       font-size: 10px;
       font-weight: 400;
       color: var(--hit-gray);
+    }
+    .lh-signed-in .hotel-card__discount-label {
+      font-size: 0;
+    }
+    .lh-signed-in .hotel-card__discount-label::after {
+      content: 'Up to';
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--hit-gray);
+      margin-right: 1px;
     }
     .hotel-card__tags {
       display: none;
@@ -1337,10 +1367,6 @@
     .hotels-cta__btn svg {
       width: 14px;
       height: 14px;
-      transition: transform 0.3s;
-    }
-    .hotels-cta__btn:hover svg {
-      transform: translateX(3px);
     }
     .hotels-cta__image {
       position: relative;
@@ -1527,8 +1553,9 @@
     .discover__title { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--shark); margin-bottom: 32px; }
     .discover__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .discover__card { position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 3/4; display: block; }
-    .discover__card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-    .discover__card:hover img { transform: scale(1.05); }
+    .discover__card::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.08); transition: background 0.2s ease; pointer-events: none; z-index: 1; border-radius: inherit; }
+    .discover__card:hover::after { background: rgba(0,0,0,0); }
+    .discover__card img { width: 100%; height: 100%; object-fit: cover; }
     .discover__card-badge { position: absolute; top: 16px; left: 16px; background: var(--mexican-red); color: white; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 6px 14px; border-radius: 6px; z-index: 2; }
     .discover__card-gradient { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.6) 100%); }
     .discover__card-title { position: absolute; bottom: 24px; left: 24px; right: 24px; font-family: var(--font-display); font-size: 22px; font-weight: 600; line-height: 30px; color: white; z-index: 2; }
@@ -1626,12 +1653,17 @@
       .hotel-card__price-block {
         text-align: left;
       }
-      .hotel-card__price {
+      .hotel-card__price-original {
         font-size: 22px;
         line-height: 26px;
       }
-      .hotel-card__price-original {
+      .lh-signed-in .hotel-card__price {
+        font-size: 22px;
+        line-height: 26px;
+      }
+      .lh-signed-in .hotel-card__price-original {
         font-size: 14px;
+        line-height: normal;
       }
       .hotel-card__name {
         font-size: 11px;
@@ -1710,7 +1742,7 @@
   <div class="topbar" id="topbar">
     <div class="topbar__inner">
       <span class="topbar__badge">New</span>
-      <span class="topbar__text">Hotels just added in Kakheti wine region</span>
+      <span class="topbar__text">Hotels just added in Kakheti wine country</span>
       <a href="hotels.html?region=Kakheti" class="topbar__link">Explore now &rarr;</a>
     </div>
     <button class="topbar__close" id="topbarClose" aria-label="Close">
@@ -1722,11 +1754,12 @@
   <header class="header">
     <div class="header__inner">
       <a href="index.html" class="header__logo">
-        <img src="https://localshotels.com/wp-content/uploads/2025/05/logo-horizontal-black-1024x97.webp" alt="Locals' Hotels" class="header__logo-img">
+        <img src="images/logo.svg" alt="Locals' Hotels" class="header__logo-img">
       </a>
       <nav class="header__nav">
         <a href="index.html" class="header__nav-item">Home</a>
         <a href="hotels.html" class="header__nav-item header__nav-item--active">Hotels</a>
+        <a href="restaurants.html" class="header__nav-item">Restaurants</a>
         <a href="journal.html" class="header__nav-item">Journal</a>
         <a href="contact.html" class="header__nav-item">Contact</a>
       </nav>
@@ -1990,8 +2023,7 @@
               <h3 class="hotel-card__title">Stylish Rooms and a Historic Artist's Museum in Tbilisi's Vera District</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$85</span>
               <span class="hotel-card__price">$68 <span>/ night</span></span>
@@ -2035,8 +2067,7 @@
               <h3 class="hotel-card__title">A Retro-Inspired Hotel Stay on One of Tbilisi's Fast Main Streets</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$68</span>
               <span class="hotel-card__price">$54 <span>/ night</span></span>
@@ -2078,8 +2109,7 @@
               <h3 class="hotel-card__title">Cinematic Escape Above Lolita Restaurant, Blending Design, Music, and Film</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$92</span>
               <span class="hotel-card__price">$74 <span>/ night</span></span>
@@ -2121,8 +2151,7 @@
               <h3 class="hotel-card__title">Design Hotel in a Former Publishing House, at the Heart of Vera District</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$120</span>
               <span class="hotel-card__price">$96 <span>/ night</span></span>
@@ -2164,8 +2193,7 @@
               <h3 class="hotel-card__title">Tbilisi's Creative Landmark, in a Restored Soviet Publishing House</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$150</span>
               <span class="hotel-card__price">$120 <span>/ night</span></span>
@@ -2207,8 +2235,7 @@
               <h3 class="hotel-card__title">Scenery Morning Beneath Ancient Narikala Fortress</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$75</span>
               <span class="hotel-card__price">$60 <span>/ night</span></span>
@@ -2250,8 +2277,7 @@
               <h3 class="hotel-card__title">Art Nouveau Mansion Stay in Sololaki's Literary Landmark</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$88</span>
               <span class="hotel-card__price">$70 <span>/ night</span></span>
@@ -2293,8 +2319,7 @@
               <h3 class="hotel-card__title">Intimate City Stay in the Heart of the Bazaar Quarter</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$65</span>
               <span class="hotel-card__price">$52 <span>/ night</span></span>
@@ -2337,8 +2362,7 @@
               <h3 class="hotel-card__title">Moorish Arches and Courtyard Rooms at the Historic Crossroads of Old Tbilisi</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$95</span>
               <span class="hotel-card__price">$76 <span>/ night</span></span>
@@ -2380,8 +2404,7 @@
               <h3 class="hotel-card__title">Bohemian Elegance in Tbilisi's Art Nouveau Streets</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$78</span>
               <span class="hotel-card__price">$62 <span>/ night</span></span>
@@ -2423,8 +2446,7 @@
               <h3 class="hotel-card__title">Balconied Rooms with Local Murals in Old Town's Backstreets</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$70</span>
               <span class="hotel-card__price">$56 <span>/ night</span></span>
@@ -2467,8 +2489,7 @@
               <h3 class="hotel-card__title">A Restaurant, Bar, and 12-Room Stay Inside a Restored Century-Old Townhouse</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$110</span>
               <span class="hotel-card__price">$88 <span>/ night</span></span>
@@ -2510,8 +2531,7 @@
               <h3 class="hotel-card__title">Reimagined Cultural Monument for Design-First Travelers</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$82</span>
               <span class="hotel-card__price">$66 <span>/ night</span></span>
@@ -2553,8 +2573,7 @@
               <h3 class="hotel-card__title">Design-led Boutique Stay in Tbilisi's Creative District</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$62</span>
               <span class="hotel-card__price">$50 <span>/ night</span></span>
@@ -2596,8 +2615,7 @@
               <h3 class="hotel-card__title">Mosaic Textures Meet the Everyday Pattern of Tbilisi's Oldest District</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$72</span>
               <span class="hotel-card__price">$58 <span>/ night</span></span>
@@ -2639,8 +2657,7 @@
               <h3 class="hotel-card__title">Forest Immersion, Wooden Architecture, and Outdoor Rituals in Kakheti's Wild Corner</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$90</span>
               <span class="hotel-card__price">$72 <span>/ night</span></span>
@@ -2683,8 +2700,7 @@
               <h3 class="hotel-card__title">Modern Design Retreat in Kakheti's Historic Vineyards, Inspired by Georgian Heritage</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$55</span>
               <span class="hotel-card__price">$44 <span>/ night</span></span>
@@ -2726,8 +2742,7 @@
               <h3 class="hotel-card__title">Moorish-Inspired Boutique Stay with Pool and Local Fare in Telavi</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$65</span>
               <span class="hotel-card__price">$52 <span>/ night</span></span>
@@ -2771,8 +2786,7 @@
               <h3 class="hotel-card__title">Contemporary Retreat with Panoramic Views Near Bodbe Monastery</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$95</span>
               <span class="hotel-card__price">$76 <span>/ night</span></span>
@@ -2814,8 +2828,7 @@
               <h3 class="hotel-card__title">Chic Rooms and Slow Spa Days in Telavi, Kakheti's Wine Capital</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$105</span>
               <span class="hotel-card__price">$84 <span>/ night</span></span>
@@ -2857,8 +2870,7 @@
               <h3 class="hotel-card__title">Boutique Hilltop Retreat with Panoramic Alazani Valley Views</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$88</span>
               <span class="hotel-card__price">$70 <span>/ night</span></span>
@@ -2900,8 +2912,7 @@
               <h3 class="hotel-card__title">19th-Century Estate with Timeless Elegance, Vineyards, and Horseback Riding</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$78</span>
               <span class="hotel-card__price">$62 <span>/ night</span></span>
@@ -2943,8 +2954,7 @@
               <h3 class="hotel-card__title">Lake Evenings, Bike Paths and Shared Silence in Northern Kakheti</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$72</span>
               <span class="hotel-card__price">$58 <span>/ night</span></span>
@@ -2987,8 +2997,7 @@
               <h3 class="hotel-card__title">A Modern Resting Point in Historic Kvareli</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$60</span>
               <span class="hotel-card__price">$48 <span>/ night</span></span>
@@ -3030,8 +3039,7 @@
               <h3 class="hotel-card__title">The Iconic Mountain Retreat that Redefined Georgian Hospitality</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$140</span>
               <span class="hotel-card__price">$112 <span>/ night</span></span>
@@ -3073,8 +3081,7 @@
               <h3 class="hotel-card__title">Ski-in Ski-out Resort with Spa, Chalets, and the Spirit of Gudauri Since 1988</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$95</span>
               <span class="hotel-card__price">$76 <span>/ night</span></span>
@@ -3116,8 +3123,7 @@
               <h3 class="hotel-card__title">Ski-in Ski-out Lodge with Spa & Caucasus Mountain Views</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$80</span>
               <span class="hotel-card__price">$64 <span>/ night</span></span>
@@ -3159,8 +3165,7 @@
               <h3 class="hotel-card__title">Charming Townhouse with Local Eatery, Serving Authentic Plates and Natural Wine</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$65</span>
               <span class="hotel-card__price">$52 <span>/ night</span></span>
@@ -3202,8 +3207,7 @@
               <h3 class="hotel-card__title">Terrace Light, English Breakfasts and Walkable Old Town Days in Kutaisi</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$58</span>
               <span class="hotel-card__price">$46 <span>/ night</span></span>
@@ -3245,8 +3249,7 @@
               <h3 class="hotel-card__title">Classical Elegance, Modern Comfort and Wine Cellars in Kutaisi</h3>
             </div>
             <div class="hotel-card__price-block">
-              <span class="hotel-card__member-badge">Members price</span>
-              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Members-only rate. The discount is compared to the hotel's standard public rate. See offer details for full terms.</span></span></div>
+              <div class="hotel-card__discount"><span class="hotel-card__discount-label">Get discount up to</span> -20%<span class="hotel-card__discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="hotel-card__discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>
               <div class="hotel-card__price-wrap">
               <span class="hotel-card__price-original">$75</span>
               <span class="hotel-card__price">$60 <span>/ night</span></span>
@@ -3682,14 +3685,19 @@
 
       var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
       var DOW = ['Mo','Tu','We','Th','Fr','Sa','Su'];
-      var toISO = function(d) { return d.toISOString().split('T')[0]; };
+      var toISO = function(d) {
+        var y = d.getFullYear();
+        var m = String(d.getMonth() + 1).padStart(2, '0');
+        var day = String(d.getDate()).padStart(2, '0');
+        return y + '-' + m + '-' + day;
+      };
       function fmt(dateStr) {
         if (!dateStr) return '';
         var d = new Date(dateStr + 'T00:00:00');
         return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
       }
 
-      var state = { selecting: 'checkin', viewMonth: new Date().getMonth(), viewYear: new Date().getFullYear(), checkin: null, checkout: null, isOpen: false };
+      var state = { selecting: 'checkin', viewMonth: new Date().getMonth(), viewYear: new Date().getFullYear(), checkin: null, checkout: null, hoverDate: null, isOpen: false };
 
       // Generate realistic-looking nightly prices per date (seeded by date for consistency)
       function getDayPrice(date) {
@@ -3729,7 +3737,7 @@
         state.isOpen = true;
         popup.classList.add('active');
         positionPopup();
-        hint.textContent = state.selecting === 'checkin' ? 'Select check-in date' : 'Select check-out date';
+        updateHint();
         render();
       }
 
@@ -3748,17 +3756,31 @@
 
       function updateDisplay() {
         if (checkin.value && checkout.value) {
-          var nights = Math.round((state.checkout - state.checkin) / 86400000);
-          var total = calcTotalPrice(state.checkin, state.checkout);
           display.textContent = fmt(checkin.value) + ' — ' + fmt(checkout.value);
           display.classList.add('filters__search-field-text--filled');
-          hint.innerHTML = nights + ' night' + (nights > 1 ? 's' : '') + ' &middot; <strong>$' + total + ' total</strong>';
         } else if (checkin.value) {
           display.textContent = fmt(checkin.value) + ' — Check-out';
           display.classList.add('filters__search-field-text--filled');
         } else {
           display.textContent = 'Add dates';
           display.classList.remove('filters__search-field-text--filled');
+        }
+        updateHint();
+      }
+
+      function updateHint() {
+        if (state.checkin && state.checkout) {
+          var n = Math.round((state.checkout - state.checkin) / 86400000);
+          var t = calcTotalPrice(state.checkin, state.checkout);
+          hint.innerHTML = n + ' night' + (n > 1 ? 's' : '') + ' &middot; <strong>$' + t + ' total</strong>';
+        } else if (state.checkin && state.hoverDate && state.selecting === 'checkout') {
+          var n = Math.round((state.hoverDate - state.checkin) / 86400000);
+          var t = calcTotalPrice(state.checkin, state.hoverDate);
+          hint.innerHTML = n + ' night' + (n > 1 ? 's' : '') + ' &middot; <strong>$' + t + ' total</strong>';
+        } else if (state.checkin) {
+          hint.textContent = 'Select check-out date';
+        } else {
+          hint.textContent = 'Select check-in date';
         }
       }
 
@@ -3795,9 +3817,11 @@
           var isCI = state.checkin && date.getTime() === state.checkin.getTime();
           var isCO = state.checkout && date.getTime() === state.checkout.getTime();
           if (isCI || isCO) classes += ' calendar-popup__day--selected';
-          if (state.checkin && state.checkout && date > state.checkin && date < state.checkout) classes += ' calendar-popup__day--in-range';
-          if (isCI && state.checkout) classes += ' calendar-popup__day--in-range calendar-popup__day--range-start';
+          var endDate = state.checkout || (state.selecting === 'checkout' && state.hoverDate ? state.hoverDate : null);
+          if (state.checkin && endDate && date > state.checkin && date < endDate) classes += ' calendar-popup__day--in-range';
+          if (isCI && endDate) classes += ' calendar-popup__day--in-range calendar-popup__day--range-start';
           if (isCO && state.checkin) classes += ' calendar-popup__day--in-range calendar-popup__day--range-end';
+          if (!state.checkout && state.hoverDate && state.selecting === 'checkout' && date.getTime() === state.hoverDate.getTime()) classes += ' calendar-popup__day--selected calendar-popup__day--in-range calendar-popup__day--range-end';
           var priceClass = 'calendar-popup__day-price';
           if (!disabled && price <= lowThreshold) priceClass += ' calendar-popup__day-price--low';
           html += '<div class="' + classes + '" data-date="' + iso + '" data-price="' + price + '">';
@@ -3816,16 +3840,35 @@
               if (state.checkout && state.checkout <= clicked) { state.checkout = null; checkout.value = ''; }
               checkin.value = toISO(clicked);
               state.selecting = 'checkout';
-              hint.textContent = 'Select check-out date';
+              state.hoverDate = null;
               updateDisplay(); render();
             } else {
               state.checkout = clicked;
               checkout.value = toISO(clicked);
+              state.selecting = 'checkin';
+              state.hoverDate = null;
               updateDisplay(); render();
               setTimeout(closeCal, 200);
             }
           });
+          el.addEventListener('mouseenter', function() {
+            if (state.selecting !== 'checkout' || !state.checkin) return;
+            if (this.classList.contains('calendar-popup__day--disabled')) return;
+            var hd = new Date(this.dataset.date + 'T00:00:00');
+            if (hd.getTime() !== (state.hoverDate ? state.hoverDate.getTime() : 0)) {
+              state.hoverDate = hd;
+              render();
+              updateHint();
+            }
+          });
         });
+        grid.onmouseleave = function() {
+          if (state.hoverDate) {
+            state.hoverDate = null;
+            render();
+            updateHint();
+          }
+        };
       }
 
       document.getElementById('filterCalPrev').addEventListener('click', function(e) { e.stopPropagation(); state.viewMonth--; if (state.viewMonth < 0) { state.viewMonth = 11; state.viewYear--; } render(); });
@@ -3979,15 +4022,38 @@
       reveals.forEach(function(el) { observer.observe(el); });
     })();
 
-    // Filters sticky shadow
+    // Filters: hide on scroll down once stuck, show on scroll up
     (function() {
       var filters = document.querySelector('.filters');
-      if (filters) {
-        var observer = new IntersectionObserver(function(entries) {
-          filters.classList.toggle('stuck', !entries[0].isIntersecting);
-        }, { threshold: 1, rootMargin: '-73px 0px 0px 0px' });
-        observer.observe(filters);
+      if (!filters) return;
+
+      var lastScrollY = 0;
+      var ticking = false;
+      var naturalTop = filters.getBoundingClientRect().top + window.pageYOffset;
+      var stickPoint = naturalTop - 72;
+
+      function onScroll() {
+        var currentY = window.pageYOffset;
+        var isStuck = currentY >= stickPoint;
+
+        filters.classList.toggle('stuck', isStuck);
+
+        if (isStuck && currentY > lastScrollY + 5) {
+          filters.classList.add('hide-filters');
+        } else if (currentY < lastScrollY - 5 || !isStuck) {
+          filters.classList.remove('hide-filters');
+        }
+
+        lastScrollY = currentY;
+        ticking = false;
       }
+
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          requestAnimationFrame(onScroll);
+          ticking = true;
+        }
+      });
     })();
   </script>
   <script src="auth-modal.js"></script>
@@ -3999,5 +4065,6 @@
     });
   })();
   </script>
+  <script src="site-footer.js"></script>
 </body>
 </html>

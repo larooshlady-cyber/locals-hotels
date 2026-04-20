@@ -521,7 +521,10 @@
 
     var btn = this.querySelector('.am-submit');
     btn.disabled = true; btn.textContent = 'Creating Account...';
-    setTimeout(function () { show('amSignupOk'); }, 1200);
+    setTimeout(function () {
+      LH.signIn({ firstName: first, lastName: last, email: email });
+      window.location.href = 'account.html';
+    }, 1100);
   });
 
   /* ---- SIGN IN FORM ---- */
@@ -537,7 +540,13 @@
 
     var btn = this.querySelector('.am-submit');
     btn.disabled = true; btn.textContent = 'Signing In...';
-    setTimeout(function () { show('amSigninOk'); }, 1000);
+    setTimeout(function () {
+      var fn = (email.split('@')[0] || 'Local').replace(/[._-]/g, ' ');
+      fn = fn.charAt(0).toUpperCase() + fn.slice(1);
+      var existing = LH.getUser() || {};
+      LH.signIn({ firstName: existing.firstName || fn, lastName: existing.lastName || '', email: email });
+      window.location.href = 'account.html';
+    }, 900);
   });
 
   /* ---- FORGOT STEP 1 ---- */
@@ -663,6 +672,145 @@
   // Run on load and also expose for SPAs
   bindTriggers();
   window.AuthModal.bindTriggers = bindTriggers;
+
+  /* ============================================================
+     7. LH USER STATE + HEADER ACCOUNT MENU
+     Persistent (localStorage) sign-in shared across pages.
+     When a user is signed in, the "Become Local" CTA in any
+     page header is replaced with an avatar dropdown linking
+     to the account dashboard.
+     ============================================================ */
+  var LH_KEY = 'lh_user';
+  var LH = window.LH = {
+    getUser: function () {
+      try { var raw = localStorage.getItem(LH_KEY); return raw ? JSON.parse(raw) : null; }
+      catch (e) { return null; }
+    },
+    signIn: function (u) {
+      var prev = LH.getUser() || {};
+      var next = {
+        firstName: u.firstName || prev.firstName || 'Local',
+        lastName:  u.lastName  || prev.lastName  || '',
+        email:     u.email     || prev.email     || ''
+      };
+      localStorage.setItem(LH_KEY, JSON.stringify(next));
+      return next;
+    },
+    signOut: function () {
+      localStorage.removeItem(LH_KEY);
+      window.location.href = 'index.html';
+    },
+    isSignedIn: function () { return !!LH.getUser(); }
+  };
+
+  /* ---- Avatar menu CSS ---- */
+  var lhCss = document.createElement('style');
+  lhCss.textContent = [
+    '.lh-acct{position:relative;display:flex;align-items:center}',
+    '.lh-acct__btn{display:flex;align-items:center;gap:10px;padding:4px 14px 4px 4px;height:40px;border-radius:999px;background:#F8F9FA;border:1px solid transparent;cursor:pointer;font-family:inherit;transition:all .2s}',
+    '.lh-acct__btn:hover{background:#fff;border-color:#CED4DA;box-shadow:0 4px 12px rgba(0,0,0,.06)}',
+    '.lh-acct__avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#343A40,#212529);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;letter-spacing:.2px;flex-shrink:0}',
+    '.lh-acct__name{font-size:12.5px;font-weight:600;color:#212529;letter-spacing:.2px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}',
+    '.lh-acct__caret{width:13px;height:13px;color:#677078;flex-shrink:0;transition:transform .2s}',
+    '.lh-acct.open .lh-acct__caret{transform:rotate(180deg)}',
+    '.lh-acct__menu{position:absolute;top:calc(100% + 10px);right:0;width:280px;background:#fff;border-radius:14px;box-shadow:0 16px 40px rgba(0,0,0,.12),0 4px 12px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);padding:8px;opacity:0;transform:translateY(-8px) scale(.98);pointer-events:none;transition:all .22s cubic-bezier(.25,.46,.45,.94);z-index:1000}',
+    '.lh-acct.open .lh-acct__menu{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}',
+    '.lh-acct__head{display:flex;align-items:center;gap:12px;padding:14px 12px 16px;border-bottom:1px solid #F8F9FA;margin-bottom:6px}',
+    '.lh-acct__head .lh-acct__avatar{width:42px;height:42px;font-size:15px}',
+    '.lh-acct__head-info{min-width:0;flex:1}',
+    '.lh-acct__head-name{font-size:14px;font-weight:700;color:#212529;line-height:1.2;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
+    '.lh-acct__head-email{font-size:11.5px;color:#677078;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
+    '.lh-acct__link{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;font-size:13px;font-weight:500;color:#495057;text-decoration:none;cursor:pointer;transition:all .15s;background:none;border:none;width:100%;text-align:left;font-family:inherit}',
+    '.lh-acct__link:hover{background:#F8F9FA;color:#212529}',
+    '.lh-acct__link svg{width:16px;height:16px;color:#677078;flex-shrink:0}',
+    '.lh-acct__link:hover svg{color:#212529}',
+    '.lh-acct__divider{height:1px;background:#F8F9FA;margin:6px 4px}',
+    '.lh-acct__signout{color:#A22522}',
+    '.lh-acct__signout svg{color:#A22522}',
+    '.lh-acct__signout:hover{background:#fef7f7;color:#A22522}',
+    '.lh-acct__signout:hover svg{color:#A22522}',
+    '@media (max-width:768px){.lh-acct__name{display:none}.lh-acct__btn{padding:4px;height:36px;width:36px;border-radius:50%}.lh-acct__caret{display:none}.lh-acct__avatar{width:28px;height:28px;font-size:11px}.lh-acct__menu{width:260px}}'
+  ].join('');
+  document.head.appendChild(lhCss);
+
+  /* ---- Mount avatar menu in place of CTA ---- */
+  function mountAccountMenu() {
+    var u = LH.getUser();
+    if (!u) return;
+    var ctas = document.querySelectorAll('a.header__action-btn--cta, a[href="signup.html"].header__action-btn');
+    ctas.forEach(function (cta) {
+      if (cta.dataset.lhMounted === '1') return;
+      var initials = ((u.firstName || '?').charAt(0) + (u.lastName || '').charAt(0)).toUpperCase();
+      var displayName = (u.firstName || 'Account').split(' ')[0];
+      var wrap = document.createElement('div');
+      wrap.className = 'lh-acct';
+      wrap.innerHTML =
+        '<button class="lh-acct__btn" type="button" aria-haspopup="true">' +
+          '<span class="lh-acct__avatar">' + initials + '</span>' +
+          '<span class="lh-acct__name">' + displayName + '</span>' +
+          '<svg class="lh-acct__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+        '</button>' +
+        '<div class="lh-acct__menu" role="menu">' +
+          '<div class="lh-acct__head">' +
+            '<span class="lh-acct__avatar">' + initials + '</span>' +
+            '<div class="lh-acct__head-info">' +
+              '<div class="lh-acct__head-name">' + ((u.firstName || '') + ' ' + (u.lastName || '')).trim() + '</div>' +
+              '<div class="lh-acct__head-email">' + (u.email || '') + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<a href="account.html#overview" class="lh-acct__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>' +
+          '<a href="account.html#bookings" class="lh-acct__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>My Bookings</a>' +
+          '<a href="account.html#saved" class="lh-acct__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Saved Hotels</a>' +
+          '<a href="account.html#payment" class="lh-acct__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>Payment Methods</a>' +
+          '<div class="lh-acct__divider"></div>' +
+          '<a href="account.html#personal" class="lh-acct__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Personal Info</a>' +
+          '<a href="account.html#security" class="lh-acct__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Security</a>' +
+          '<a href="account.html#preferences" class="lh-acct__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Preferences</a>' +
+          '<div class="lh-acct__divider"></div>' +
+          '<button type="button" class="lh-acct__link lh-acct__signout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sign Out</button>' +
+        '</div>';
+
+      cta.parentNode.replaceChild(wrap, cta);
+      wrap.dataset.lhMounted = '1';
+
+      var btn = wrap.querySelector('.lh-acct__btn');
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        wrap.classList.toggle('open');
+      });
+      wrap.querySelector('.lh-acct__signout').addEventListener('click', function (e) {
+        e.preventDefault();
+        if (confirm('Sign out of Locals\u2019 Hotels?')) LH.signOut();
+      });
+    });
+
+    // Close on outside click
+    if (!document._lhAcctBound) {
+      document._lhAcctBound = true;
+      document.addEventListener('click', function () {
+        document.querySelectorAll('.lh-acct.open').forEach(function (el) { el.classList.remove('open'); });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') document.querySelectorAll('.lh-acct.open').forEach(function (el) { el.classList.remove('open'); });
+      });
+    }
+  }
+
+  function applySignedInState() {
+    if (LH.isSignedIn()) {
+      document.body.classList.add('lh-signed-in');
+    } else {
+      document.body.classList.remove('lh-signed-in');
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { mountAccountMenu(); applySignedInState(); });
+  } else {
+    mountAccountMenu();
+    applySignedInState();
+  }
+  window.LH.mount = function () { mountAccountMenu(); applySignedInState(); };
 
 })();
 
@@ -998,7 +1146,7 @@
     if (co <= ci) {
       var next = new Date(ci);
       next.setDate(next.getDate() + 1);
-      B('bmCheckout').value = next.toISOString().split('T')[0];
+      B('bmCheckout').value = next.getFullYear() + '-' + String(next.getMonth() + 1).padStart(2, '0') + '-' + String(next.getDate()).padStart(2, '0');
     }
     updateSummary();
   });
@@ -1146,7 +1294,7 @@
             var coVal = allCols[1].querySelector('.booking-widget__date-value');
             if (coVal && new Date(coVal.textContent) <= ciDate) {
               ciDate.setDate(ciDate.getDate() + 1);
-              coVal.textContent = ciDate.toISOString().split('T')[0];
+              coVal.textContent = ciDate.getFullYear() + '-' + String(ciDate.getMonth() + 1).padStart(2, '0') + '-' + String(ciDate.getDate()).padStart(2, '0');
             }
           }
         });

@@ -6,7 +6,7 @@
   <title>The New Wave of Tbilisi Restaurants You Need to Know — Locals' Hotels</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&family=Funnel+Display:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -26,7 +26,7 @@
       --white-lilac: #E8E8F6;
       --gray-muted: #6C757D;
       --font: 'Funnel Sans', sans-serif;
-      --font-display: 'Funnel Display', sans-serif;
+      --font-display: 'Funnel Sans', sans-serif;
     }
 
     body {
@@ -268,7 +268,7 @@
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
       transition: left 0.5s ease;
     }
-    .header__action-btn--cta:hover::before { left: 100%; }
+    .header__action-btn--cta:hover::before { }
     .header__action-btn--cta:hover {
       background: var(--black);
       transform: scale(1.02);
@@ -326,26 +326,39 @@
       font-weight: 600;
     }
 
+    /* ========== READING PROGRESS ========== */
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: var(--mexican-red);
+      z-index: 9999;
+      transition: width 0.1s linear;
+    }
+
     /* ========== POST HERO ========== */
     .post-hero {
       position: relative;
       width: 100%;
-      min-height: 520px;
+      min-height: 560px;
       overflow: hidden;
     }
     .post-hero__bg {
       position: absolute;
-      inset: 0;
+      inset: -20% 0;
     }
     .post-hero__bg img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      will-change: transform;
     }
     .post-hero__gradient {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%);
+      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0.08) 100%);
     }
     .post-hero__inner {
       position: relative;
@@ -356,20 +369,25 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      min-height: 520px;
-      padding-bottom: 56px;
+      min-height: 560px;
+      padding-bottom: 64px;
     }
     .post-hero__breadcrumb {
       font-size: 13px;
       font-weight: 500;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 24px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 28px;
+      letter-spacing: 0.3px;
     }
     .post-hero__breadcrumb a {
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.55);
       transition: color 0.2s;
     }
     .post-hero__breadcrumb a:hover { color: var(--white); }
+    .post-hero__breadcrumb span {
+      margin: 0 6px;
+      opacity: 0.4;
+    }
     .post-hero__category {
       display: inline-block;
       font-size: 11px;
@@ -379,24 +397,24 @@
       color: var(--white);
       background: var(--mexican-red);
       padding: 6px 14px;
-      border-radius: 6px;
-      margin-bottom: 20px;
+      border-radius: 4px;
+      margin-bottom: 22px;
       width: fit-content;
     }
     .post-hero__title {
       font-family: var(--font-display);
-      font-size: 48px;
+      font-size: 52px;
       font-weight: 700;
-      line-height: 56px;
+      line-height: 1.15;
       color: var(--white);
-      max-width: 720px;
-      letter-spacing: -0.5px;
+      max-width: 740px;
+      letter-spacing: -0.8px;
     }
     .post-hero__meta {
       display: flex;
       align-items: center;
       gap: 16px;
-      margin-top: 20px;
+      margin-top: 24px;
       font-size: 14px;
       color: rgba(255,255,255,0.7);
     }
@@ -415,84 +433,87 @@
     }
     .post__layout {
       display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 64px;
+      grid-template-columns: 1fr 340px;
+      gap: 40px;
       padding-top: 56px;
       padding-bottom: 80px;
     }
     .post__content {
-      max-width: 720px;
     }
     .post__content p {
       font-size: 18px;
-      line-height: 32px;
+      line-height: 1.85;
       color: var(--abbey);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
     .post__content p:first-child::first-letter {
       font-family: var(--font-display);
-      font-size: 64px;
-      font-weight: 700;
+      font-size: 72px;
+      font-weight: 800;
       float: left;
-      line-height: 48px;
-      padding-right: 12px;
-      padding-top: 6px;
-      color: var(--shark);
+      line-height: 54px;
+      padding-right: 14px;
+      padding-top: 8px;
+      color: var(--mexican-red);
     }
     .post__content h2 {
       font-family: var(--font-display);
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 700;
-      line-height: 36px;
+      line-height: 1.3;
       color: var(--shark);
-      margin-top: 16px;
-      margin-bottom: 20px;
-      letter-spacing: -0.3px;
+      margin-top: 48px;
+      margin-bottom: 22px;
+      letter-spacing: -0.4px;
+      padding-top: 8px;
     }
     .post__content h3 {
       font-size: 22px;
       font-weight: 700;
-      line-height: 30px;
+      line-height: 1.35;
       color: var(--shark);
-      margin-top: 12px;
-      margin-bottom: 16px;
+      margin-top: 36px;
+      margin-bottom: 18px;
+      letter-spacing: -0.2px;
     }
     .post__content blockquote {
-      border-left: 3px solid var(--mexican-red);
-      padding: 4px 0 4px 24px;
-      margin: 32px 0;
+      border-left: 4px solid var(--mexican-red);
+      padding: 8px 0 8px 28px;
+      margin: 44px 0;
     }
     .post__content blockquote p {
-      font-size: 20px;
+      font-size: 22px;
       font-style: italic;
-      line-height: 34px;
+      line-height: 1.6;
       color: var(--shark);
       margin-bottom: 0;
+      letter-spacing: -0.2px;
     }
     .post__content figure {
-      margin: 40px 0;
+      margin: 48px 0;
     }
     .post__content figure img {
       width: 100%;
       border-radius: 12px;
     }
     .post__content figcaption {
-      font-size: 13px;
-      color: var(--hit-gray);
-      margin-top: 10px;
-      line-height: 20px;
+      font-size: 14px;
+      font-style: italic;
+      color: var(--nevada);
+      margin-top: 12px;
+      line-height: 1.5;
     }
     .post__content ul {
-      margin-bottom: 28px;
+      margin-bottom: 32px;
       padding-left: 0;
     }
     .post__content ul li {
       font-size: 18px;
-      line-height: 32px;
+      line-height: 1.85;
       color: var(--abbey);
-      padding-left: 20px;
+      padding-left: 22px;
       position: relative;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       list-style: none;
     }
     .post__content ul li::before {
@@ -504,6 +525,56 @@
       height: 6px;
       border-radius: 50%;
       background: var(--mexican-red);
+    }
+
+    /* ---- Article Meta Bar ---- */
+    .post__meta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 28px 0;
+      margin-top: 48px;
+      border-top: 1px solid var(--mischka);
+      border-bottom: 1px solid var(--mischka);
+    }
+    .post__meta-bar .post__author {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+    .post__meta-bar .post__author-avatar {
+      background: rgba(162, 37, 34, 0.08);
+      color: var(--mexican-red);
+    }
+    .post__meta-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .post__meta-bar .post__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .post__meta-bar .post__tag {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--nevada);
+      padding: 5px 12px;
+      background: var(--athens-gray);
+      border: none;
+      border-radius: 20px;
+      transition: all 0.2s;
+    }
+    .post__meta-bar .post__tag:hover {
+      background: var(--mischka);
+      color: var(--shark);
+    }
+    .post__meta-bar .post__share-links {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 0;
     }
 
     /* ---- Sidebar ---- */
@@ -605,6 +676,812 @@
       color: var(--shark);
     }
 
+    /* ---- Featured Hotels ---- */
+    .post__featured-card {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--mischka);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .post__featured-card:hover {
+      border-color: var(--shark);
+      background: var(--athens-gray);
+    }
+    .post__featured-card-img {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .post__featured-card-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .post__featured-card-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--shark);
+      line-height: 1.3;
+    }
+    .post__featured-card-city {
+      font-size: 12px;
+      color: var(--hit-gray);
+      margin-top: 2px;
+    }
+    .post__featured-card-price {
+      font-size: 13px;
+      color: var(--abbey);
+      margin-top: 4px;
+    }
+    .post__featured-card-price strong {
+      color: var(--shark);
+      font-weight: 700;
+    }
+
+    /* ========== BOOKING WIDGET ========== */
+    .bw {
+      display: flex;
+      flex-direction: column;
+      max-height: calc(100vh - 180px);
+    }
+    .bw__topbar {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      background: var(--shark);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    .bw__topbar.active { display: flex; }
+    .bw__topbar-back {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      background: rgba(255,255,255,0.1);
+      cursor: pointer;
+      transition: background 0.15s;
+      border: none;
+      flex-shrink: 0;
+    }
+    .bw__topbar-back:hover { background: rgba(255,255,255,0.2); }
+    .bw__topbar-back svg { width: 14px; height: 14px; }
+    .bw__topbar-info { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bw__topbar-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      opacity: 0.5;
+      cursor: pointer;
+      transition: opacity 0.15s, background 0.15s;
+      border: none;
+      background: none;
+      flex-shrink: 0;
+    }
+    .bw__topbar-close:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+    .bw__topbar-close svg { width: 12px; height: 12px; }
+    .bw__step {
+      display: none;
+      padding: 20px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+    .bw__step.active {
+      display: block;
+      flex: 1;
+      min-height: 0;
+    }
+    .bw__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--shark);
+      margin-bottom: 16px;
+    }
+    .bw__section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--hit-gray);
+      margin-bottom: 10px;
+    }
+    .bw__cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .bw__cal-nav {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--shark);
+      transition: background 0.15s;
+      border: none;
+      background: none;
+    }
+    .bw__cal-nav:hover { background: var(--athens-gray); }
+    .bw__cal-nav svg { width: 16px; height: 16px; }
+    .bw__cal-month { font-size: 15px; font-weight: 600; color: var(--shark); }
+    .bw__cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .bw__cal-dow { font-size: 10px; font-weight: 600; color: var(--hit-gray); text-transform: uppercase; padding: 2px 0 6px; }
+    .bw__cal-day {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--shark);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s;
+    }
+    .bw__cal-day:hover:not(.bw__cal-day--disabled):not(.bw__cal-day--empty) { background: var(--athens-gray); }
+    .bw__cal-day--empty { cursor: default; }
+    .bw__cal-day--disabled { color: var(--mischka); cursor: default; }
+    .bw__cal-day--today { font-weight: 700; box-shadow: inset 0 0 0 1px var(--mischka); }
+    .bw__cal-day--selected { background: var(--shark) !important; color: var(--white) !important; font-weight: 600; }
+    .bw__cal-day--in-range { background: var(--athens-gray); border-radius: 0; }
+    .bw__cal-day--range-start { border-radius: 4px 0 0 4px; }
+    .bw__cal-day--range-end { border-radius: 0 4px 4px 0; }
+    .bw__cal-day--range-start.bw__cal-day--range-end { border-radius: 4px; }
+    .bw__cal-day-num { line-height: 1; }
+    .bw__cal-day-price { font-size: 9px; font-weight: 500; color: var(--hit-gray); margin-top: 2px; line-height: 1; }
+    .bw__cal-day--selected .bw__cal-day-price { color: rgba(255,255,255,0.7); }
+    .bw__cal-day--disabled .bw__cal-day-price { color: var(--mischka); }
+    .bw__cal-day-price--low { color: #2e7d32; }
+    .bw__cal-day--selected .bw__cal-day-price--low { color: rgba(255,255,255,0.7); }
+    .bw__cal-hint {
+      font-size: 12px;
+      color: var(--hit-gray);
+      text-align: center;
+      padding-top: 6px;
+      border-top: 1px solid var(--athens-gray);
+      margin-bottom: 16px;
+    }
+    .bw__cal-hint strong { color: var(--shark); font-weight: 600; }
+    .bw__guests { margin-bottom: 14px; }
+    .bw__stepper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--athens-gray);
+    }
+    .bw__stepper:last-child { border-bottom: none; }
+    .bw__stepper-label { font-size: 14px; font-weight: 500; color: var(--shark); }
+    .bw__stepper-label small { display: block; font-size: 11px; font-weight: 400; color: var(--hit-gray); margin-top: 1px; }
+    .bw__stepper-controls { display: flex; align-items: center; gap: 12px; }
+    .bw__stepper-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--mischka);
+      background: var(--white);
+      color: var(--shark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.15s;
+      line-height: 1;
+    }
+    .bw__stepper-btn:hover:not(:disabled) { border-color: var(--shark); background: var(--athens-gray); }
+    .bw__stepper-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .bw__stepper-val { font-size: 16px; font-weight: 600; color: var(--shark); min-width: 24px; text-align: center; }
+    .bw__promo { margin-bottom: 14px; }
+    .bw__promo-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--mischka);
+      border-radius: 6px;
+      font-family: var(--font);
+      font-size: 13px;
+      color: var(--shark);
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .bw__promo-input:focus { border-color: var(--shark); }
+    .bw__promo-input::placeholder { color: var(--hit-gray); }
+    .bw__perk {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 10px 12px;
+      background: var(--athens-gray);
+      border-radius: 6px;
+      margin-bottom: 14px;
+      font-size: 12px;
+      line-height: 17px;
+      color: var(--abbey);
+    }
+    .bw__perk svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--mexican-red); margin-top: 0px; }
+    .bw__perk strong { color: var(--shark); font-weight: 600; }
+    .bw__search-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--shark);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .bw__search-btn:hover:not(:disabled) { background: var(--black); }
+    .bw__search-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .bw__room {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--athens-gray);
+      cursor: pointer;
+      transition: background 0.15s;
+      margin: 0 -20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .bw__room:first-child { padding-top: 8px; }
+    .bw__room:last-child { border-bottom: none; }
+    .bw__room:hover { background: var(--athens-gray); }
+    .bw__room-name {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--shark);
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+    .bw__room-specs {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--abbey);
+    }
+    .bw__room-img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 4px;
+      object-fit: cover;
+      margin-bottom: 8px;
+    }
+    .bw__room-amenities {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--hit-gray);
+      margin-bottom: 10px;
+      line-height: 16px;
+    }
+    .bw__room-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .bw__room-price-block {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: row-reverse;
+    }
+    .bw__room-discount {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 11px;
+      color: var(--mexican-red);
+      white-space: nowrap;
+    }
+    .bw__room-discount-label { display: inline; }
+    .bw__room-discount-info {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1.5px solid var(--hit-gray);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--hit-gray);
+      line-height: 1;
+      margin-left: 3px;
+      position: relative;
+      flex-shrink: 0;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .bw__room-discount-info:hover { border-color: var(--shark); color: var(--shark); }
+    .bw__room-discount-tooltip {
+      display: none;
+      position: fixed;
+      width: 240px;
+      background: var(--shark);
+      color: var(--white);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 16px;
+      z-index: 200;
+      pointer-events: none;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .bw__room-discount-info:hover .bw__room-discount-tooltip { display: block; }
+    .lh-signed-in .bw__room-discount-label {
+      font-size: 0;
+    }
+    .lh-signed-in .bw__room-discount-label::after {
+      content: 'Up to';
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--hit-gray);
+      margin-right: 1px;
+    }
+    .bw__room-price-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .bw__room-price-original { font-size: 18px; font-weight: 800; color: var(--shark); letter-spacing: -0.3px; }
+    .bw__room-price-original::after { content: ' / night'; font-size: 12px; font-weight: 400; color: var(--nevada); }
+    .bw__room-price-member { display: none; }
+    .lh-signed-in .bw__room-price-original {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--hit-gray);
+      text-decoration: line-through;
+    }
+    .lh-signed-in .bw__room-price-original::after { content: none; }
+    .lh-signed-in .bw__room-price-member {
+      display: inline;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--shark);
+      letter-spacing: -0.3px;
+    }
+    .lh-signed-in .bw__room-price-member span { font-size: 12px; font-weight: 400; color: var(--nevada); }
+    .bw__rate-room-header {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--athens-gray);
+    }
+    .bw__rate-room-img { width: 90px; height: 64px; border-radius: 6px; object-fit: cover; flex-shrink: 0; }
+    .bw__rate-room-info { display: flex; flex-direction: column; justify-content: center; gap: 2px; }
+    .bw__rate-room-name { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--shark); }
+    .bw__rate-room-specs { font-size: 12px; color: var(--abbey); }
+    .bw__rate-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+    .bw__rate-card { cursor: pointer; display: block; }
+    .bw__rate-card input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .bw__rate-card-inner {
+      border: 1.5px solid var(--mischka);
+      border-radius: 8px;
+      padding: 14px 16px;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .bw__rate-card:hover .bw__rate-card-inner { border-color: var(--abbey); }
+    .bw__rate-card input:checked ~ .bw__rate-card-inner {
+      border-color: var(--shark);
+      background: var(--athens-gray);
+      box-shadow: 0 0 0 1px var(--shark);
+    }
+    .bw__rate-card-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+    .bw__rate-card-name { font-size: 14px; font-weight: 600; color: var(--shark); }
+    .bw__rate-card-tag { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 4px; line-height: 16px; }
+    .bw__rate-card-tag--warning { background: #FFF3CD; color: #856404; }
+    .bw__rate-card-tag--success { background: #D1E7DD; color: #0F5132; }
+    .bw__rate-card-pricing { display: flex; align-items: baseline; gap: 8px; }
+    .bw__rate-card-price { font-size: 17px; font-weight: 700; color: var(--shark); }
+    .bw__rate-card-addon { font-size: 13px; font-weight: 600; color: var(--abbey); }
+    .bw__rate-card-total { font-size: 12px; color: var(--abbey); margin-top: 4px; }
+    .bw__rate-card-savings { font-size: 11px; color: #2e7d32; font-weight: 600; margin-top: 3px; }
+    .bw__rate-card-breakdown { font-size: 11px; color: var(--hit-gray); margin-top: 2px; }
+    /* Cart */
+    .bw__cart-item {
+      display: flex;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--athens-gray);
+      position: relative;
+    }
+    .bw__cart-item:last-of-type { border-bottom: none; }
+    .bw__cart-item-img {
+      width: 64px;
+      height: 48px;
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .bw__cart-item-info { flex: 1; min-width: 0; }
+    .bw__cart-item-name {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--shark);
+      margin-bottom: 2px;
+    }
+    .bw__cart-item-rate { font-size: 12px; color: var(--abbey); margin-bottom: 2px; }
+    .bw__cart-item-price { font-size: 14px; font-weight: 700; color: var(--shark); }
+    .bw__cart-item-price span { font-size: 11px; font-weight: 400; color: var(--hit-gray); }
+    .bw__cart-item-remove {
+      position: absolute;
+      top: 14px;
+      right: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: none;
+      background: none;
+      color: var(--hit-gray);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s, background 0.15s;
+    }
+    .bw__cart-item-remove:hover { color: var(--mexican-red); background: rgba(162,37,34,0.06); }
+    .bw__cart-item-remove svg { width: 14px; height: 14px; }
+    .bw__cart-total {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      padding: 14px 0 0;
+      border-top: 1px solid var(--athens-gray);
+      margin-top: 4px;
+    }
+    .bw__cart-total-label { font-size: 14px; font-weight: 600; color: var(--abbey); }
+    .bw__cart-total-amount { font-size: 20px; font-weight: 800; color: var(--shark); letter-spacing: -0.3px; text-align: right; }
+    .bw__cart-total .bw__tax-note { grid-column: 2; text-align: right; }
+    .bw__cart-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .bw__add-room-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--white);
+      color: var(--shark);
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 600;
+      border: 1.5px solid var(--mischka);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .bw__add-room-btn:hover { border-color: var(--shark); background: var(--athens-gray); }
+    .bw__add-room-btn svg { width: 16px; height: 16px; }
+    .bw__proceed-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--shark);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .bw__proceed-btn:hover { background: var(--black); }
+    .bw__cart-rooms-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--hit-gray);
+      margin-bottom: 4px;
+    }
+
+    .bw__footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--athens-gray);
+      background: var(--white);
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .bw__footer.active { display: flex; }
+    .bw__footer-total { display: flex; flex-direction: column; }
+    .bw__footer-label { font-size: 11px; color: var(--hit-gray); font-weight: 500; }
+    .bw__tax-note { font-size: 11px; color: var(--nevada); font-weight: 500; margin-top: 2px; }
+    .bw__footer-amount { font-size: 20px; font-weight: 800; color: var(--shark); letter-spacing: -0.3px; }
+    .bw__footer-btn {
+      padding: 12px 24px;
+      background: var(--shark);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .bw__footer-btn:hover { background: var(--black); }
+    .bw__footer-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .bw__checkout-summary {
+      background: var(--athens-gray);
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+    .bw__summary-row { display: flex; justify-content: space-between; padding: 2px 0; font-size: 12px; line-height: 18px; }
+    .bw__summary-row span { color: var(--abbey); }
+    .bw__summary-row strong { color: var(--shark); font-weight: 600; }
+    .bw__summary-divider { height: 1px; background: var(--mischka); margin: 4px 0; }
+    .bw__summary-row--total { padding-top: 6px; }
+    .bw__summary-row--total span,
+    .bw__summary-row--total strong { font-size: 14px; font-weight: 700; color: var(--shark); }
+    .bw__form-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--hit-gray);
+      margin-bottom: 8px;
+      margin-top: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .bw__form { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .bw__form-row { display: flex; gap: 8px; }
+    .bw__form-row > .bw__form-field { flex: 1; }
+    .bw__form-field label {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--abbey);
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .bw__form-field input,
+    .bw__form-field textarea,
+    .bw__form-field select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--mischka);
+      border-radius: 5px;
+      font-family: var(--font);
+      font-size: 13px;
+      color: var(--shark);
+      background: var(--white);
+      transition: border-color 0.2s;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .bw__form-field input:focus,
+    .bw__form-field textarea:focus,
+    .bw__form-field select:focus { border-color: var(--shark); }
+    .bw__form-field input.invalid { border-color: var(--mexican-red); }
+    .bw__form-field textarea { resize: vertical; min-height: 50px; }
+    .bw__pay-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--mexican-red);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 4px;
+    }
+    .bw__pay-btn:hover { background: #8B1F1D; }
+    .bw__pay-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .bw__processing {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 20px;
+    }
+    .bw__spinner {
+      width: 44px;
+      height: 44px;
+      border: 3px solid var(--mischka);
+      border-top-color: var(--shark);
+      border-radius: 50%;
+      animation: bwSpin 0.8s linear infinite;
+    }
+    @keyframes bwSpin { to { transform: rotate(360deg); } }
+    .bw__processing-text { font-size: 14px; font-weight: 500; color: var(--abbey); }
+    .bw__confirmation { text-align: center; padding: 20px 0; }
+    .bw__confirmation-check { margin-bottom: 16px; }
+    .bw__confirmation-check svg { display: inline-block; }
+    .bw__check-path {
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: bwCheckDraw 0.6s 0.2s ease-out forwards;
+    }
+    @keyframes bwCheckDraw { to { stroke-dashoffset: 0; } }
+    .bw__confirmation-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--shark);
+      margin-bottom: 4px;
+    }
+    .bw__confirmation-ref { font-size: 13px; color: var(--abbey); margin-bottom: 16px; }
+    .bw__confirmation-ref strong { color: var(--shark); font-family: monospace; letter-spacing: 0.5px; }
+    .bw__confirmation-details {
+      background: var(--athens-gray);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .bw__done-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--shark);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .bw__done-btn:hover { background: var(--black); }
+    .bw__savings-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      border-radius: 8px;
+      border: 1.5px solid #2e7d32;
+      background: #f0faf1;
+      color: var(--shark);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 20px;
+      margin-bottom: 16px;
+    }
+    .bw__savings-banner svg { flex-shrink: 0; }
+    .bw__savings-banner strong { font-weight: 700; color: #2e7d32; }
+    .bw__savings-banner--cta {
+      border: 1.5px solid var(--mischka);
+      background: var(--white);
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    .bw__savings-cta-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px;
+    }
+    .bw__savings-cta-amount {
+      font-family: var(--font);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--shark);
+      letter-spacing: -0.5px;
+      line-height: 1;
+      flex-shrink: 0;
+      background: var(--athens-gray);
+      padding: 14px 16px;
+      border-radius: 6px;
+    }
+    .bw__savings-cta-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--abbey);
+      line-height: 18px;
+    }
+    .bw__savings-cta-text strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      color: var(--shark);
+      margin-bottom: 2px;
+    }
+    .bw__savings-banner-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: var(--shark);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      text-align: center;
+      border: none;
+      border-top: 1.5px solid var(--mischka);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .bw__savings-banner-btn:hover { background: var(--black); }
+
+    .post__booking-widget {
+      border: 1px solid var(--mischka);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .post__booking-widget .bw {
+      display: flex;
+      flex-direction: column;
+      max-height: calc(100vh - 120px);
+    }
+    .post__booking-widget .bw__topbar {
+      border-radius: 0;
+    }
+    .jp-bw-header {
+      padding: 14px 20px;
+      background: var(--shark);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
     /* ========== RELATED POSTS ========== */
     .related {
       border-top: 1px solid var(--mischka);
@@ -616,6 +1493,7 @@
       padding: 0 48px;
     }
     .related__heading {
+      font-family: var(--font-display);
       font-size: 28px;
       font-weight: 700;
       color: var(--shark);
@@ -625,39 +1503,68 @@
     .related__grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
+      gap: 24px;
     }
     .related__card {
       display: flex;
       flex-direction: column;
-      transition: opacity 0.2s;
+      border: 1px solid var(--mischka);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s;
     }
-    .related__card:hover { opacity: 0.85; }
+    .related__card:hover {
+      border-color: rgba(0,0,0,0.12);
+    }
+    .related__card-img-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+    }
+    .related__card-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.08);
+      transition: background 0.2s;
+      pointer-events: none;
+    }
+    .related__card:hover .related__card-img-wrap::after {
+      background: rgba(0,0,0,0);
+    }
     .related__card-image {
       width: 100%;
-      aspect-ratio: 16/10;
+      height: 100%;
       object-fit: cover;
-      border-radius: 12px;
+    }
+    .related__card-body {
+      padding: 20px 20px 24px;
     }
     .related__card-category {
-      font-size: 11px;
-      font-weight: 600;
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       color: var(--mexican-red);
-      margin-top: 16px;
+      margin-bottom: 10px;
     }
     .related__card-title {
+      font-family: var(--font-display);
       font-size: 18px;
       font-weight: 600;
       line-height: 26px;
       color: var(--shark);
-      margin-top: 8px;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .related__card:hover .related__card-title {
+      color: var(--mexican-red);
     }
     .related__card-meta {
-      font-size: 13px;
-      color: var(--hit-gray);
-      margin-top: 8px;
+      font-size: 12px;
+      color: var(--gray-muted);
+      letter-spacing: 0.5px;
     }
 
     /* ========== FOOTER ========== */
@@ -774,15 +1681,15 @@
       .header__action-btn--cta { display: flex; height: 36px; padding: 0 16px; font-size: 11px; }
       .header__hamburger { display: flex; }
 
-      .post-hero { min-height: 380px; }
+      .post-hero { min-height: 400px; }
       .post-hero__inner {
         padding: 0 20px;
-        min-height: 380px;
+        min-height: 400px;
         padding-bottom: 36px;
       }
       .post-hero__title {
-        font-size: 30px;
-        line-height: 38px;
+        font-size: 32px;
+        line-height: 1.2;
       }
       .post-hero__meta { font-size: 13px; gap: 10px; }
 
@@ -794,15 +1701,17 @@
         padding-bottom: 48px;
       }
       .post__content { max-width: 100%; }
-      .post__content p { font-size: 16px; line-height: 28px; }
-      .post__content h2 { font-size: 24px; line-height: 32px; }
-      .post__content h3 { font-size: 20px; line-height: 28px; }
-      .post__content blockquote p { font-size: 18px; line-height: 30px; }
+      .post__content p { font-size: 16px; line-height: 1.8; }
+      .post__content h2 { font-size: 24px; line-height: 1.3; margin-top: 36px; }
+      .post__content h3 { font-size: 20px; line-height: 1.35; margin-top: 28px; }
+      .post__content blockquote p { font-size: 18px; line-height: 1.55; }
       .post__content p:first-child::first-letter {
-        font-size: 52px;
-        line-height: 40px;
+        font-size: 56px;
+        line-height: 42px;
       }
       .post__sidebar-sticky { position: static; }
+      .post__meta-bar { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .post__meta-right { flex-direction: column; align-items: flex-start; gap: 12px; }
 
       .related { padding: 40px 0 48px; }
       .related__inner { padding: 0 20px; }
@@ -829,6 +1738,8 @@
 </head>
 <body>
 
+  <div class="reading-progress" id="readingProgress"></div>
+
   <!-- ========== TOP BAR ========== -->
   <div class="topbar" id="topbar">
     <div class="topbar__inner">
@@ -845,11 +1756,12 @@
   <header class="header">
     <div class="header__inner">
       <a href="index.html" class="header__logo">
-        <img src="https://localshotels.com/wp-content/uploads/2025/05/logo-horizontal-black-1024x97.webp" alt="Locals' Hotels" class="header__logo-img">
+        <img src="images/logo.svg" alt="Locals' Hotels" class="header__logo-img">
       </a>
       <nav class="header__nav">
         <a href="index.html" class="header__nav-item">Home</a>
         <a href="hotels.html" class="header__nav-item">Hotels</a>
+        <a href="restaurants.html" class="header__nav-item">Restaurants</a>
         <a href="journal.html" class="header__nav-item header__nav-item--active">Journal</a>
         <a href="contact.html" class="header__nav-item">Contact</a>
       </nav>
@@ -891,7 +1803,7 @@
     <div class="post-hero__gradient"></div>
     <div class="post-hero__inner">
       <div class="post-hero__breadcrumb">
-        <a href="index.html">Home</a> / <a href="journal.html">Journal</a> / Article
+        <a href="index.html">Home</a><span>/</span><a href="journal.html">Journal</a><span>/</span>Article
       </div>
       <span class="post-hero__category">Food & Drink</span>
       <h1 class="post-hero__title">The New Wave of Tbilisi Restaurants You Need to Know</h1>
@@ -958,11 +1870,9 @@
         <p>For travelers, this creates an experience that's hard to find elsewhere. You're not just eating at restaurants — you're plugging into a living network of taste, tradition, and creative ambition. And the best part? In Tbilisi, a world-class meal with a bottle of natural wine still costs less than an appetizer in most European capitals.</p>
 
         <p>The new wave isn't replacing the old. It's extending it. And for anyone who loves food, Georgia's capital has never been more exciting.</p>
-      </article>
 
-      <!-- ---- Sidebar ---- -->
-      <aside class="post__sidebar">
-        <div class="post__sidebar-sticky">
+        <!-- Author & Meta -->
+        <div class="post__meta-bar">
           <div class="post__author">
             <div class="post__author-avatar">NK</div>
             <div>
@@ -970,27 +1880,127 @@
               <div class="post__author-role">Food & Travel Editor</div>
             </div>
           </div>
-
-          <div class="post__share-label">Share</div>
-          <div class="post__share-links">
-            <button class="post__share-btn" aria-label="Share on Twitter">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733-16zM4 20l6.768-6.768M20 4l-6.768 6.768"/></svg>
-            </button>
-            <button class="post__share-btn" aria-label="Share on Facebook">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            </button>
-            <button class="post__share-btn" aria-label="Copy link">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            </button>
+          <div class="post__meta-right">
+            <div class="post__tags">
+              <span class="post__tag">Georgian Cuisine</span>
+              <span class="post__tag">Tbilisi</span>
+              <span class="post__tag">Natural Wine</span>
+              <span class="post__tag">Editor's Pick</span>
+            </div>
+            <div class="post__share-links">
+              <button class="post__share-btn" aria-label="Share on Twitter">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733-16zM4 20l6.768-6.768M20 4l-6.768 6.768"/></svg>
+              </button>
+              <button class="post__share-btn" aria-label="Share on Facebook">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </button>
+              <button class="post__share-btn" aria-label="Copy link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              </button>
+            </div>
           </div>
+        </div>
+      </article>
 
-          <div class="post__tags-label">Tags</div>
-          <div class="post__tags">
-            <span class="post__tag">Georgian Cuisine</span>
-            <span class="post__tag">Tbilisi</span>
-            <span class="post__tag">Natural Wine</span>
-            <span class="post__tag">Editor's Pick</span>
+      <!-- ---- Sidebar (Booking Widget) ---- -->
+      <aside class="post__sidebar">
+        <div class="post__sidebar-sticky">
+        <div class="post__booking-widget">
+          <div class="bw">
+            <!-- Step 0: Featured Hotels -->
+            <div class="jp-bw-header" id="jpBwStep0Header">Stay Nearby</div>
+            <div class="bw__step active" id="jpBwStep0">
+              <div class="bw__section-label">Hotels mentioned in this article</div>
+              <div class="post__featured-card" data-hotel="rooms-hotel">
+                <img class="post__featured-card-img" src="images/37024479.jpg" alt="Rooms Hotel Tbilisi">
+                <div class="post__featured-card-info">
+                  <div class="post__featured-card-name">Rooms Hotel Tbilisi</div>
+                  <div class="post__featured-card-city">Tbilisi, Vera</div>
+                  <div class="post__featured-card-price">From <strong>$142</strong>/night</div>
+                </div>
+              </div>
+              <div class="post__featured-card" data-hotel="stamba-hotel">
+                <img class="post__featured-card-img" src="images/e05c7fc9.jpeg" alt="Stamba Hotel">
+                <div class="post__featured-card-info">
+                  <div class="post__featured-card-name">Stamba Hotel</div>
+                  <div class="post__featured-card-city">Tbilisi, Chugureti</div>
+                  <div class="post__featured-card-price">From <strong>$189</strong>/night</div>
+                </div>
+              </div>
+              <div class="post__featured-card" data-hotel="iota-hotel">
+                <img class="post__featured-card-img" src="images/blueberry-nights-1.jpg" alt="Iota Hotel Tbilisi">
+                <div class="post__featured-card-info">
+                  <div class="post__featured-card-name">Iota Hotel Tbilisi</div>
+                  <div class="post__featured-card-city">Tbilisi, Old Town</div>
+                  <div class="post__featured-card-price">From <strong>$95</strong>/night</div>
+                </div>
+              </div>
+            </div>
+            <div class="bw__topbar" id="jpBwTopbar">
+              <button class="bw__topbar-back" id="jpBwBack" aria-label="Back">
+                <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <span class="bw__topbar-info" id="jpBwTopbarInfo"></span>
+              <button class="bw__topbar-close" id="jpBwClose" aria-label="Close">
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M11 3L3 11M3 3l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+            <div class="bw__step" id="jpBwStep1">
+              <div class="bw__title">Find your room</div>
+              <div class="bw__section-label">Dates</div>
+              <div class="bw__cal-header">
+                <button class="bw__cal-nav" id="jpBwCalPrev" aria-label="Previous month">
+                  <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <span class="bw__cal-month" id="jpBwCalMonth"></span>
+                <button class="bw__cal-nav" id="jpBwCalNext" aria-label="Next month">
+                  <svg viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+              <div class="bw__cal-grid" id="jpBwCalGrid"></div>
+              <div class="bw__cal-hint" id="jpBwCalHint">Select check-in date</div>
+              <div class="bw__section-label">Guests</div>
+              <div class="bw__guests">
+                <div class="bw__stepper">
+                  <div class="bw__stepper-label">Adults<small>Age 13+</small></div>
+                  <div class="bw__stepper-controls">
+                    <button class="bw__stepper-btn jp-stepper" data-target="adults" data-dir="-1">&minus;</button>
+                    <span class="bw__stepper-val" id="jpBwAdults">2</span>
+                    <button class="bw__stepper-btn jp-stepper" data-target="adults" data-dir="1">+</button>
+                  </div>
+                </div>
+                <div class="bw__stepper">
+                  <div class="bw__stepper-label">Children<small>Age 0&ndash;12</small></div>
+                  <div class="bw__stepper-controls">
+                    <button class="bw__stepper-btn jp-stepper" data-target="children" data-dir="-1">&minus;</button>
+                    <span class="bw__stepper-val" id="jpBwChildren">0</span>
+                    <button class="bw__stepper-btn jp-stepper" data-target="children" data-dir="1">+</button>
+                  </div>
+                </div>
+              </div>
+              <button class="bw__search-btn" id="jpBwSearchBtn" disabled>Search</button>
+            </div>
+            <div class="bw__step" id="jpBwStep2">
+              <div class="bw__section-label">Available Rooms</div>
+              <div id="jpBwRoomList"></div>
+            </div>
+            <div class="bw__step" id="jpBwStep3">
+              <div id="jpBwRateHeader" class="bw__rate-room-header"></div>
+              <div class="bw__section-label">Choose your rate</div>
+              <div class="bw__rate-cards" id="jpBwRateCards"></div>
+            </div>
+            <div class="bw__step" id="jpBwStep4"></div>
+            <div class="bw__step" id="jpBwStep5"></div>
+            <div class="bw__footer" id="jpBwFooter">
+              <div class="bw__footer-total">
+                <span class="bw__footer-label">Total</span>
+                <span class="bw__footer-amount" id="jpBwFooterTotal">$0</span>
+                <span class="bw__tax-note">Includes all taxes and fees</span>
+              </div>
+              <button class="bw__footer-btn" id="jpBwFooterBtn" disabled>Proceed</button>
+            </div>
           </div>
+        </div>
         </div>
       </aside>
     </div>
@@ -1002,22 +2012,34 @@
       <h2 class="related__heading">More from Journal</h2>
       <div class="related__grid">
         <a href="#" class="related__card">
-          <img class="related__card-image" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80" alt="Boutique hotel">
-          <span class="related__card-category">Hotels</span>
-          <h3 class="related__card-title">What Makes a Hotel a "Locals' Hotel"?</h3>
-          <span class="related__card-meta">February 5, 2025 &middot; 4 min read</span>
+          <div class="related__card-img-wrap">
+            <img class="related__card-image" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80" alt="Boutique hotel">
+          </div>
+          <div class="related__card-body">
+            <span class="related__card-category">Hotels</span>
+            <h3 class="related__card-title">What Makes a Hotel a "Locals' Hotel"?</h3>
+            <span class="related__card-meta">February 5, 2025 &middot; 4 min read</span>
+          </div>
         </a>
         <a href="#" class="related__card">
-          <img class="related__card-image" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Kazbegi mountains">
-          <span class="related__card-category">Travel Guide</span>
-          <h3 class="related__card-title">Kazbegi in Winter: A Guide to Georgia's Mountain Escape</h3>
-          <span class="related__card-meta">January 22, 2025 &middot; 7 min read</span>
+          <div class="related__card-img-wrap">
+            <img class="related__card-image" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Kazbegi mountains">
+          </div>
+          <div class="related__card-body">
+            <span class="related__card-category">Travel Guide</span>
+            <h3 class="related__card-title">Kazbegi in Winter: A Guide to Georgia's Mountain Escape</h3>
+            <span class="related__card-meta">January 22, 2025 &middot; 7 min read</span>
+          </div>
         </a>
         <a href="#" class="related__card">
-          <img class="related__card-image" src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80" alt="Hotel courtyard">
-          <span class="related__card-category">Behind the Scenes</span>
-          <h3 class="related__card-title">Restoring Tbilisi: The Architects Saving Old Town's Soul</h3>
-          <span class="related__card-meta">January 10, 2025 &middot; 5 min read</span>
+          <div class="related__card-img-wrap">
+            <img class="related__card-image" src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80" alt="Hotel courtyard">
+          </div>
+          <div class="related__card-body">
+            <span class="related__card-category">Behind the Scenes</span>
+            <h3 class="related__card-title">Restoring Tbilisi: The Architects Saving Old Town's Soul</h3>
+            <span class="related__card-meta">January 10, 2025 &middot; 5 min read</span>
+          </div>
         </a>
       </div>
     </div>
@@ -1109,7 +2131,718 @@
       }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
       reveals.forEach(function(el) { observer.observe(el); });
     })();
+
+    // Reading progress bar
+    (function() {
+      var bar = document.getElementById('readingProgress');
+      var article = document.querySelector('.post__content');
+      if (!bar || !article) return;
+      window.addEventListener('scroll', function() {
+        var rect = article.getBoundingClientRect();
+        var articleTop = rect.top + window.scrollY;
+        var articleHeight = article.offsetHeight;
+        var scrolled = window.scrollY - articleTop;
+        var progress = Math.min(Math.max(scrolled / (articleHeight - window.innerHeight), 0), 1);
+        bar.style.width = (progress * 100) + '%';
+      });
+    })();
+
+    // Hero parallax
+    (function() {
+      var heroImg = document.querySelector('.post-hero__bg img');
+      if (!heroImg) return;
+      var hero = document.querySelector('.post-hero');
+      window.addEventListener('scroll', function() {
+        var rect = hero.getBoundingClientRect();
+        if (rect.bottom < 0) return;
+        var offset = window.scrollY * 0.35;
+        heroImg.style.transform = 'translateY(' + offset + 'px)';
+      });
+    })();
+
+    // ===== JOURNAL POST BOOKING WIDGET =====
+    (function() {
+      'use strict';
+
+      var HOTELS = {
+        'rooms-hotel': {
+          name: 'Rooms Hotel Tbilisi',
+          rooms: [
+            { name: 'Classic Room', base: 142, image: 'images/37024479.jpg', guests: 2, bed: 'King Bed', size: '28 m\u00b2', view: 'Garden view', amenities: ['Wi-Fi', 'Air conditioning', 'Minibar', 'TV'] },
+            { name: 'Superior Room', base: 185, image: 'images/375812310.jpg', guests: 2, bed: 'King Bed', size: '35 m\u00b2', view: 'City view', amenities: ['Wi-Fi', 'Air conditioning', 'Minibar', 'Safe', 'TV'] }
+          ]
+        },
+        'stamba-hotel': {
+          name: 'Stamba Hotel',
+          rooms: [
+            { name: 'Loft Room', base: 189, image: 'images/e05c7fc9.jpeg', guests: 2, bed: 'King Bed', size: '30 m\u00b2', view: 'Courtyard view', amenities: ['Wi-Fi', 'Air conditioning', 'Minibar', 'Safe', 'TV'] },
+            { name: 'Studio Suite', base: 265, image: 'images/570dbab244f854a3.jpg', guests: 3, bed: 'King Bed', size: '45 m\u00b2', view: 'City view', amenities: ['Wi-Fi', 'Air conditioning', 'Minibar', 'Safe', 'Balcony', 'TV'] }
+          ]
+        },
+        'iota-hotel': {
+          name: 'Iota Hotel Tbilisi',
+          rooms: [
+            { name: 'Standard Double', base: 95, image: 'images/blueberry-nights-1.jpg', guests: 2, bed: 'Double Bed', size: '20 m\u00b2', view: 'Street view', amenities: ['Wi-Fi', 'Air conditioning', 'TV'] },
+            { name: 'Deluxe Room', base: 130, image: 'images/communal-11-11.jpg', guests: 2, bed: 'King Bed', size: '26 m\u00b2', view: 'City view', amenities: ['Wi-Fi', 'Air conditioning', 'Minibar', 'Safe', 'TV'] }
+          ]
+        }
+      };
+
+      var RATE_TIERS = [
+        { key: 'nonrefundable', label: 'Non-refundable', tag: 'No cancellation', tagClass: 'bw__rate-card-tag--warning', multiplier: 1.0 },
+        { key: 'flexible', label: 'Flexible', tag: 'Free cancellation until 24h before', tagClass: 'bw__rate-card-tag--success', multiplier: 1.15 },
+        { key: 'breakfast', label: 'Breakfast Included', tag: 'Free cancellation + Breakfast for 2', tagClass: 'bw__rate-card-tag--success', multiplier: 1.25 }
+      ];
+
+      var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var DOW = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+
+      var currentHotel = null;
+      var ROOM_DATA = [];
+
+      var state = {
+        step: 0,
+        viewMonth: new Date().getMonth(),
+        viewYear: new Date().getFullYear(),
+        selecting: 'checkin',
+        checkin: null,
+        checkout: null,
+        adults: 2,
+        children: 0,
+        room: null,
+        rate: null,
+        perNight: 0,
+        cart: [],
+        nights: 0,
+        guest: {},
+        isProcessing: false,
+        hoverDate: null
+      };
+
+      var step0 = document.getElementById('jpBwStep0');
+      var topbar = document.getElementById('jpBwTopbar');
+      var topbarInfo = document.getElementById('jpBwTopbarInfo');
+      var calGrid = document.getElementById('jpBwCalGrid');
+      var calMonth = document.getElementById('jpBwCalMonth');
+      var calHint = document.getElementById('jpBwCalHint');
+      var searchBtn = document.getElementById('jpBwSearchBtn');
+      var roomList = document.getElementById('jpBwRoomList');
+      var rateHeader = document.getElementById('jpBwRateHeader');
+      var rateCardsEl = document.getElementById('jpBwRateCards');
+      var footer = document.getElementById('jpBwFooter');
+      var footerTotal = document.getElementById('jpBwFooterTotal');
+      var footerBtn = document.getElementById('jpBwFooterBtn');
+      var step4 = document.getElementById('jpBwStep4');
+      var step5 = document.getElementById('jpBwStep5');
+
+      if (!calGrid) return;
+
+      function toISO(d) {
+        var y = d.getFullYear();
+        var m = String(d.getMonth() + 1).padStart(2, '0');
+        var day = String(d.getDate()).padStart(2, '0');
+        return y + '-' + m + '-' + day;
+      }
+
+      function fmtShort(d) {
+        if (!d) return '\u2014';
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      }
+
+      function fmtLong(d) {
+        if (!d) return '\u2014';
+        return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+      }
+
+      function getDayPrice(date) {
+        var dow = date.getDay();
+        var month = date.getMonth();
+        var day = date.getDate();
+        var seed = date.getFullYear() * 10000 + month * 100 + day;
+        var rng = ((seed * 9301 + 49297) % 233280) / 233280;
+        var base = 120;
+        if (month >= 5 && month <= 8) base = 180;
+        else if (month === 11 || month === 0) base = 160;
+        else if (month >= 2 && month <= 4) base = 140;
+        if (dow === 5 || dow === 6) base += 40;
+        return Math.round(base + (rng * 60 - 30));
+      }
+
+      function calcTotalPrice(ci, co) {
+        if (!ci || !co) return 0;
+        var total = 0, d = new Date(ci.getTime());
+        while (d < co) { total += getDayPrice(d); d.setDate(d.getDate() + 1); }
+        return total;
+      }
+
+      function getNights() {
+        if (!state.checkin || !state.checkout) return 0;
+        return Math.round((state.checkout - state.checkin) / 86400000);
+      }
+
+      function genRef() {
+        var c = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', r = 'LH-';
+        for (var i = 0; i < 8; i++) r += c.charAt(Math.floor(Math.random() * c.length));
+        return r;
+      }
+
+      function guestSummary() {
+        var s = state.adults + ' adult' + (state.adults > 1 ? 's' : '');
+        if (state.children > 0) s += ', ' + state.children + ' child' + (state.children > 1 ? 'ren' : '');
+        return s;
+      }
+
+      // ---- Step navigation ----
+      function getCartTotal() {
+        var t = 0;
+        state.cart.forEach(function(item) { t += item.total; });
+        return t;
+      }
+
+      var step0Header = document.getElementById('jpBwStep0Header');
+
+      function goToStep(n) {
+        state.step = n;
+        // Hide all steps including step 0
+        step0.classList.remove('active');
+        for (var i = 1; i <= 5; i++) {
+          var el = document.getElementById('jpBwStep' + i);
+          if (!el) continue;
+          el.classList.remove('active');
+        }
+        if (n === 0) {
+          step0.classList.add('active');
+          step0Header.style.display = '';
+          topbar.classList.remove('active');
+        } else {
+          step0Header.style.display = 'none';
+          document.getElementById('jpBwStep' + n).classList.add('active');
+          topbar.classList.add('active');
+          if (n >= 2) {
+            var parts = [];
+            if (state.checkin) parts.push(fmtShort(state.checkin));
+            if (state.checkout) parts.push(fmtShort(state.checkout));
+            var gc = state.adults + state.children;
+            topbarInfo.textContent = parts.join(' \u2013 ') + ' \u00b7 ' + gc + ' guest' + (gc !== 1 ? 's' : '');
+          } else {
+            topbarInfo.textContent = currentHotel ? currentHotel.name : '';
+          }
+        }
+        footer.classList.toggle('active', n === 3);
+      }
+
+      // ---- Calendar ----
+      function renderCal() {
+        calMonth.textContent = MONTH_NAMES[state.viewMonth] + ' ' + state.viewYear;
+        var today = new Date(); today.setHours(0,0,0,0);
+        var first = new Date(state.viewYear, state.viewMonth, 1);
+        var startDow = (first.getDay() + 6) % 7;
+        var dim = new Date(state.viewYear, state.viewMonth + 1, 0).getDate();
+
+        var prices = [];
+        for (var mp = 1; mp <= dim; mp++) prices.push(getDayPrice(new Date(state.viewYear, state.viewMonth, mp)));
+        var minP = Math.min.apply(null, prices);
+        var lowT = minP + 15;
+
+        var h = '';
+        for (var i = 0; i < 7; i++) h += '<div class="bw__cal-dow">' + DOW[i] + '</div>';
+        for (var i = 0; i < startDow; i++) h += '<div class="bw__cal-day bw__cal-day--empty"></div>';
+
+        for (var d = 1; d <= dim; d++) {
+          var date = new Date(state.viewYear, state.viewMonth, d); date.setHours(0,0,0,0);
+          var iso = toISO(date);
+          var price = getDayPrice(date);
+          var cls = 'bw__cal-day';
+          var dis = false;
+
+          if (state.selecting === 'checkin' && date < today) dis = true;
+          if (state.selecting === 'checkout' && state.checkin && date <= state.checkin) dis = true;
+          if (state.selecting === 'checkout' && !state.checkin && date < today) dis = true;
+          if (dis) cls += ' bw__cal-day--disabled';
+          if (date.getTime() === today.getTime()) cls += ' bw__cal-day--today';
+
+          var isCI = state.checkin && date.getTime() === state.checkin.getTime();
+          var isCO = state.checkout && date.getTime() === state.checkout.getTime();
+          if (isCI || isCO) cls += ' bw__cal-day--selected';
+          var endDate = state.checkout || (state.selecting === 'checkout' && state.hoverDate ? state.hoverDate : null);
+          if (state.checkin && endDate && date > state.checkin && date < endDate) cls += ' bw__cal-day--in-range';
+          if (isCI && endDate) cls += ' bw__cal-day--in-range bw__cal-day--range-start';
+          if (isCO && state.checkin) cls += ' bw__cal-day--in-range bw__cal-day--range-end';
+          if (!state.checkout && state.hoverDate && state.selecting === 'checkout' && date.getTime() === state.hoverDate.getTime()) cls += ' bw__cal-day--selected bw__cal-day--in-range bw__cal-day--range-end';
+
+          var pc = 'bw__cal-day-price';
+          if (!dis && price <= lowT) pc += ' bw__cal-day-price--low';
+
+          h += '<div class="' + cls + '" data-date="' + iso + '">';
+          h += '<span class="bw__cal-day-num">' + d + '</span>';
+          h += '<span class="' + pc + '">$' + price + '</span>';
+          h += '</div>';
+        }
+
+        calGrid.innerHTML = h;
+
+        calGrid.querySelectorAll('.bw__cal-day[data-date]').forEach(function(el) {
+          el.addEventListener('click', function() {
+            if (this.classList.contains('bw__cal-day--disabled')) return;
+            var clicked = new Date(this.dataset.date + 'T00:00:00');
+            if (state.selecting === 'checkin') {
+              state.checkin = clicked;
+              if (state.checkout && state.checkout <= clicked) state.checkout = null;
+              state.selecting = 'checkout';
+              updateCalHint();
+              updateSearchBtn();
+              renderCal();
+            } else {
+              state.checkout = clicked;
+              state.selecting = 'checkin';
+              updateCalHint();
+              updateSearchBtn();
+              renderCal();
+            }
+          });
+        });
+
+        calGrid.querySelectorAll('.bw__cal-day[data-date]').forEach(function(el) {
+          el.addEventListener('mouseenter', function() {
+            if (state.selecting !== 'checkout' || !state.checkin) return;
+            if (this.classList.contains('bw__cal-day--disabled')) return;
+            var hd = new Date(this.dataset.date + 'T00:00:00');
+            if (hd.getTime() !== (state.hoverDate ? state.hoverDate.getTime() : 0)) {
+              state.hoverDate = hd;
+              renderCal();
+            }
+          });
+        });
+        calGrid.addEventListener('mouseleave', function() {
+          if (state.hoverDate) {
+            state.hoverDate = null;
+            renderCal();
+          }
+        });
+      }
+
+      function updateCalHint() {
+        if (state.checkin && state.checkout) {
+          var n = getNights();
+          var t = calcTotalPrice(state.checkin, state.checkout);
+          calHint.innerHTML = n + ' night' + (n > 1 ? 's' : '') + ' &middot; <strong>$' + t + ' total</strong><br><span class="bw__tax-note">Includes all taxes and fees</span>';
+        } else if (state.checkin && state.hoverDate && state.selecting === 'checkout') {
+          var n = Math.round((state.hoverDate - state.checkin) / 86400000);
+          var t = calcTotalPrice(state.checkin, state.hoverDate);
+          calHint.innerHTML = n + ' night' + (n > 1 ? 's' : '') + ' &middot; <strong>$' + t + ' total</strong><br><span class="bw__tax-note">Includes all taxes and fees</span>';
+        } else if (state.checkin) {
+          calHint.textContent = 'Select check-out date';
+        } else {
+          calHint.textContent = 'Select check-in date';
+        }
+      }
+
+      function updateSearchBtn() {
+        searchBtn.disabled = !(state.checkin && state.checkout);
+      }
+
+      document.getElementById('jpBwCalPrev').addEventListener('click', function() {
+        state.viewMonth--;
+        if (state.viewMonth < 0) { state.viewMonth = 11; state.viewYear--; }
+        renderCal();
+      });
+      document.getElementById('jpBwCalNext').addEventListener('click', function() {
+        state.viewMonth++;
+        if (state.viewMonth > 11) { state.viewMonth = 0; state.viewYear++; }
+        renderCal();
+      });
+
+      // ---- Guest steppers ----
+      function updateStepperBtns() {
+        document.querySelectorAll('.jp-stepper').forEach(function(btn) {
+          var t = btn.dataset.target, dir = parseInt(btn.dataset.dir);
+          if (t === 'adults') btn.disabled = (dir === -1 && state.adults <= 1) || (dir === 1 && state.adults >= 6);
+          else btn.disabled = (dir === -1 && state.children <= 0) || (dir === 1 && state.children >= 4);
+        });
+      }
+
+      document.querySelectorAll('.jp-stepper').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var t = this.dataset.target, dir = parseInt(this.dataset.dir);
+          if (t === 'adults') {
+            state.adults = Math.max(1, Math.min(6, state.adults + dir));
+            document.getElementById('jpBwAdults').textContent = state.adults;
+          } else {
+            state.children = Math.max(0, Math.min(4, state.children + dir));
+            document.getElementById('jpBwChildren').textContent = state.children;
+          }
+          updateStepperBtns();
+        });
+      });
+
+      // ---- Search ----
+      searchBtn.addEventListener('click', function() {
+        if (!state.checkin || !state.checkout) return;
+        state.nights = getNights();
+        renderRooms();
+        goToStep(2);
+      });
+
+      // ---- Step 2: Room list ----
+      function renderRooms() {
+        var h = '';
+        ROOM_DATA.forEach(function(room, i) {
+          h += '<div class="bw__room" data-ri="' + i + '">';
+          h += '<div class="bw__room-name">' + room.name + '</div>';
+          h += '<div class="bw__room-specs">';
+          h += '<span>Fits ' + room.guests + ' Guests</span>';
+          h += '<span>' + room.bed + '</span>';
+          h += '<span>' + room.size + '</span>';
+          h += '<span>' + room.view + '</span>';
+          h += '</div>';
+          h += '<img class="bw__room-img" src="' + room.image + '" alt="' + room.name + '">';
+          h += '<div class="bw__room-amenities">' + room.amenities.join(' &middot; ') + '</div>';
+          var memberPrice = Math.round(room.base * 0.8);
+          h += '<div class="bw__room-price-block">';
+          h += '<div class="bw__room-discount"><span class="bw__room-discount-label">Get discount up to</span> -20%<span class="bw__room-discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="bw__room-discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>';
+          h += '<div class="bw__room-price-wrap">';
+          h += '<span class="bw__room-price-original">$' + room.base + '</span>';
+          h += '<span class="bw__room-price-member">$' + memberPrice + ' <span>/ night</span></span>';
+          h += '</div>';
+          h += '</div></div>';
+        });
+        roomList.innerHTML = h;
+
+        roomList.querySelectorAll('.bw__room-discount-info').forEach(function(btn) {
+          btn.addEventListener('mousemove', function(e) {
+            var tip = this.querySelector('.bw__room-discount-tooltip');
+            if (tip) { tip.style.left = (e.clientX + 12) + 'px'; tip.style.top = (e.clientY + 12) + 'px'; }
+          });
+        });
+
+        roomList.querySelectorAll('.bw__room').forEach(function(el) {
+          el.addEventListener('click', function() {
+            state.room = ROOM_DATA[parseInt(this.dataset.ri)];
+            state.rate = null;
+            renderRates();
+            goToStep(3);
+          });
+        });
+      }
+
+      // ---- Step 3: Rate cards ----
+      function renderRates() {
+        var rm = state.room;
+        rateHeader.innerHTML = '<img class="bw__rate-room-img" src="' + rm.image + '" alt="' + rm.name + '">' +
+          '<div class="bw__rate-room-info"><div class="bw__rate-room-name">' + rm.name + '</div>' +
+          '<div class="bw__rate-room-specs">' + rm.bed + ' &middot; ' + rm.size + ' &middot; ' + rm.view + '</div></div>';
+
+        var basePrice = rm.base;
+        var h = '';
+        RATE_TIERS.forEach(function(tier) {
+          var pn = Math.round(basePrice * tier.multiplier);
+          var tot = pn * state.nights;
+          var addon = pn - basePrice;
+          h += '<label class="bw__rate-card"><input type="radio" name="jpBwRate" value="' + tier.key + '">';
+          h += '<div class="bw__rate-card-inner"><div class="bw__rate-card-header">';
+          h += '<span class="bw__rate-card-name">' + tier.label + '</span>';
+          h += '<span class="bw__rate-card-tag ' + tier.tagClass + '">' + tier.tag + '</span></div>';
+          h += '<div class="bw__rate-card-pricing"><span class="bw__rate-card-price">$' + pn + '/night</span></div>';
+          h += '<div class="bw__rate-card-total">$' + tot + ' total for ' + state.nights + ' night' + (state.nights > 1 ? 's' : '') + ' <span class="bw__tax-note">\u00b7 Includes all taxes and fees</span></div>';
+          if (tier.key === 'nonrefundable') {
+            h += '<div class="bw__rate-card-savings">Lowest price available</div>';
+          } else {
+            h += '<div class="bw__rate-card-savings">You won\'t be charged yet</div>';
+          }
+          h += '</div></label>';
+        });
+        rateCardsEl.innerHTML = h;
+
+        state.rate = null;
+        footerBtn.disabled = true;
+        footerTotal.textContent = '$0';
+
+        rateCardsEl.querySelectorAll('input[name="jpBwRate"]').forEach(function(radio) {
+          radio.addEventListener('change', function() {
+            var k = this.value;
+            var tier = RATE_TIERS.filter(function(t) { return t.key === k; })[0];
+            state.rate = tier;
+            state.perNight = Math.round(state.room.base * tier.multiplier);
+            state.total = state.perNight * state.nights;
+            footerTotal.textContent = '$' + state.total;
+            footerBtn.disabled = false;
+          });
+        });
+      }
+
+      // ---- Footer proceed -> Add to cart -> Step 4 ----
+      footerBtn.addEventListener('click', function() {
+        if (!state.rate) return;
+        state.cart.push({
+          room: state.room,
+          rate: state.rate,
+          perNight: state.perNight,
+          total: state.perNight * state.nights
+        });
+        state.room = null;
+        state.rate = null;
+        renderCart();
+        goToStep(4);
+      });
+
+      // ---- Step 4: Cart Summary ----
+      function renderCart() {
+        var h = '<div class="bw__title">Your booking</div>';
+        h += '<div class="bw__cart-rooms-label">' + state.cart.length + ' room' + (state.cart.length > 1 ? 's' : '') + ' \u00b7 ' + state.nights + ' night' + (state.nights > 1 ? 's' : '') + '</div>';
+        state.cart.forEach(function(item, idx) {
+          h += '<div class="bw__cart-item">';
+          h += '<img class="bw__cart-item-img" src="' + item.room.image + '" alt="' + item.room.name + '">';
+          h += '<div class="bw__cart-item-info">';
+          h += '<div class="bw__cart-item-name">' + item.room.name + '</div>';
+          h += '<div class="bw__cart-item-rate">' + item.rate.label + '</div>';
+          h += '<div class="bw__cart-item-price">$' + item.total + ' <span>($' + item.perNight + '/night)</span></div>';
+          h += '</div>';
+          h += '<button class="bw__cart-item-remove" data-cart-idx="' + idx + '" aria-label="Remove">';
+          h += '<svg viewBox="0 0 14 14" fill="none"><path d="M11 3L3 11M3 3l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+          h += '</button></div>';
+        });
+        var grandTotal = getCartTotal();
+        h += '<div class="bw__cart-total"><span class="bw__cart-total-label">Total</span><span class="bw__cart-total-amount">$' + grandTotal + '</span><span class="bw__tax-note">Includes all taxes and fees</span></div>';
+        h += '<div class="bw__cart-actions">';
+        h += '<button class="bw__add-room-btn" id="jpBwAddRoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg> Add another room</button>';
+        h += '<button class="bw__proceed-btn" id="jpBwCartProceed">Proceed to checkout</button>';
+        h += '</div>';
+        step4.innerHTML = h;
+
+        // Remove buttons
+        step4.querySelectorAll('.bw__cart-item-remove').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            var idx = parseInt(this.dataset.cartIdx);
+            state.cart.splice(idx, 1);
+            if (state.cart.length === 0) {
+              goToStep(2);
+            } else {
+              renderCart();
+            }
+          });
+        });
+
+        // Add another room
+        document.getElementById('jpBwAddRoom').addEventListener('click', function() {
+          goToStep(2);
+        });
+
+        // Proceed to checkout
+        document.getElementById('jpBwCartProceed').addEventListener('click', function() {
+          renderCheckout();
+          goToStep(5);
+        });
+      }
+
+      // ---- Step 5: Checkout ----
+      function renderCheckout() {
+        var grandTotal = getCartTotal();
+        var h = '<div class="bw__checkout-summary">';
+        state.cart.forEach(function(item, idx) {
+          h += '<div class="bw__summary-row"><span>' + item.room.name + '</span><strong>$' + item.total + '</strong></div>';
+          h += '<div class="bw__summary-row"><span style="font-size:11px;color:var(--hit-gray)">' + item.rate.label + ' \u00b7 $' + item.perNight + '/night</span><strong></strong></div>';
+        });
+        h += '<div class="bw__summary-row"><span>Dates</span><strong>' + fmtShort(state.checkin) + ' \u2013 ' + fmtShort(state.checkout) + '</strong></div>';
+        h += '<div class="bw__summary-row"><span>Guests</span><strong>' + guestSummary() + '</strong></div>';
+        h += '<div class="bw__summary-divider"></div>';
+        h += '<div class="bw__summary-row bw__summary-row--total"><span>Total</span><strong>$' + grandTotal + '</strong></div>';
+        h += '<span class="bw__tax-note" style="display:block;text-align:right">Includes all taxes and fees</span>';
+        h += '</div>';
+
+        var isMember = window.LH && window.LH.isSignedIn();
+        var savings = Math.round(grandTotal * 0.2);
+        if (!isMember) {
+          h += '<div class="bw__savings-banner bw__savings-banner--cta">';
+          h += '<div class="bw__savings-cta-top">';
+          h += '<div class="bw__savings-cta-amount">$' + savings + '</div>';
+          h += '<div class="bw__savings-cta-text"><strong>Member savings</strong>Sign up for free and unlock this discount on your booking</div>';
+          h += '</div>';
+          h += '<button class="bw__savings-banner-btn" onclick="event.preventDefault();document.querySelector(\'a[href=\\\'signup.html\\\']\').click();">Become a member</button>';
+          h += '</div>';
+        }
+
+        h += '<div class="bw__form-title">Contact information</div>';
+        h += '<div class="bw__form">';
+        h += '<div class="bw__form-row"><div class="bw__form-field"><label>First name *</label><input type="text" id="jpBwFN" autocomplete="given-name"></div>';
+        h += '<div class="bw__form-field"><label>Last name *</label><input type="text" id="jpBwLN" autocomplete="family-name"></div></div>';
+        h += '<div class="bw__form-field"><label>Email *</label><input type="email" id="jpBwEM" autocomplete="email"></div>';
+        h += '<div class="bw__form-field"><label>Phone *</label><input type="tel" id="jpBwPH" autocomplete="tel"></div>';
+        h += '</div>';
+
+        h += '<div class="bw__form-title">Payment details</div>';
+        h += '<div class="bw__form">';
+        h += '<div class="bw__form-field"><label>Name on card</label><input type="text" id="jpBwCN" autocomplete="cc-name"></div>';
+        h += '<div class="bw__form-field"><label>Card number</label><input type="text" id="jpBwCNum" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric" autocomplete="cc-number"></div>';
+        h += '<div class="bw__form-row"><div class="bw__form-field"><label>Expiry</label><input type="text" id="jpBwCExp" placeholder="MM/YY" maxlength="5" inputmode="numeric" autocomplete="cc-exp"></div>';
+        h += '<div class="bw__form-field"><label>CVV</label><input type="text" id="jpBwCCvv" placeholder="123" maxlength="3" inputmode="numeric" autocomplete="cc-csc"></div></div>';
+        h += '</div>';
+
+        h += '<div class="bw__form" style="margin-bottom:12px"><div class="bw__form-field"><label>Country</label>';
+        h += '<select id="jpBwCountry"><option value="GE">Georgia</option><option value="US">United States</option><option value="GB">United Kingdom</option><option value="DE">Germany</option><option value="FR">France</option><option value="OTHER">Other</option></select></div></div>';
+
+        h += '<button class="bw__pay-btn" id="jpBwPayBtn">Pay $' + grandTotal + '</button>';
+        h += '<span class="bw__tax-note" style="display:block;text-align:center;margin-top:6px">Includes all taxes and fees</span>';
+        step5.innerHTML = h;
+
+        // Card formatters
+        document.getElementById('jpBwCNum').addEventListener('input', function() {
+          var v = this.value.replace(/\D/g, '');
+          if (v.length > 16) v = v.substring(0, 16);
+          var f = '';
+          for (var i = 0; i < v.length; i++) { if (i > 0 && i % 4 === 0) f += ' '; f += v[i]; }
+          this.value = f;
+        });
+        document.getElementById('jpBwCExp').addEventListener('input', function() {
+          var v = this.value.replace(/\D/g, '');
+          if (v.length > 4) v = v.substring(0, 4);
+          this.value = v.length >= 2 ? v.substring(0, 2) + '/' + v.substring(2) : v;
+        });
+        document.getElementById('jpBwCCvv').addEventListener('input', function() {
+          this.value = this.value.replace(/\D/g, '').substring(0, 3);
+        });
+
+        // Pay
+        document.getElementById('jpBwPayBtn').addEventListener('click', function() {
+          var fn = document.getElementById('jpBwFN');
+          var ln = document.getElementById('jpBwLN');
+          var em = document.getElementById('jpBwEM');
+          var ph = document.getElementById('jpBwPH');
+          [fn, ln, em, ph].forEach(function(f) { f.classList.remove('invalid'); });
+          var ok = true;
+          if (!fn.value.trim()) { fn.classList.add('invalid'); ok = false; }
+          if (!ln.value.trim()) { ln.classList.add('invalid'); ok = false; }
+          if (!em.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value)) { em.classList.add('invalid'); ok = false; }
+          if (!ph.value.trim()) { ph.classList.add('invalid'); ok = false; }
+          var cn = document.getElementById('jpBwCN').value.trim();
+          var cnum = document.getElementById('jpBwCNum').value.replace(/\s/g, '');
+          var cexp = document.getElementById('jpBwCExp').value;
+          var ccvv = document.getElementById('jpBwCCvv').value;
+          if (!cn || cnum.length < 16 || cexp.length < 5 || ccvv.length < 3) ok = false;
+          if (!ok) return;
+
+          state.guest = { firstName: fn.value.trim(), lastName: ln.value.trim(), email: em.value.trim(), phone: ph.value.trim() };
+          state.isProcessing = true;
+          step5.innerHTML = '<div class="bw__processing"><div class="bw__spinner"></div><p class="bw__processing-text">Processing your payment...</p></div>';
+
+          setTimeout(function() {
+            state.isProcessing = false;
+            showConfirm();
+          }, 2500);
+        });
+      }
+
+      function showConfirm() {
+        var ref = genRef();
+        var grandTotal = getCartTotal();
+        var savings = Math.round(grandTotal * 0.2);
+        var isMember = window.LH && window.LH.isSignedIn();
+        var hotelName = currentHotel ? currentHotel.name : 'Hotel';
+        var h = '<div class="bw__confirmation">';
+        h += '<div class="bw__confirmation-check"><svg width="56" height="56" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" stroke="#198754" stroke-width="3"/><path class="bw__check-path" d="M20 33l8 8 16-18" stroke="#198754" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
+        h += '<h3 class="bw__confirmation-title">Booking Confirmed!</h3>';
+        h += '<p class="bw__confirmation-ref">Reference: <strong>' + ref + '</strong></p>';
+        h += '<div class="bw__confirmation-details">';
+        h += '<div class="bw__summary-row"><span>Hotel</span><strong>' + hotelName + '</strong></div>';
+        state.cart.forEach(function(item) {
+          h += '<div class="bw__summary-row"><span>Room</span><strong>' + item.room.name + '</strong></div>';
+        });
+        h += '<div class="bw__summary-row"><span>Check-in</span><strong>' + fmtLong(state.checkin) + '</strong></div>';
+        h += '<div class="bw__summary-row"><span>Check-out</span><strong>' + fmtLong(state.checkout) + '</strong></div>';
+        h += '<div class="bw__summary-row"><span>Guest</span><strong>' + state.guest.firstName + ' ' + state.guest.lastName + '</strong></div>';
+        h += '<div class="bw__summary-divider"></div>';
+        h += '<div class="bw__summary-row bw__summary-row--total"><span>Total paid</span><strong>$' + grandTotal + '</strong></div>';
+        h += '<span class="bw__tax-note" style="display:block;text-align:right">Includes all taxes and fees</span>';
+        h += '</div>';
+        if (isMember) {
+          h += '<div class="bw__savings-banner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>You saved <strong>$' + savings + '</strong> with your member discount!</span></div>';
+        }
+        h += '<button class="bw__done-btn" id="jpBwDoneBtn">Done</button></div>';
+        step5.innerHTML = h;
+
+        document.getElementById('jpBwDoneBtn').addEventListener('click', function() {
+          resetWidget();
+        });
+      }
+
+      function resetWidget() {
+        state.room = null;
+        state.rate = null;
+        state.cart = [];
+        state.selecting = 'checkin';
+        state.checkin = null;
+        state.checkout = null;
+        state.adults = 2;
+        state.children = 0;
+        state.hoverDate = null;
+        state.viewMonth = new Date().getMonth();
+        state.viewYear = new Date().getFullYear();
+        currentHotel = null;
+        ROOM_DATA = [];
+        // Reset UI
+        document.getElementById('jpBwAdults').textContent = '2';
+        document.getElementById('jpBwChildren').textContent = '0';
+        goToStep(0);
+        updateStepperBtns();
+        renderCal();
+        updateSearchBtn();
+        updateCalHint();
+      }
+
+      // ---- Back / Close ----
+      document.getElementById('jpBwBack').addEventListener('click', function() {
+        if (state.isProcessing) return;
+        if (state.step === 1) {
+          goToStep(0);
+        } else if (state.step === 2) goToStep(1);
+        else if (state.step === 3) goToStep(2);
+        else if (state.step === 4) goToStep(2);
+        else if (state.step === 5) { renderCart(); goToStep(4); }
+      });
+
+      document.getElementById('jpBwClose').addEventListener('click', function() {
+        if (state.isProcessing) return;
+        resetWidget();
+      });
+
+      // ---- Featured hotel card clicks ----
+      document.querySelectorAll('.post__featured-card[data-hotel]').forEach(function(card) {
+        card.addEventListener('click', function() {
+          var key = this.dataset.hotel;
+          var hotel = HOTELS[key];
+          if (!hotel) return;
+          currentHotel = hotel;
+          ROOM_DATA = hotel.rooms;
+          // Reset state for new hotel
+          state.room = null;
+          state.rate = null;
+          state.cart = [];
+          state.selecting = 'checkin';
+          state.checkin = null;
+          state.checkout = null;
+          state.adults = 2;
+          state.children = 0;
+          state.hoverDate = null;
+          state.viewMonth = new Date().getMonth();
+          state.viewYear = new Date().getFullYear();
+          // Reset UI elements
+          document.getElementById('jpBwAdults').textContent = '2';
+          document.getElementById('jpBwChildren').textContent = '0';
+          // Initialize at step 1 (calendar)
+          goToStep(1);
+          updateStepperBtns();
+          renderCal();
+          updateSearchBtn();
+          updateCalHint();
+        });
+      });
+
+      // ---- Init ----
+      updateStepperBtns();
+      renderCal();
+      updateSearchBtn();
+    })();
   </script>
   <script src="auth-modal.js"></script>
+  <script src="site-footer.js"></script>
 </body>
 </html>

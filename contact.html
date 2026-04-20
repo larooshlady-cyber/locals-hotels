@@ -6,7 +6,7 @@
   <title>Contact — Locals' Hotels</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -26,7 +26,7 @@
       --white-lilac: #E8E8F6;
       --gray-muted: #6C757D;
       --font: 'Funnel Sans', sans-serif;
-      --font-display: 'Funnel Display', sans-serif;
+      --font-display: 'Funnel Sans', sans-serif;
     }
 
     body {
@@ -301,7 +301,6 @@
       transition: left 0.5s ease;
     }
     .header__action-btn--cta:hover::before {
-      left: 100%;
     }
     .header__action-btn--cta:hover {
       background: var(--black);
@@ -509,7 +508,9 @@
     .contact__info {
       display: flex;
       flex-direction: column;
-      gap: 40px;
+      gap: 32px;
+      position: sticky;
+      top: 100px;
     }
     .contact__info-header {
       display: flex;
@@ -536,6 +537,38 @@
       color: var(--nevada);
     }
 
+    /* -- Map embed -- */
+    .contact__map-embed {
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    .contact__map-embed iframe {
+      width: 100%;
+      height: 300px;
+      border: 0;
+      display: block;
+    }
+    .contact__map-directions {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      padding: 8px 14px;
+      background: var(--white);
+      color: var(--shark);
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      transition: background 0.2s;
+    }
+    .contact__map-directions:hover { background: var(--athens-gray); }
+    .contact__map-directions svg { width: 14px; height: 14px; }
+
     /* -- Address card -- */
     .contact__address-card {
       background: var(--athens-gray);
@@ -544,11 +577,8 @@
       display: flex;
       gap: 16px;
       align-items: flex-start;
-      transition: transform 0.3s, box-shadow 0.3s;
     }
     .contact__address-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
     }
     .contact__address-icon {
       width: 48px;
@@ -589,11 +619,8 @@
       background: var(--athens-gray);
       border-radius: 12px;
       padding: 28px;
-      transition: transform 0.3s, box-shadow 0.3s;
     }
     .contact__hours-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
     }
     .contact__hours-top {
       display: flex;
@@ -702,10 +729,8 @@
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     .contact__social-link:hover {
-      background: var(--shark);
-      color: var(--white);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      background: var(--mischka);
+      color: var(--shark);
     }
     .contact__social-link svg {
       width: 20px;
@@ -847,118 +872,114 @@
       transition: left 0.5s ease;
     }
     .contact__submit:hover::before {
-      left: 100%;
     }
     .contact__submit:hover {
       background: var(--black);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
     }
 
     /* ========== FAQ ========== */
     .faq {
-      padding: 80px 0 0;
+      padding: 80px 0 100px;
     }
     .faq__inner {
       max-width: 1600px;
       margin: 0 auto;
       padding: 0 40px;
-    }
-    .faq__header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin-bottom: 40px;
-      gap: 24px;
-    }
-    .faq__header-text {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .faq__tag {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--mexican-red);
-    }
-    .faq__title {
-      font-family: var(--font-display);
-      font-size: 28px;
-      font-weight: 700;
-      line-height: 36px;
-      color: var(--outer-space);
-    }
-    .faq__list {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      grid-template-columns: 1fr 2fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .faq__left {
+      position: sticky;
+      top: 100px;
+    }
+    .faq__heading {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 48px;
+      color: var(--shark);
+      letter-spacing: -0.3px;
+    }
+    .faq__heading-desc {
+      font-size: 16px;
+      line-height: 26px;
+      color: var(--nevada);
+      margin-top: 16px;
+      font-weight: 400;
+    }
+    .faq__contact-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 28px;
+      padding: 12px 28px;
+      background: var(--shark);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 10px;
+      letter-spacing: 0.3px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .faq__contact-cta:hover {
+      background: var(--black);
     }
     .faq__item {
-      background: var(--athens-gray);
-      border-radius: 10px;
-      overflow: hidden;
-      transition: box-shadow 0.3s;
+      border-bottom: 1px solid var(--mischka);
     }
-    .faq__item:hover {
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    .faq__item:first-child {
+      border-top: 1px solid var(--mischka);
     }
     .faq__question {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      padding: 20px 24px;
-      width: 100%;
-      text-align: left;
+      padding: 24px 0;
       font-family: var(--font);
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 600;
+      line-height: 26px;
       color: var(--shark);
+      text-align: left;
       cursor: pointer;
       background: none;
       border: none;
-      transition: color 0.2s;
+      transition: color 0.3s;
+      gap: 16px;
     }
     .faq__question:hover {
       color: var(--mexican-red);
     }
     .faq__icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 24px;
+      height: 24px;
       flex-shrink: 0;
-      transition: all 0.3s;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    }
-    .faq__icon svg {
-      width: 14px;
-      height: 14px;
-      color: var(--abbey);
-      transition: transform 0.3s;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      color: var(--hit-gray);
     }
     .faq__item.open .faq__icon {
-      background: var(--shark);
-    }
-    .faq__item.open .faq__icon svg {
-      color: var(--white);
       transform: rotate(45deg);
+      color: var(--mexican-red);
     }
     .faq__answer {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding 0.4s;
+      transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+      opacity: 0;
     }
-    .faq__answer-text {
-      padding: 0 24px 20px;
-      font-size: 14px;
-      line-height: 24px;
+    .faq__answer-inner {
+      padding: 0 0 24px;
+      font-size: 15px;
+      line-height: 26px;
       color: var(--nevada);
+      max-width: 640px;
+    }
+    .faq__item.open .faq__answer {
+      opacity: 1;
     }
 
     /* ========== MAP ========== */
@@ -1008,9 +1029,7 @@
       transition: all 0.25s;
     }
     .map__directions:hover {
-      background: rgba(162, 37, 34, 0.04);
       border-color: var(--mexican-red);
-      transform: translateY(-1px);
     }
     .map__directions svg {
       width: 14px;
@@ -1162,8 +1181,12 @@
 
     /* ========== RESPONSIVE ========== */
     @media (max-width: 1100px) {
-      .faq__list {
+      .faq__inner {
         grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .faq__left {
+        position: static;
       }
     }
 
@@ -1208,6 +1231,7 @@
         grid-template-columns: 1fr;
         gap: 40px;
       }
+      .contact__info { position: static; }
       .contact__form-wrap {
         padding: 28px 20px;
         border-radius: 12px;
@@ -1220,8 +1244,10 @@
         align-items: flex-start;
       }
 
-      .faq__inner { padding: 0 16px; }
-      .faq__header { flex-direction: column; align-items: flex-start; }
+      .faq { padding: 40px 0 60px; }
+      .faq__inner { padding: 0 16px; grid-template-columns: 1fr; gap: 32px; }
+      .faq__left { position: static; }
+      .faq__heading { font-size: 28px; line-height: 36px; }
 
       .map__inner { padding: 0 16px; }
       .map__frame { height: 280px; border-radius: 10px; }
@@ -1261,7 +1287,7 @@
   <div class="topbar" id="topbar">
     <div class="topbar__inner">
       <span class="topbar__badge">New</span>
-      <span class="topbar__text">Hotels just added in Kakheti wine region</span>
+      <span class="topbar__text">Hotels just added in Kakheti wine country</span>
       <a href="hotels.html?region=Kakheti" class="topbar__link">Explore now &rarr;</a>
     </div>
     <button class="topbar__close" id="topbarClose" aria-label="Close">
@@ -1273,11 +1299,12 @@
   <header class="header">
     <div class="header__inner">
       <a href="index.html" class="header__logo">
-        <img src="https://localshotels.com/wp-content/uploads/2025/05/logo-horizontal-black-1024x97.webp" alt="Locals' Hotels" class="header__logo-img">
+        <img src="images/logo.svg" alt="Locals' Hotels" class="header__logo-img">
       </a>
       <nav class="header__nav">
         <a href="index.html" class="header__nav-item">Home</a>
         <a href="hotels.html" class="header__nav-item">Hotels</a>
+        <a href="restaurants.html" class="header__nav-item">Restaurants</a>
         <a href="journal.html" class="header__nav-item">Journal</a>
         <a href="contact.html" class="header__nav-item header__nav-item--active">Contact</a>
       </nav>
@@ -1371,44 +1398,12 @@
           <p class="contact__info-desc">Whether you're planning your next trip to Georgia or want to list your property with us, our team is ready to help.</p>
         </div>
 
-        <div class="contact__address-card">
-          <div class="contact__address-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          </div>
-          <div class="contact__address-text">
-            <span class="contact__address-label">Office Address</span>
-            <div class="contact__address-value">
-              8 Shardeni Street<br>
-              Old Town, Tbilisi 0105<br>
-              Georgia
-            </div>
-          </div>
-        </div>
-
-        <div class="contact__hours-card">
-          <div class="contact__hours-top">
-            <div class="contact__hours-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            </div>
-            <div>
-              <div class="contact__hours-label">Office Hours</div>
-              <span class="contact__hours-badge">Open Now</span>
-            </div>
-          </div>
-          <div class="contact__hours-list">
-            <div class="contact__hours-row">
-              <span class="contact__hours-day">Monday - Friday</span>
-              <span class="contact__hours-time">9:00 AM - 7:00 PM</span>
-            </div>
-            <div class="contact__hours-row">
-              <span class="contact__hours-day">Saturday</span>
-              <span class="contact__hours-time">10:00 AM - 5:00 PM</span>
-            </div>
-            <div class="contact__hours-row">
-              <span class="contact__hours-day">Sunday</span>
-              <span class="contact__hours-time">Closed</span>
-            </div>
-          </div>
+        <div class="contact__map-embed">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2978.5!2d44.8015!3d41.6934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDQxJzM2LjIiTiA0NMKwNDgnMDUuNCJF!5e0!3m2!1sen!2sge!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <a href="https://maps.google.com/?q=8+Shardeni+Street+Tbilisi" target="_blank" rel="noopener" class="contact__map-directions">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8L22 12L18 16"/><path d="M2 12h20"/></svg>
+            Get Directions
+          </a>
         </div>
 
         <div class="contact__socials-section">
@@ -1480,89 +1475,62 @@
   <!-- ========== FAQ ========== -->
   <section class="faq reveal">
     <div class="faq__inner">
-      <div class="faq__header">
-        <div class="faq__header-text">
-          <span class="faq__tag">FAQ</span>
-          <h2 class="faq__title">Frequently Asked Questions</h2>
-        </div>
+      <div class="faq__left">
+        <span class="section__label">Support</span>
+        <h2 class="faq__heading">Frequently Asked<br>Questions</h2>
+        <p class="faq__heading-desc">Everything you need to know about booking with Locals' Hotels.</p>
+        <a href="mailto:hello@localshotels.ge" class="faq__contact-cta">Contact Us</a>
       </div>
       <div class="faq__list">
-        <div class="faq__item">
-          <button class="faq__question">
-            How do I book a hotel through Locals' Hotels?
-            <span class="faq__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-          </button>
-          <div class="faq__answer">
-            <p class="faq__answer-text">Browse our curated collection of boutique hotels, select your preferred property, and click "Book Now" to be connected directly with the hotel. We don't add any booking fees or middleman charges.</p>
-          </div>
+      <div class="faq__item">
+        <button class="faq__question">
+          <span>What is the Locals' Hotels?</span>
+          <svg class="faq__icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">Locals' Hotels is a curated collection of independent boutique and design hotels across Georgia, connecting travelers with places shaped by local culture, creativity, and character.</div>
         </div>
-        <div class="faq__item">
-          <button class="faq__question">
-            What makes your hotels different?
-            <span class="faq__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-          </button>
-          <div class="faq__answer">
-            <p class="faq__answer-text">Every hotel in our collection is personally vetted. We focus on properties with authentic local character, exceptional design, and hosts who go above and beyond. No generic chain hotels here.</p>
-          </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__question">
+          <span>Do you own the hotels you feature?</span>
+          <svg class="faq__icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">No, we don't own the hotels. We carefully select and feature independently-owned properties that meet our standards for design, hospitality, and local character.</div>
         </div>
-        <div class="faq__item">
-          <button class="faq__question">
-            Can I list my property on Locals' Hotels?
-            <span class="faq__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-          </button>
-          <div class="faq__answer">
-            <p class="faq__answer-text">We're always looking for unique boutique properties across Georgia. Use the contact form above and select "Hotel Partnership" as the subject, or email us directly at hello@localshotels.com.</p>
-          </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__question">
+          <span>Why use Locals' instead of just searching online?</span>
+          <svg class="faq__icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">We do the research so you don't have to. Every hotel in our collection has been personally visited and vetted, ensuring quality stays that reflect the best of Georgian hospitality.</div>
         </div>
-        <div class="faq__item">
-          <button class="faq__question">
-            Do you offer group or corporate bookings?
-            <span class="faq__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-          </button>
-          <div class="faq__answer">
-            <p class="faq__answer-text">Yes! We can arrange group stays, corporate retreats, and special events across our network of properties. Reach out to us with your requirements and we'll create a tailored proposal.</p>
-          </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__question">
+          <span>How do you decide which hotels to include?</span>
+          <svg class="faq__icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">We look for properties with distinctive design, genuine hospitality, and a strong connection to their surroundings. Each hotel must offer something unique that you won't find in a chain.</div>
         </div>
-        <div class="faq__item">
-          <button class="faq__question">
-            What is your cancellation policy?
-            <span class="faq__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-          </button>
-          <div class="faq__answer">
-            <p class="faq__answer-text">Cancellation policies vary by property. Most of our hotels offer free cancellation up to 48 hours before check-in. You'll see the specific policy for each hotel during the booking process.</p>
-          </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__question">
+          <span>Can I list my hotel on Locals' Hotels?</span>
+          <svg class="faq__icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">Yes! If you run an independent boutique hotel in Georgia, we'd love to hear from you. Get in touch through our contact page and tell us about your property.</div>
         </div>
-        <div class="faq__item">
-          <button class="faq__question">
-            Do you operate outside of Georgia?
-            <span class="faq__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-          </button>
-          <div class="faq__answer">
-            <p class="faq__answer-text">Currently, we're focused exclusively on Georgia's boutique hotel scene. We plan to expand to neighboring countries in the Caucasus and beyond in the near future. Stay tuned!</p>
-          </div>
-        </div>
+      </div>
       </div>
     </div>
   </section>
 
-  <!-- ========== MAP ========== -->
-  <section class="map reveal">
-    <div class="map__inner">
-      <div class="map__header">
-        <div class="map__header-text">
-          <span class="map__tag">Location</span>
-          <h2 class="map__heading">Find Us in Old Town Tbilisi</h2>
-        </div>
-        <a href="https://maps.google.com/?q=8+Shardeni+Street+Tbilisi" target="_blank" rel="noopener" class="map__directions">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8L22 12L18 16"/><path d="M2 12h20"/></svg>
-          Get Directions
-        </a>
-      </div>
-      <div class="map__frame">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2978.5!2d44.8015!3d41.6934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDQxJzM2LjIiTiA0NMKwNDgnMDUuNCJF!5e0!3m2!1sen!2sge!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-    </div>
-  </section>
 
   <!-- ========== FOOTER ========== -->
   <footer class="footer">
@@ -1693,5 +1661,6 @@
     })();
   </script>
   <script src="auth-modal.js"></script>
+  <script src="site-footer.js"></script>
 </body>
 </html>

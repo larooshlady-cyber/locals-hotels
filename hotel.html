@@ -6,7 +6,7 @@
   <title>Artizan Design Hotel | Locals' Hotels</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300;400;500;600;700;800&family=Funnel+Display:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -26,7 +26,7 @@
       --white-lilac: #E8E8F6;
       --gray-muted: #6C757D;
       --font: 'Funnel Sans', sans-serif;
-      --font-display: 'Funnel Display', sans-serif;
+      --font-display: 'Funnel Sans', sans-serif;
     }
 
     body {
@@ -266,7 +266,7 @@
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
       transition: left 0.5s ease;
     }
-    .header__action-btn--cta:hover::before { left: 100%; }
+    .header__action-btn--cta:hover::before { }
     .header__action-btn--cta:hover {
       background: var(--black);
       color: var(--white);
@@ -484,7 +484,7 @@
       object-fit: cover;
       transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .gallery__item:hover img { transform: scale(1.05); }
+    .gallery__item:hover img { }
     .gallery__badge {
       position: absolute;
       bottom: 12px;
@@ -795,9 +795,94 @@
       align-items: center;
       justify-content: space-between;
     }
-    .bw__room-price { font-size: 18px; font-weight: 800; color: var(--shark); letter-spacing: -0.3px; }
-    .bw__room-price span { font-size: 12px; font-weight: 400; color: var(--nevada); }
-    .bw__room-view { font-size: 12px; font-weight: 400; color: var(--nevada); }
+    .bw__room-price-block {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: row-reverse;
+    }
+    .bw__room-discount {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 11px;
+      color: var(--mexican-red);
+      white-space: nowrap;
+    }
+    .bw__room-discount-label { display: inline; }
+    .bw__room-discount-info {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1.5px solid var(--hit-gray);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--hit-gray);
+      line-height: 1;
+      margin-left: 3px;
+      position: relative;
+      flex-shrink: 0;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .bw__room-discount-info:hover { border-color: var(--shark); color: var(--shark); }
+    .bw__room-discount-tooltip {
+      display: none;
+      position: fixed;
+      width: 240px;
+      background: var(--shark);
+      color: var(--white);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 16px;
+      z-index: 200;
+      pointer-events: none;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .bw__room-discount-info:hover .bw__room-discount-tooltip { display: block; }
+    .lh-signed-in .bw__room-discount-label {
+      font-size: 0;
+    }
+    .lh-signed-in .bw__room-discount-label::after {
+      content: 'Up to';
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--hit-gray);
+      margin-right: 1px;
+    }
+    .bw__room-price-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .bw__room-price-original { font-size: 18px; font-weight: 800; color: var(--shark); letter-spacing: -0.3px; }
+    .bw__room-price-original::after { content: ' / night'; font-size: 12px; font-weight: 400; color: var(--nevada); }
+    .bw__room-price-member { display: none; }
+    /* Logged-in: show member price, strikethrough original */
+    .lh-signed-in .bw__room-price-original {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--hit-gray);
+      text-decoration: line-through;
+    }
+    .lh-signed-in .bw__room-price-original::after { content: none; }
+    .lh-signed-in .bw__room-price-member {
+      display: inline;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--shark);
+      letter-spacing: -0.3px;
+    }
+    .lh-signed-in .bw__room-price-member span { font-size: 12px; font-weight: 400; color: var(--nevada); }
     .bw__rate-room-header {
       display: flex;
       gap: 14px;
@@ -881,15 +966,16 @@
     .bw__cart-item-remove:hover { color: var(--mexican-red); background: rgba(162,37,34,0.06); }
     .bw__cart-item-remove svg { width: 14px; height: 14px; }
     .bw__cart-total {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr auto;
       align-items: center;
       padding: 14px 0 0;
       border-top: 1px solid var(--athens-gray);
       margin-top: 4px;
     }
     .bw__cart-total-label { font-size: 14px; font-weight: 600; color: var(--abbey); }
-    .bw__cart-total-amount { font-size: 20px; font-weight: 800; color: var(--shark); letter-spacing: -0.3px; }
+    .bw__cart-total-amount { font-size: 20px; font-weight: 800; color: var(--shark); letter-spacing: -0.3px; text-align: right; }
+    .bw__cart-total .bw__tax-note { grid-column: 2; text-align: right; }
     .bw__cart-actions {
       display: flex;
       flex-direction: column;
@@ -952,6 +1038,7 @@
     .bw__footer.active { display: flex; }
     .bw__footer-total { display: flex; flex-direction: column; }
     .bw__footer-label { font-size: 11px; color: var(--hit-gray); font-weight: 500; }
+    .bw__tax-note { font-size: 11px; color: var(--nevada); font-weight: 500; margin-top: 2px; }
     .bw__footer-amount { font-size: 20px; font-weight: 800; color: var(--shark); letter-spacing: -0.3px; }
     .bw__footer-btn {
       padding: 12px 24px;
@@ -1096,6 +1183,84 @@
       transition: background 0.2s;
     }
     .bw__done-btn:hover { background: var(--black); }
+    /* -- Member savings: confirmation (signed-in) -- */
+    .bw__savings-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      border-radius: 8px;
+      border: 1.5px solid #2e7d32;
+      background: #f0faf1;
+      color: var(--shark);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 20px;
+      margin-bottom: 16px;
+    }
+    .bw__savings-banner svg { flex-shrink: 0; }
+    .bw__savings-banner strong { font-weight: 700; color: #2e7d32; }
+    /* -- Member CTA: checkout (guest) -- */
+    .bw__savings-banner--cta {
+      border: 1.5px solid var(--mischka);
+      background: var(--white);
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    .bw__savings-cta-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px;
+    }
+    .bw__savings-cta-amount {
+      font-family: var(--font);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--shark);
+      letter-spacing: -0.5px;
+      line-height: 1;
+      flex-shrink: 0;
+      background: var(--athens-gray);
+      padding: 14px 16px;
+      border-radius: 6px;
+    }
+    .bw__savings-cta-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--abbey);
+      line-height: 18px;
+    }
+    .bw__savings-cta-text strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      color: var(--shark);
+      margin-bottom: 2px;
+    }
+    .bw__savings-banner-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: var(--shark);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      text-align: center;
+      border: none;
+      border-top: 1.5px solid var(--mischka);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .bw__savings-banner-btn:hover { background: var(--black); }
 
     /* ========== MEMBER BANNER ========== */
     .member-banner {
@@ -1142,8 +1307,6 @@
     .member-banner__btn:active { transform: translateY(0) scale(0.98); }
     .member-banner__btn:hover {
       background: var(--black);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     .member-banner__link {
       font-size: 12px;
@@ -1221,8 +1384,7 @@
       color: inherit;
     }
     .featured-in__item:hover {
-      background: var(--mischka);
-      transform: translateY(-2px);
+      background: #eef0f2;
     }
     .featured-in__thumb {
       width: 56px;
@@ -1364,11 +1526,10 @@
       padding: 6px 8px;
       margin: -6px -8px;
       border-radius: 6px;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.2s;
     }
     .amenities__item:hover {
       background: var(--athens-gray);
-      transform: translateX(2px);
     }
     .amenities__item svg {
       width: 18px;
@@ -1394,7 +1555,6 @@
     }
     .amenities__toggle:hover {
       border-color: var(--shark);
-      background: var(--athens-gray);
     }
     .amenities__toggle svg {
       width: 14px;
@@ -1473,11 +1633,10 @@
       font-size: 14px;
       line-height: 1.5;
       color: var(--shark);
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.2s;
     }
     .guest-reviews__item:hover {
       background: #eef0f2;
-      transform: translateX(2px);
     }
     .guest-reviews__item-icon {
       flex-shrink: 0;
@@ -1550,14 +1709,15 @@
     .restaurant-card__image {
       aspect-ratio: 16 / 10;
       overflow: hidden;
+      position: relative;
     }
+    .restaurant-card__image::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.08); transition: background 0.2s ease; pointer-events: none; z-index: 1; }
+    .restaurant-card:hover .restaurant-card__image::after { background: rgba(0,0,0,0); }
     .restaurant-card__image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
     }
-    .restaurant-card:hover .restaurant-card__image img { transform: scale(1.05); }
     .restaurant-card__body {
       padding: 16px 20px;
     }
@@ -1608,7 +1768,8 @@
       transition: border-color 0.2s;
     }
     .nearby-hotel-card:hover {
-      border-color: rgba(0,0,0,0.15);
+      background: var(--athens-gray);
+      border-color: rgba(0,0,0,0.1);
     }
     .nearby-hotel-card__thumb {
       width: 80px;
@@ -1690,13 +1851,13 @@
       aspect-ratio: 3 / 4;
       cursor: pointer;
     }
+    .discover-card::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.08); transition: background 0.2s ease; pointer-events: none; z-index: 2; border-radius: inherit; }
+    .discover-card:hover::after { background: rgba(0,0,0,0); }
     .discover-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .discover-card:hover img { transform: scale(1.06); }
     .discover-card__overlay {
       position: absolute;
       inset: 0;
@@ -1793,7 +1954,7 @@
       transition: color 0.2s, transform 0.2s;
       display: inline-block;
     }
-    .footer__nav-list a:hover { color: var(--white); transform: translateX(3px); }
+    .footer__nav-list a:hover { color: var(--white); }
     .footer__nav-list a.active { color: var(--white); }
     .footer__copyright {
       font-size: 12px;
@@ -2042,7 +2203,7 @@
   <div class="topbar" id="topbar">
     <div class="topbar__inner">
       <span class="topbar__badge">New</span>
-      <span class="topbar__text">Hotels just added in Kakheti wine region</span>
+      <span class="topbar__text">Hotels just added in Kakheti wine country</span>
       <a href="hotels.html?region=Kakheti" class="topbar__link">Explore now &rarr;</a>
     </div>
     <button class="topbar__close" id="topbarClose" aria-label="Close">
@@ -2054,11 +2215,12 @@
   <header class="header">
     <div class="header__inner">
       <a href="index.html" class="header__logo">
-        <img src="https://localshotels.com/wp-content/uploads/2025/05/logo-horizontal-black-1024x97.webp" alt="Locals' Hotels" class="header__logo-img">
+        <img src="images/logo.svg" alt="Locals' Hotels" class="header__logo-img">
       </a>
       <nav class="header__nav">
         <a href="index.html" class="header__nav-item">Home</a>
         <a href="hotels.html" class="header__nav-item header__nav-item--active">Hotels</a>
+        <a href="restaurants.html" class="header__nav-item">Restaurants</a>
         <a href="journal.html" class="header__nav-item">Journal</a>
         <a href="contact.html" class="header__nav-item">Contact</a>
       </nav>
@@ -2112,9 +2274,6 @@
           <p class="hotel-header__address">Georgia, Tbilisi</p>
         </div>
         <div class="hotel-header__actions">
-          <button class="hotel-header__action-btn" aria-label="Bookmark">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-          </button>
           <button class="hotel-header__action-btn hotel-header__action-btn--heart" id="heartBtn" aria-label="Like">
             <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             <span>448</span>
@@ -2505,6 +2664,7 @@
               <div class="bw__footer-total">
                 <span class="bw__footer-label">Total</span>
                 <span class="bw__footer-amount" id="bwFooterTotal">$0</span>
+                <span class="bw__tax-note">Includes all taxes and fees</span>
               </div>
               <button class="bw__footer-btn" id="bwFooterBtn" disabled>Proceed</button>
             </div>
@@ -2529,7 +2689,7 @@
           </div>
         </div>
         <div class="footer__col">
-          <div class="footer__nav-title">Regions</div>
+          <div class="footer__nav-title">Destinations</div>
           <ul class="footer__nav-list">
             <li><a href="hotels.html?region=Tbilisi">Tbilisi</a></li>
             <li><a href="hotels.html?region=Kakheti">Kakheti</a></li>
@@ -2888,7 +3048,12 @@
 
       if (!calGrid) return;
 
-      function toISO(d) { return d.toISOString().split('T')[0]; }
+      function toISO(d) {
+        var y = d.getFullYear();
+        var m = String(d.getMonth() + 1).padStart(2, '0');
+        var day = String(d.getDate()).padStart(2, '0');
+        return y + '-' + m + '-' + day;
+      }
 
       function fmtShort(d) {
         if (!d) return '\u2014';
@@ -3062,11 +3227,11 @@
         if (state.checkin && state.checkout) {
           var n = getNights();
           var t = calcTotalPrice(state.checkin, state.checkout);
-          calHint.innerHTML = n + ' night' + (n > 1 ? 's' : '') + ' &middot; <strong>$' + t + ' total</strong>';
+          calHint.innerHTML = n + ' night' + (n > 1 ? 's' : '') + ' &middot; <strong>$' + t + ' total</strong><br><span class="bw__tax-note">Includes all taxes and fees</span>';
         } else if (state.checkin && state.hoverDate && state.selecting === 'checkout') {
           var n = Math.round((state.hoverDate - state.checkin) / 86400000);
           var t = calcTotalPrice(state.checkin, state.hoverDate);
-          calHint.innerHTML = n + ' night' + (n > 1 ? 's' : '') + ' &middot; <strong>$' + t + ' total</strong>';
+          calHint.innerHTML = n + ' night' + (n > 1 ? 's' : '') + ' &middot; <strong>$' + t + ' total</strong><br><span class="bw__tax-note">Includes all taxes and fees</span>';
         } else if (state.checkin) {
           calHint.textContent = 'Select check-out date';
         } else {
@@ -3130,15 +3295,27 @@
           h += '<span>Fits ' + room.guests + ' Guests</span>';
           h += '<span>' + room.bed + '</span>';
           h += '<span>' + room.size + '</span>';
+          h += '<span>' + room.view + '</span>';
           h += '</div>';
           h += '<img class="bw__room-img" src="' + room.image + '" alt="' + room.name + '">';
           h += '<div class="bw__room-amenities">' + room.amenities.join(' &middot; ') + '</div>';
-          h += '<div class="bw__room-meta">';
-          h += '<div class="bw__room-price">$' + room.base + ' <span>/ night</span></div>';
-          h += '<div class="bw__room-view">' + room.view + '</div>';
+          var memberPrice = Math.round(room.base * 0.8);
+          h += '<div class="bw__room-price-block">';
+          h += '<div class="bw__room-discount"><span class="bw__room-discount-label">Get discount up to</span> -20%<span class="bw__room-discount-info" onclick="event.preventDefault();event.stopPropagation();">i<span class="bw__room-discount-tooltip">Sign in or create a free account to unlock this members-only rate.</span></span></div>';
+          h += '<div class="bw__room-price-wrap">';
+          h += '<span class="bw__room-price-original">$' + room.base + '</span>';
+          h += '<span class="bw__room-price-member">$' + memberPrice + ' <span>/ night</span></span>';
+          h += '</div>';
           h += '</div></div>';
         });
         roomList.innerHTML = h;
+
+        roomList.querySelectorAll('.bw__room-discount-info').forEach(function(btn) {
+          btn.addEventListener('mousemove', function(e) {
+            var tip = this.querySelector('.bw__room-discount-tooltip');
+            if (tip) { tip.style.left = (e.clientX + 12) + 'px'; tip.style.top = (e.clientY + 12) + 'px'; }
+          });
+        });
 
         roomList.querySelectorAll('.bw__room').forEach(function(el) {
           el.addEventListener('click', function() {
@@ -3167,16 +3344,12 @@
           h += '<div class="bw__rate-card-inner"><div class="bw__rate-card-header">';
           h += '<span class="bw__rate-card-name">' + tier.label + '</span>';
           h += '<span class="bw__rate-card-tag ' + tier.tagClass + '">' + tier.tag + '</span></div>';
-          h += '<div class="bw__rate-card-pricing"><span class="bw__rate-card-price">$' + basePrice + '/night</span>';
-          if (addon > 0) {
-            h += '<span class="bw__rate-card-addon">+ $' + addon + '/night</span>';
-          }
-          h += '</div>';
-          h += '<div class="bw__rate-card-total">$' + tot + ' total for ' + state.nights + ' night' + (state.nights > 1 ? 's' : '') + '</div>';
+          h += '<div class="bw__rate-card-pricing"><span class="bw__rate-card-price">$' + pn + '/night</span></div>';
+          h += '<div class="bw__rate-card-total">$' + tot + ' total for ' + state.nights + ' night' + (state.nights > 1 ? 's' : '') + ' <span class="bw__tax-note">· Includes all taxes and fees</span></div>';
           if (tier.key === 'nonrefundable') {
             h += '<div class="bw__rate-card-savings">Lowest price available</div>';
-          } else if (addon > 0) {
-            h += '<div class="bw__rate-card-breakdown">$' + basePrice + ' room + $' + addon + ' ' + (tier.key === 'breakfast' ? 'breakfast & flex' : 'flexibility') + '</div>';
+          } else {
+            h += '<div class="bw__rate-card-savings">You won\'t be charged yet</div>';
           }
           h += '</div></label>';
         });
@@ -3231,7 +3404,7 @@
           h += '</button></div>';
         });
         var grandTotal = getCartTotal();
-        h += '<div class="bw__cart-total"><span class="bw__cart-total-label">Total</span><span class="bw__cart-total-amount">$' + grandTotal + '</span></div>';
+        h += '<div class="bw__cart-total"><span class="bw__cart-total-label">Total</span><span class="bw__cart-total-amount">$' + grandTotal + '</span><span class="bw__tax-note">Includes all taxes and fees</span></div>';
         h += '<div class="bw__cart-actions">';
         h += '<button class="bw__add-room-btn" id="bwAddRoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg> Add another room</button>';
         h += '<button class="bw__proceed-btn" id="bwCartProceed">Proceed to checkout</button>';
@@ -3275,7 +3448,20 @@
         h += '<div class="bw__summary-row"><span>Guests</span><strong>' + guestSummary() + '</strong></div>';
         h += '<div class="bw__summary-divider"></div>';
         h += '<div class="bw__summary-row bw__summary-row--total"><span>Total</span><strong>$' + grandTotal + '</strong></div>';
+        h += '<span class="bw__tax-note" style="display:block;text-align:right">Includes all taxes and fees</span>';
         h += '</div>';
+
+        var isMember = window.LH && window.LH.isSignedIn();
+        var savings = Math.round(grandTotal * 0.2);
+        if (!isMember) {
+          h += '<div class="bw__savings-banner bw__savings-banner--cta">';
+          h += '<div class="bw__savings-cta-top">';
+          h += '<div class="bw__savings-cta-amount">$' + savings + '</div>';
+          h += '<div class="bw__savings-cta-text"><strong>Member savings</strong>Sign up for free and unlock this discount on your booking</div>';
+          h += '</div>';
+          h += '<button class="bw__savings-banner-btn" onclick="event.preventDefault();document.querySelector(\'a[href=\\\'signup.html\\\']\').click();">Become a member</button>';
+          h += '</div>';
+        }
 
         h += '<div class="bw__form-title">Contact information</div>';
         h += '<div class="bw__form">';
@@ -3297,6 +3483,7 @@
         h += '<select id="bwCountry"><option value="GE">Georgia</option><option value="US">United States</option><option value="GB">United Kingdom</option><option value="DE">Germany</option><option value="FR">France</option><option value="OTHER">Other</option></select></div></div>';
 
         h += '<button class="bw__pay-btn" id="bwPayBtn">Pay $' + grandTotal + '</button>';
+        h += '<span class="bw__tax-note" style="display:block;text-align:center;margin-top:6px">Includes all taxes and fees</span>';
         step5.innerHTML = h;
 
         // Card formatters
@@ -3349,6 +3536,8 @@
       function showConfirm() {
         var ref = genRef();
         var grandTotal = getCartTotal();
+        var savings = Math.round(grandTotal * 0.2);
+        var isMember = window.LH && window.LH.isSignedIn();
         var h = '<div class="bw__confirmation">';
         h += '<div class="bw__confirmation-check"><svg width="56" height="56" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" stroke="#198754" stroke-width="3"/><path class="bw__check-path" d="M20 33l8 8 16-18" stroke="#198754" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
         h += '<h3 class="bw__confirmation-title">Booking Confirmed!</h3>';
@@ -3363,7 +3552,11 @@
         h += '<div class="bw__summary-row"><span>Guest</span><strong>' + state.guest.firstName + ' ' + state.guest.lastName + '</strong></div>';
         h += '<div class="bw__summary-divider"></div>';
         h += '<div class="bw__summary-row bw__summary-row--total"><span>Total paid</span><strong>$' + grandTotal + '</strong></div>';
+        h += '<span class="bw__tax-note" style="display:block;text-align:right">Includes all taxes and fees</span>';
         h += '</div>';
+        if (isMember) {
+          h += '<div class="bw__savings-banner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>You saved <strong>$' + savings + '</strong> with your member discount!</span></div>';
+        }
         h += '<button class="bw__done-btn" id="bwDoneBtn">Done</button></div>';
         step5.innerHTML = h;
 
@@ -3403,6 +3596,7 @@
   </script>
 
   <script src="auth-modal.js"></script>
+  <script src="site-footer.js"></script>
 
 </body>
 </html>

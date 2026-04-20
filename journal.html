@@ -6,7 +6,7 @@
   <title>Journal — Locals' Hotels</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&family=Funnel+Display:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -26,7 +26,7 @@
       --white-lilac: #E8E8F6;
       --gray-muted: #6C757D;
       --font: 'Funnel Sans', sans-serif;
-      --font-display: 'Funnel Display', sans-serif;
+      --font-display: 'Funnel Sans', sans-serif;
     }
 
     body {
@@ -301,7 +301,6 @@
       transition: left 0.5s ease;
     }
     .header__action-btn--cta:hover::before {
-      left: 100%;
     }
     .header__action-btn--cta:hover {
       background: var(--black);
@@ -426,7 +425,7 @@
     .featured__inner {
       max-width: 1600px;
       margin: 0 auto;
-      padding: 0 40px;
+      padding: 0 48px;
     }
     .featured__carousel {
       position: relative;
@@ -452,28 +451,21 @@
       border-radius: 12px;
       overflow: hidden;
       min-height: 380px;
-      transition: box-shadow 0.3s;
     }
     .featured__slide-link:hover {
-      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
     }
     .featured__image-wrap {
       position: relative;
       overflow: hidden;
     }
+    .featured__image-wrap::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.08); transition: background 0.2s ease; pointer-events: none; z-index: 1; }
+    .featured__slide-link:hover .featured__image-wrap::after { background: rgba(0,0,0,0); }
     .featured__image-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transform: scale(1);
-      transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     .featured__slide.active .featured__image-wrap img {
-      animation: featuredZoom 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    }
-    @keyframes featuredZoom {
-      from { transform: scale(1); }
-      to { transform: scale(1.05); }
     }
     .featured__content {
       display: flex;
@@ -531,7 +523,6 @@
       transition: gap 0.3s ease;
     }
     .featured__slide-link:hover .featured__read-more {
-      gap: 10px;
     }
     .featured__read-more svg {
       width: 14px;
@@ -580,7 +571,7 @@
     .categories__inner {
       max-width: 1600px;
       margin: 0 auto;
-      padding: 0 40px;
+      padding: 0 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -628,7 +619,7 @@
     .articles-grid__inner {
       max-width: 1600px;
       margin: 0 auto;
-      padding: 0 40px;
+      padding: 0 48px;
     }
     .articles-grid__list {
       display: grid;
@@ -641,25 +632,24 @@
       overflow: hidden;
       background: var(--white);
       border: 1px solid rgba(0,0,0,0.06);
-      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s;
+      transition: border-color 0.2s;
     }
     .article-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      border-color: rgba(0,0,0,0.12);
     }
     .article-card__image-wrap {
       aspect-ratio: 16 / 10;
       overflow: hidden;
       position: relative;
     }
+    .article-card__image-wrap::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.08); transition: background 0.2s ease; pointer-events: none; z-index: 1; }
+    .article-card:hover .article-card__image-wrap::after { background: rgba(0,0,0,0); }
     .article-card__image-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.6s ease;
     }
     .article-card:hover .article-card__image-wrap img {
-      transform: scale(1.05);
     }
     .article-card__body {
       padding: 20px 20px 24px;
@@ -773,11 +763,12 @@
     /* ========== NEWSLETTER ========== */
     .newsletter {
       margin-top: 80px;
+      margin-bottom: 80px;
     }
     .newsletter__inner {
       max-width: 1600px;
       margin: 0 auto;
-      padding: 0 40px;
+      padding: 0 48px;
     }
     .newsletter__card {
       background: var(--shark);
@@ -853,8 +844,6 @@
     }
     .newsletter__btn:hover {
       background: var(--athens-gray);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
     }
 
     /* ========== REVEAL ========== */
@@ -904,7 +893,7 @@
     .footer__inner {
       max-width: 1600px;
       margin: 0 auto;
-      padding: 0 40px;
+      padding: 0 48px;
     }
     .footer__brand {
       font-size: 16px;
@@ -1072,8 +1061,8 @@
       .articles-grid__inner,
       .newsletter__inner,
       .footer__inner {
-        padding-left: 40px;
-        padding-right: 40px;
+        padding-left: 48px;
+        padding-right: 48px;
       }
     }
   </style>
@@ -1084,7 +1073,7 @@
   <div class="topbar" id="topbar">
     <div class="topbar__inner">
       <span class="topbar__badge">New</span>
-      <span class="topbar__text">Hotels just added in Kakheti wine region</span>
+      <span class="topbar__text">Hotels just added in Kakheti wine country</span>
       <a href="hotels.html?region=Kakheti" class="topbar__link">Explore now &rarr;</a>
     </div>
     <button class="topbar__close" id="topbarClose" aria-label="Close">
@@ -1096,11 +1085,12 @@
   <header class="header">
     <div class="header__inner">
       <a href="index.html" class="header__logo">
-        <img src="https://localshotels.com/wp-content/uploads/2025/05/logo-horizontal-black-1024x97.webp" alt="Locals' Hotels" class="header__logo-img">
+        <img src="images/logo.svg" alt="Locals' Hotels" class="header__logo-img">
       </a>
       <nav class="header__nav">
         <a href="index.html" class="header__nav-item">Home</a>
         <a href="hotels.html" class="header__nav-item">Hotels</a>
+        <a href="restaurants.html" class="header__nav-item">Restaurants</a>
         <a href="journal.html" class="header__nav-item header__nav-item--active">Journal</a>
         <a href="contact.html" class="header__nav-item">Contact</a>
       </nav>
@@ -1155,7 +1145,7 @@
         <div class="featured__slide active">
           <a href="#" class="featured__slide-link">
             <div class="featured__image-wrap">
-              <img src="https://images.unsplash.com/photo-1565008576549-57569a49371d?w=1200&q=80" alt="Kakheti wine region">
+              <img src="https://images.unsplash.com/photo-1565008576549-57569a49371d?w=1200&q=80" alt="Kakheti wine country">
             </div>
             <div class="featured__content">
               <span class="featured__tag">Featured</span>
@@ -1455,22 +1445,14 @@
         goTo((current + 1) % slides.length);
       }
 
-      function startTimer() {
-        clearInterval(timer);
-        timer = setInterval(next, interval);
-      }
-
       dots.forEach(function(dot) {
         dot.addEventListener('click', function() {
           var idx = parseInt(this.getAttribute('data-slide'));
           if (idx !== current) {
             goTo(idx);
-            startTimer();
           }
         });
       });
-
-      startTimer();
     })();
 
     // Topbar close
@@ -1538,5 +1520,6 @@
     })();
   </script>
   <script src="auth-modal.js"></script>
+  <script src="site-footer.js"></script>
 </body>
 </html>

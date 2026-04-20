@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account | Locals' Hotels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --white: #FFFFFF;
+      --athens-gray: #F8F9FA;
+      --mischka: #CED4DA;
+      --hit-gray: #ADB5BD;
+      --abbey: #495057;
+      --nevada: #677078;
+      --outer-space: #343A40;
+      --shark: #212529;
+      --black: #000000;
+      --mexican-red: #A22522;
+      --white-lilac: #E8E8F6;
+      --gray-muted: #6C757D;
+      --green: #386641;
+      --green-soft: #e8f5e9;
+      --amber: #b8860b;
+      --amber-soft: #fff4d6;
+      --blue: #1c4f8c;
+      --blue-soft: #e6efff;
+      --rose: #b4315a;
+      --rose-soft: #fde7ee;
+      --font: 'Funnel Sans', sans-serif;
+      --font-display: 'Funnel Sans', sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--shark);
+      background: var(--athens-gray);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { border: none; background: none; cursor: pointer; font-family: inherit; }
+    ul, li { list-style: none; }
+    input, select, textarea { font-family: inherit; }
+
+    /* ========== TOP BAR ========== */
+    .topbar { background: linear-gradient(135deg, var(--shark) 0%, #1a1d21 100%); color: var(--white); text-align: center; padding: 10px 16px; font-size: 12px; font-weight: 500; letter-spacing: 0.3px; position: relative; overflow: hidden; }
+    .topbar__inner { display: flex; align-items: center; justify-content: center; gap: 6px; position: relative; }
+    .topbar__badge { display: inline-flex; align-items: center; padding: 2px 8px; background: var(--mexican-red); border-radius: 4px; font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-right: 4px; }
+    .topbar__text { opacity: 0.85; }
+    .topbar__link { color: var(--white); font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 1px; }
+    .topbar__close { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); opacity: 0.4; transition: all 0.2s; cursor: pointer; }
+    .topbar__close:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+    .topbar.hidden { display: none; }
+
+    /* ========== HEADER ========== */
+    .header { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .header__inner { max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 72px; padding: 0 48px; }
+    .header__logo { display: flex; align-items: center; gap: 14px; font-size: 15px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--shark); justify-self: start; }
+    .header__logo-img { height: 18px; width: auto; display: block; }
+    .header__nav { display: flex; gap: 2px; align-items: center; justify-self: center; background: var(--athens-gray); border-radius: 6px; padding: 4px; }
+    .header__nav-item { padding: 10px 24px; font-size: 12.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; line-height: 1; color: var(--abbey); border-radius: 6px; transition: all 0.3s; white-space: nowrap; }
+    .header__nav-item:hover { color: var(--shark); }
+    .header__nav-item--active { background: var(--white); color: var(--shark); font-weight: 600; box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
+    .header__actions { display: flex; align-items: center; gap: 6px; justify-self: end; }
+    .header__action-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.25s; color: var(--abbey); }
+    .header__action-btn:hover { background: var(--athens-gray); color: var(--shark); }
+    .header__action-btn svg { width: 19px; height: 19px; }
+    .header__divider { width: 1px; height: 24px; background: var(--mischka); margin: 0 6px; }
+    .header__action-btn--cta { width: auto; padding: 0 24px; height: 40px; border-radius: 6px; background: var(--shark); color: var(--white); font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; gap: 8px; white-space: nowrap; }
+    .header__action-btn--cta:hover { background: var(--black); color: var(--white); }
+    .header__lang { font-size: 12px; font-weight: 600; color: var(--abbey); letter-spacing: 0.5px; padding: 8px 10px; border-radius: 6px; text-transform: uppercase; display: flex; align-items: center; gap: 4px; }
+    .header__lang svg { width: 14px; height: 14px; opacity: 0.5; }
+    .header__hamburger { display: none; width: 40px; height: 40px; align-items: center; justify-content: center; flex-direction: column; gap: 5px; border-radius: 50%; }
+    .header__hamburger span { display: block; width: 18px; height: 1.5px; background: var(--shark); border-radius: 2px; }
+
+    /* ========== ACCOUNT LAYOUT ========== */
+    .acct {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 40px 32px 80px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ----- Sidebar ----- */
+    .acct__sidebar {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px 20px 20px;
+      position: sticky;
+      top: 96px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    .acct__profile { display: flex; flex-direction: column; align-items: center; padding: 0 8px 24px; border-bottom: 1px solid var(--athens-gray); margin-bottom: 16px; }
+    .acct__avatar { width: 84px; height: 84px; border-radius: 50%; background: linear-gradient(135deg, #343A40, #212529); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 14px; box-shadow: 0 4px 14px rgba(33,37,41,0.18); position: relative; }
+    .acct__avatar-edit { position: absolute; bottom: 0; right: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--white); color: var(--shark); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.18); cursor: pointer; transition: transform 0.2s; }
+    .acct__avatar-edit:hover { }
+    .acct__avatar-edit svg { width: 13px; height: 13px; }
+    .acct__name { font-size: 16px; font-weight: 700; color: var(--shark); margin-bottom: 4px; text-align: center; }
+    .acct__email { font-size: 12px; color: var(--nevada); text-align: center; word-break: break-all; }
+    .acct__tier { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 5px 12px; background: linear-gradient(135deg, #fff4d6, #ffe9a8); color: #8a6d1c; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; border-radius: 999px; }
+    .acct__tier svg { width: 11px; height: 11px; }
+
+    .acct__nav { display: flex; flex-direction: column; gap: 2px; }
+    .acct__nav-section { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--hit-gray); padding: 14px 12px 6px; }
+    .acct__nav-item { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 10px; font-size: 13.5px; font-weight: 500; color: var(--abbey); cursor: pointer; transition: all 0.2s; text-align: left; width: 100%; position: relative; }
+    .acct__nav-item:hover { background: var(--athens-gray); color: var(--shark); }
+    .acct__nav-item.active { background: var(--shark); color: var(--white); font-weight: 600; }
+    .acct__nav-item.active .acct__nav-icon { color: var(--white); }
+    .acct__nav-icon { width: 18px; height: 18px; flex-shrink: 0; color: var(--nevada); }
+    .acct__nav-item.active .acct__nav-icon { color: var(--white); }
+    .acct__nav-badge { margin-left: auto; background: var(--mexican-red); color: var(--white); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 999px; line-height: 1.4; }
+    .acct__nav-item.active .acct__nav-badge { background: var(--white); color: var(--shark); }
+    .acct__signout { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--athens-gray); }
+    .acct__signout-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 11px 12px; border-radius: 10px; font-size: 13.5px; font-weight: 600; color: var(--mexican-red); cursor: pointer; transition: all 0.2s; }
+    .acct__signout-btn:hover { background: #fef7f7; }
+    .acct__signout-btn svg { width: 18px; height: 18px; }
+
+    /* ----- Main panel ----- */
+    .acct__main { min-width: 0; }
+    .acct__panel { display: none; animation: panelIn 0.3s ease; }
+    .acct__panel.active { display: block; }
+    @keyframes panelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .acct__header { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+    .acct__breadcrumb { font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--hit-gray); margin-bottom: 8px; }
+    .acct__title { font-size: 30px; font-weight: 800; letter-spacing: -0.6px; color: var(--shark); }
+    .acct__subtitle { font-size: 14px; color: var(--nevada); margin-top: 6px; }
+
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.04);
+      margin-bottom: 20px;
+    }
+    .card__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; gap: 12px; }
+    .card__title { font-size: 16px; font-weight: 700; color: var(--shark); display: flex; align-items: center; gap: 10px; }
+    .card__title svg { width: 18px; height: 18px; color: var(--nevada); }
+    .card__action { font-size: 12px; font-weight: 600; color: var(--shark); padding: 8px 14px; border: 1px solid var(--mischka); border-radius: 8px; transition: all 0.2s; cursor: pointer; }
+    .card__action:hover { background: var(--athens-gray); border-color: var(--hit-gray); }
+    .card__action--primary { background: var(--shark); color: var(--white); border-color: var(--shark); }
+    .card__action--primary:hover { background: var(--black); border-color: var(--black); color: var(--white); }
+
+    /* ----- Overview ----- */
+    .overview-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    .stat { background: var(--white); border-radius: 16px; padding: 22px; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .stat__label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--hit-gray); margin-bottom: 10px; }
+    .stat__value { font-size: 28px; font-weight: 800; color: var(--shark); letter-spacing: -0.5px; line-height: 1.1; }
+    .stat__delta { font-size: 12px; color: var(--nevada); margin-top: 8px; display: flex; align-items: center; gap: 4px; }
+    .stat__delta--up { color: var(--green); }
+    .stat__icon { width: 36px; height: 36px; border-radius: 10px; background: var(--athens-gray); display: flex; align-items: center; justify-content: center; color: var(--shark); margin-bottom: 14px; }
+    .stat__icon svg { width: 18px; height: 18px; }
+
+    .next-trip { background: linear-gradient(135deg, var(--shark) 0%, #1a1d21 100%); color: var(--white); border-radius: 16px; padding: 32px; display: grid; grid-template-columns: 1fr 220px; gap: 24px; margin-bottom: 20px; position: relative; overflow: hidden; }
+    .next-trip::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 50%; background: radial-gradient(circle at top right, rgba(255,255,255,0.05), transparent 60%); pointer-events: none; }
+    .next-trip__label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .next-trip__label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 4px rgba(74,222,128,0.2); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 4px rgba(74,222,128,0.2); } 50% { box-shadow: 0 0 0 8px rgba(74,222,128,0.05); } }
+    .next-trip__hotel { font-size: 24px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 6px; }
+    .next-trip__location { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 22px; display: flex; align-items: center; gap: 6px; }
+    .next-trip__location svg { width: 13px; height: 13px; }
+    .next-trip__meta { display: flex; gap: 28px; flex-wrap: wrap; }
+    .next-trip__meta-item { display: flex; flex-direction: column; gap: 3px; }
+    .next-trip__meta-label { font-size: 10px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+    .next-trip__meta-val { font-size: 14px; font-weight: 600; color: var(--white); }
+    .next-trip__countdown { background: rgba(255,255,255,0.06); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+    .next-trip__countdown-num { font-size: 44px; font-weight: 800; line-height: 1; letter-spacing: -1.5px; }
+    .next-trip__countdown-lbl { font-size: 11px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 6px; }
+    .next-trip__cta { margin-top: 14px; padding: 8px 16px; background: var(--white); color: var(--shark); border-radius: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; cursor: pointer; }
+
+    .quick-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .quick-action { background: var(--white); border-radius: 12px; padding: 18px; border: 1px solid rgba(0,0,0,0.04); cursor: pointer; transition: all 0.2s; text-align: left; }
+    .quick-action:hover { border-color: var(--shark); }
+    .quick-action__icon { width: 36px; height: 36px; border-radius: 10px; background: var(--athens-gray); display: flex; align-items: center; justify-content: center; color: var(--shark); margin-bottom: 12px; }
+    .quick-action__icon svg { width: 18px; height: 18px; }
+    .quick-action__title { font-size: 13px; font-weight: 700; color: var(--shark); margin-bottom: 2px; }
+    .quick-action__desc { font-size: 11px; color: var(--nevada); }
+
+    /* ----- Form fields ----- */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-grid--full { grid-template-columns: 1fr; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field--full { grid-column: 1 / -1; }
+    .field__label { font-size: 12px; font-weight: 600; color: var(--shark); letter-spacing: 0.2px; }
+    .field__input, .field__select, .field__textarea { width: 100%; padding: 12px 14px; font-size: 14px; color: var(--shark); background: var(--athens-gray); border: 1.5px solid transparent; border-radius: 10px; outline: none; transition: all 0.2s; }
+    .field__input:focus, .field__select:focus, .field__textarea:focus { background: var(--white); border-color: var(--shark); box-shadow: 0 0 0 3px rgba(33,37,41,0.08); }
+    .field__textarea { resize: vertical; min-height: 100px; font-family: inherit; }
+    .field__hint { font-size: 11px; color: var(--hit-gray); }
+    .field__select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23677078' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+    .form-actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--athens-gray); }
+    .btn { padding: 12px 22px; border-radius: 10px; font-size: 13px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; border: 1.5px solid transparent; }
+    .btn--primary { background: var(--shark); color: var(--white); border-color: var(--shark); }
+    .btn--primary:hover { background: var(--black); }
+    .btn--ghost { background: var(--white); color: var(--shark); border-color: var(--mischka); }
+    .btn--ghost:hover { background: var(--athens-gray); border-color: var(--hit-gray); }
+    .btn--danger { background: var(--white); color: var(--mexican-red); border-color: #f1c5c4; }
+    .btn--danger:hover { background: #fef7f7; border-color: var(--mexican-red); }
+    .btn--small { padding: 9px 16px; font-size: 11px; }
+
+    /* ----- Toggles ----- */
+    .toggle-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--athens-gray); }
+    .toggle-row:last-child { border-bottom: none; }
+    .toggle-row__label { font-size: 14px; font-weight: 600; color: var(--shark); margin-bottom: 4px; }
+    .toggle-row__desc { font-size: 12.5px; color: var(--nevada); line-height: 1.5; max-width: 520px; }
+    .switch { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .switch__slider { position: absolute; cursor: pointer; inset: 0; background: var(--mischka); border-radius: 24px; transition: 0.25s; }
+    .switch__slider::before { content: ''; position: absolute; height: 18px; width: 18px; left: 3px; top: 3px; background: var(--white); border-radius: 50%; transition: 0.25s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .switch input:checked + .switch__slider { background: var(--shark); }
+    .switch input:checked + .switch__slider::before { transform: translateX(18px); }
+
+    /* ----- Security ----- */
+    .security-status { display: flex; align-items: center; gap: 14px; padding: 16px; background: var(--green-soft); border-radius: 12px; margin-bottom: 24px; border: 1px solid #c5e1c8; }
+    .security-status__icon { width: 40px; height: 40px; border-radius: 10px; background: var(--white); display: flex; align-items: center; justify-content: center; color: var(--green); flex-shrink: 0; }
+    .security-status__icon svg { width: 20px; height: 20px; }
+    .security-status__title { font-size: 14px; font-weight: 700; color: var(--green); margin-bottom: 2px; }
+    .security-status__text { font-size: 12.5px; color: #2d5232; }
+
+    .device-list { display: flex; flex-direction: column; gap: 12px; }
+    .device { display: flex; align-items: center; gap: 14px; padding: 16px; background: var(--athens-gray); border-radius: 12px; border: 1px solid transparent; transition: all 0.2s; }
+    .device--current { border-color: #c5e1c8; background: var(--green-soft); }
+    .device__icon { width: 42px; height: 42px; border-radius: 10px; background: var(--white); display: flex; align-items: center; justify-content: center; color: var(--shark); flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .device__icon svg { width: 20px; height: 20px; }
+    .device__info { flex: 1; min-width: 0; }
+    .device__name { font-size: 13.5px; font-weight: 700; color: var(--shark); display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
+    .device__current-pill { font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 2px 7px; background: var(--green); color: var(--white); border-radius: 999px; }
+    .device__meta { font-size: 12px; color: var(--nevada); }
+    .device__action { font-size: 12px; font-weight: 600; color: var(--mexican-red); padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
+    .device__action:hover { background: #fef7f7; }
+
+    /* ----- Payment methods ----- */
+    .pm-list { display: flex; flex-direction: column; gap: 12px; }
+    .pm { display: flex; align-items: center; gap: 16px; padding: 18px; background: var(--athens-gray); border-radius: 12px; border: 1.5px solid transparent; transition: all 0.2s; }
+    .pm--default { border-color: var(--shark); background: var(--white); }
+    .pm__brand { width: 56px; height: 36px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: var(--white); flex-shrink: 0; letter-spacing: 0.5px; }
+    .pm__brand--visa { background: linear-gradient(135deg, #1a1f71, #2c3eaa); }
+    .pm__brand--mc { background: linear-gradient(135deg, #eb001b, #f79e1b); }
+    .pm__brand--amex { background: linear-gradient(135deg, #006fcf, #0099f7); }
+    .pm__brand--paypal { background: linear-gradient(135deg, #003087, #009cde); font-size: 9px; }
+    .pm__info { flex: 1; min-width: 0; }
+    .pm__number { font-size: 14px; font-weight: 700; color: var(--shark); margin-bottom: 3px; display: flex; align-items: center; gap: 10px; }
+    .pm__default-pill { font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 2px 7px; background: var(--shark); color: var(--white); border-radius: 999px; }
+    .pm__expired-pill { font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 2px 7px; background: var(--mexican-red); color: var(--white); border-radius: 999px; }
+    .pm__meta { font-size: 12px; color: var(--nevada); }
+    .pm__actions { display: flex; gap: 6px; }
+    .pm__btn { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--nevada); transition: all 0.2s; cursor: pointer; }
+    .pm__btn:hover { background: var(--white); color: var(--shark); }
+    .pm__btn svg { width: 16px; height: 16px; }
+
+    /* ----- Bookings ----- */
+    .bk-filters { display: flex; gap: 6px; margin-bottom: 22px; flex-wrap: wrap; padding-bottom: 16px; border-bottom: 1px solid var(--mischka); }
+    .bk-filter { padding: 8px 14px; font-size: 12px; font-weight: 600; color: var(--nevada); border-radius: 6px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 7px; border: 1px solid transparent; }
+    .bk-filter:hover { color: var(--shark); }
+    .bk-filter.active { background: var(--shark); color: var(--white); }
+    .bk-filter__count { padding: 1px 7px; background: var(--athens-gray); color: var(--nevada); font-size: 10px; font-weight: 700; border-radius: 4px; }
+    .bk-filter.active .bk-filter__count { background: rgba(255,255,255,0.2); color: var(--white); }
+
+    .bk-list { display: flex; flex-direction: column; gap: 16px; }
+    .bk { background: var(--white); border-radius: 10px; overflow: hidden; border: 1px solid var(--mischka); transition: border-color 0.2s; }
+    .bk:hover { border-color: rgba(0,0,0,0.12); }
+    .bk__inner { display: grid; grid-template-columns: 200px 1fr auto; gap: 0; }
+    .bk__img { background: var(--athens-gray); height: 100%; min-height: 180px; background-size: cover; background-position: center; position: relative; }
+    .bk__img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.2) 100%); }
+    .bk__body { padding: 22px 24px; display: flex; flex-direction: column; min-width: 0; }
+    .bk__row1 { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+    .bk__id { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--hit-gray); }
+    .bk__hotel { font-size: 18px; font-weight: 800; color: var(--shark); letter-spacing: -0.2px; margin-bottom: 4px; }
+    .bk__location { font-size: 12.5px; color: var(--nevada); display: flex; align-items: center; gap: 5px; margin-bottom: 14px; }
+    .bk__location svg { width: 12px; height: 12px; }
+    .bk__meta { display: flex; flex-wrap: wrap; gap: 18px 24px; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--athens-gray); }
+    .bk__meta-item { display: flex; flex-direction: column; gap: 2px; }
+    .bk__meta-label { font-size: 9.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--hit-gray); }
+    .bk__meta-val { font-size: 13px; font-weight: 600; color: var(--shark); }
+    .bk__side { padding: 22px 24px 22px 0; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; min-width: 200px; }
+    .bk__price { font-size: 22px; font-weight: 800; color: var(--shark); letter-spacing: -0.4px; }
+    .bk__price-lbl { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--hit-gray); margin-bottom: -4px; }
+    .bk__actions { display: flex; flex-direction: column; gap: 6px; width: 100%; margin-top: 8px; }
+    .bk__btn { padding: 10px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; border-radius: 6px; text-align: center; cursor: pointer; transition: all 0.2s; border: 1.5px solid var(--mischka); color: var(--shark); background: var(--white); }
+    .bk__btn:hover { background: var(--athens-gray); border-color: var(--hit-gray); }
+    .bk__btn--primary { background: var(--shark); color: var(--white); border-color: var(--shark); }
+    .bk__btn--primary:hover { background: var(--black); border-color: var(--black); color: var(--white); }
+    .bk__btn--danger { color: var(--mexican-red); border-color: var(--mischka); }
+    .bk__btn--danger:hover { background: #fce8e8; border-color: var(--mexican-red); }
+
+    .pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; font-size: 11px; font-weight: 700; border-radius: 6px; letter-spacing: 0.3px; }
+    .pill svg { width: 11px; height: 11px; }
+    .pill--green { background: var(--shark); color: var(--white); }
+    .pill--amber { background: rgba(162,37,34,0.08); color: var(--mexican-red); }
+    .pill--blue { background: var(--shark); color: var(--white); }
+    .pill--red { background: var(--athens-gray); color: var(--nevada); text-decoration: line-through; }
+    .pill--rose { background: rgba(162,37,34,0.08); color: var(--mexican-red); }
+    .pill--gray { background: var(--athens-gray); color: var(--nevada); }
+    .pill--dark { background: var(--shark); color: var(--white); }
+    .pill__dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .pill--live .pill__dot { animation: pulse-dot 1.6s infinite; }
+    @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    .bk__cancel-note { font-size: 11.5px; color: var(--nevada); margin-top: 6px; display: flex; align-items: center; gap: 5px; }
+    .bk__cancel-note svg { width: 12px; height: 12px; flex-shrink: 0; }
+    .bk__cancel-note--free { color: var(--shark); font-weight: 600; }
+
+    .empty-state { background: var(--white); border-radius: 10px; padding: 60px 32px; text-align: center; border: 1px dashed var(--mischka); }
+    .empty-state__icon { width: 64px; height: 64px; border-radius: 10px; background: var(--athens-gray); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--hit-gray); }
+    .empty-state__icon svg { width: 28px; height: 28px; }
+    .empty-state__title { font-size: 18px; font-weight: 800; color: var(--shark); margin-bottom: 6px; }
+    .empty-state__text { font-size: 13.5px; color: var(--nevada); margin-bottom: 20px; max-width: 360px; margin-left: auto; margin-right: auto; }
+
+    /* ----- Saved hotels ----- */
+    .saved-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .saved { background: var(--white); border-radius: 14px; overflow: hidden; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: all 0.25s; cursor: pointer; }
+    .saved:hover { border-color: rgba(0,0,0,0.1); }
+    .saved__img { aspect-ratio: 4/3; background-size: cover; background-position: center; position: relative; }
+    .saved__heart { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; color: var(--mexican-red); box-shadow: 0 2px 8px rgba(0,0,0,0.12); cursor: pointer; transition: transform 0.2s; }
+    .saved__heart:hover { }
+    .saved__heart svg { width: 16px; height: 16px; fill: currentColor; }
+    .saved__body { padding: 16px; }
+    .saved__name { font-size: 14.5px; font-weight: 700; color: var(--shark); margin-bottom: 4px; }
+    .saved__loc { font-size: 12px; color: var(--nevada); margin-bottom: 12px; }
+    .saved__price { font-size: 14px; font-weight: 700; color: var(--shark); display: flex; align-items: baseline; gap: 4px; }
+    .saved__price-from { font-size: 11px; font-weight: 500; color: var(--nevada); }
+
+    /* ----- Membership ----- */
+    .tier-card { background: linear-gradient(135deg, #1a1d21 0%, #343A40 100%); color: var(--white); border-radius: 16px; padding: 32px; position: relative; overflow: hidden; margin-bottom: 20px; }
+    .tier-card::before { content: ''; position: absolute; top: -40%; right: -10%; width: 60%; height: 180%; background: radial-gradient(circle, rgba(255,215,128,0.15), transparent 70%); pointer-events: none; }
+    .tier-card__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; position: relative; }
+    .tier-card__name { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+    .tier-card__tier { font-size: 26px; font-weight: 800; letter-spacing: -0.4px; display: flex; align-items: center; gap: 10px; }
+    .tier-card__tier svg { width: 22px; height: 22px; color: #ffd966; }
+    .tier-card__points { text-align: right; }
+    .tier-card__points-num { font-size: 32px; font-weight: 800; line-height: 1; letter-spacing: -0.6px; }
+    .tier-card__points-lbl { font-size: 10px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; }
+    .tier-card__progress { position: relative; }
+    .tier-card__progress-info { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; font-size: 12px; color: rgba(255,255,255,0.7); }
+    .tier-card__bar { height: 8px; background: rgba(255,255,255,0.1); border-radius: 999px; overflow: hidden; }
+    .tier-card__bar-fill { height: 100%; background: linear-gradient(90deg, #ffd966, #ffb84d); border-radius: 999px; }
+    .tier-card__next { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 12px; }
+
+    .perks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .perk { display: flex; align-items: flex-start; gap: 12px; padding: 16px; background: var(--athens-gray); border-radius: 12px; }
+    .perk__icon { width: 36px; height: 36px; border-radius: 10px; background: var(--white); display: flex; align-items: center; justify-content: center; color: var(--shark); flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .perk__icon svg { width: 18px; height: 18px; }
+    .perk__title { font-size: 13px; font-weight: 700; color: var(--shark); margin-bottom: 2px; }
+    .perk__desc { font-size: 12px; color: var(--nevada); line-height: 1.4; }
+
+    /* ----- Travelers ----- */
+    .traveler { display: flex; align-items: center; gap: 14px; padding: 16px; background: var(--athens-gray); border-radius: 12px; margin-bottom: 10px; }
+    .traveler__avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--shark); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; flex-shrink: 0; }
+    .traveler__info { flex: 1; }
+    .traveler__name { font-size: 14px; font-weight: 700; color: var(--shark); }
+    .traveler__meta { font-size: 12px; color: var(--nevada); }
+    .traveler__btn { font-size: 12px; font-weight: 600; color: var(--shark); padding: 8px 14px; border: 1px solid var(--mischka); border-radius: 8px; cursor: pointer; }
+    .traveler__btn:hover { background: var(--white); border-color: var(--hit-gray); }
+
+    /* ----- Toast ----- */
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--shark); color: var(--white); padding: 12px 22px; border-radius: 10px; font-size: 13px; font-weight: 600; box-shadow: 0 12px 32px rgba(0,0,0,0.25); z-index: 9999; opacity: 0; pointer-events: none; transition: all 0.3s; display: flex; align-items: center; gap: 10px; }
+    .toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast svg { width: 16px; height: 16px; color: #4ade80; }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1080px) {
+      .acct { grid-template-columns: 1fr; }
+      .acct__sidebar { position: relative; top: 0; }
+      .acct__nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
+      .acct__nav-section { grid-column: 1 / -1; }
+      .acct__signout { grid-column: 1 / -1; }
+      .overview-stats { grid-template-columns: repeat(2, 1fr); }
+      .saved-grid { grid-template-columns: repeat(2, 1fr); }
+      .quick-actions { grid-template-columns: repeat(2, 1fr); }
+      .next-trip { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .topbar { font-size: 11px; padding: 8px 40px 8px 16px; }
+      .topbar__badge { display: none; }
+      .header__inner { display: flex; justify-content: space-between; height: 64px; padding: 0 16px; }
+      .header__nav { display: none; }
+      .header__actions .header__action-btn:not(.header__action-btn--cta) { display: none; }
+      .header__lang { display: none; }
+      .header__divider { display: none; }
+      .header__action-btn--cta { font-size: 11px; padding: 0 18px; height: 36px; }
+      .header__hamburger { display: flex; }
+
+      .acct { padding: 24px 16px 60px; }
+      .acct__sidebar { padding: 20px 14px 14px; }
+      .acct__nav { grid-template-columns: 1fr; }
+      .acct__title { font-size: 24px; }
+      .card { padding: 20px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .overview-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .stat { padding: 16px; }
+      .stat__value { font-size: 22px; }
+      .next-trip { padding: 24px; }
+      .next-trip__hotel { font-size: 20px; }
+      .quick-actions { grid-template-columns: 1fr; }
+      .saved-grid { grid-template-columns: 1fr; }
+      .perks { grid-template-columns: 1fr; }
+      .bk__inner { grid-template-columns: 1fr; }
+      .bk__img { min-height: 160px; }
+      .bk__side { padding: 0 20px 20px; align-items: stretch; min-width: 0; }
+      .bk__price { text-align: left; }
+      .bk__meta { gap: 12px 18px; }
+      .form-actions { flex-direction: column-reverse; align-items: stretch; }
+      .form-actions .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar" id="topbar">
+    <div class="topbar__inner">
+      <span class="topbar__badge">New</span>
+      <span class="topbar__text">Manage bookings, payments, and travel preferences in one place.</span>
+      <button class="topbar__close" id="topbarClose">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo">
+        <img src="images/logo.svg" alt="Locals' Hotels" class="header__logo-img">
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-item">Home</a>
+        <a href="hotels.html" class="header__nav-item">Hotels</a>
+        <a href="restaurants.html" class="header__nav-item">Restaurants</a>
+        <a href="journal.html" class="header__nav-item">Journal</a>
+        <a href="contact.html" class="header__nav-item">Contact</a>
+      </nav>
+      <div class="header__actions">
+        <button class="header__action-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+        <button class="header__action-btn" aria-label="Saved">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <a href="#" class="header__lang">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          EN
+        </a>
+        <span class="header__divider"></span>
+        <a href="signup.html" class="header__action-btn header__action-btn--cta">Become Local</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="acct">
+
+    <!-- =============== SIDEBAR =============== -->
+    <aside class="acct__sidebar">
+      <div class="acct__profile">
+        <div class="acct__avatar" id="acctAvatar">
+          GM
+          <span class="acct__avatar-edit" title="Change photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </span>
+        </div>
+        <div class="acct__name" id="acctName">Giorgi Matiashvili</div>
+        <div class="acct__email" id="acctEmail">giorgi@localshotels.com</div>
+        <span class="acct__tier">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          Gold Member
+        </span>
+      </div>
+
+      <div class="acct__nav-section">Account</div>
+      <nav class="acct__nav">
+        <button class="acct__nav-item active" data-tab="overview">
+          <svg class="acct__nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          My Bookings
+        </button>
+        <button class="acct__nav-item" data-tab="personal">
+          <svg class="acct__nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Personal Information
+        </button>
+        <button class="acct__nav-item" data-tab="security">
+          <svg class="acct__nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Security
+        </button>
+        <button class="acct__nav-item" data-tab="payment">
+          <svg class="acct__nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          Payment Methods
+        </button>
+
+        <div class="acct__nav-section">Preferences</div>
+        <button class="acct__nav-item" data-tab="travelers">
+          <svg class="acct__nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Travelers & Documents
+        </button>
+      </nav>
+
+      <div class="acct__signout">
+        <button class="acct__signout-btn" id="acctSignout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- =============== MAIN =============== -->
+    <section class="acct__main">
+
+      <!-- ============ OVERVIEW ============ -->
+      <div class="acct__panel active" data-panel="overview">
+        <div class="acct__header">
+          <div>
+            <div class="acct__breadcrumb">Account · Bookings</div>
+            <h1 class="acct__title">Welcome back, <span id="ovGreet">Giorgi</span></h1>
+            <p class="acct__subtitle">Your upcoming and past reservations.</p>
+          </div>
+        </div>
+
+        <div class="next-trip">
+          <div>
+            <div class="next-trip__label">Upcoming Trip · In 12 Days</div>
+            <div class="next-trip__hotel">Rooms Hotel Kazbegi</div>
+            <div class="next-trip__location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Stepantsminda, Georgia
+            </div>
+            <div class="next-trip__meta">
+              <div class="next-trip__meta-item">
+                <span class="next-trip__meta-label">Check-in</span>
+                <span class="next-trip__meta-val">Apr 23, 2026</span>
+              </div>
+              <div class="next-trip__meta-item">
+                <span class="next-trip__meta-label">Check-out</span>
+                <span class="next-trip__meta-val">Apr 27, 2026</span>
+              </div>
+              <div class="next-trip__meta-item">
+                <span class="next-trip__meta-label">Guests</span>
+                <span class="next-trip__meta-val">2 Adults</span>
+              </div>
+              <div class="next-trip__meta-item">
+                <span class="next-trip__meta-label">Booking</span>
+                <span class="next-trip__meta-val">#LH-29481</span>
+              </div>
+            </div>
+          </div>
+          <div class="next-trip__countdown">
+            <div class="next-trip__countdown-num">12</div>
+            <div class="next-trip__countdown-lbl">Days to go</div>
+            <button class="next-trip__cta" data-go-tab="bookings">View Booking</button>
+          </div>
+        </div>
+
+        <h2 class="acct__section-title" style="font-size:20px;font-weight:700;color:var(--shark);margin-bottom:16px">Booking History</h2>
+        <div class="bk-filters" id="bkFilters">
+          <button class="bk-filter active" data-filter="all">All <span class="bk-filter__count" id="cntAll">0</span></button>
+          <button class="bk-filter" data-filter="upcoming">Upcoming <span class="bk-filter__count" id="cntUpcoming">0</span></button>
+          <button class="bk-filter" data-filter="checked-in">Checked-in <span class="bk-filter__count" id="cntCheckedIn">0</span></button>
+          <button class="bk-filter" data-filter="completed">Completed <span class="bk-filter__count" id="cntCompleted">0</span></button>
+          <button class="bk-filter" data-filter="cancelled">Cancelled <span class="bk-filter__count" id="cntCancelled">0</span></button>
+          <button class="bk-filter" data-filter="pending">Pending <span class="bk-filter__count" id="cntPending">0</span></button>
+        </div>
+        <div class="bk-list" id="bkList"></div>
+      </div>
+
+      <!-- ============ PERSONAL INFORMATION ============ -->
+      <div class="acct__panel" data-panel="personal">
+        <div class="acct__header">
+          <div>
+            <div class="acct__breadcrumb">Account · Personal</div>
+            <h1 class="acct__title">Personal Information</h1>
+            <p class="acct__subtitle">This is how hotels and our team will know you.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__header">
+            <div class="card__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Profile Details
+            </div>
+          </div>
+          <form id="personalForm">
+            <div class="form-grid">
+              <div class="field">
+                <label class="field__label">First name</label>
+                <input type="text" class="field__input" id="pfFirst" value="Giorgi">
+              </div>
+              <div class="field">
+                <label class="field__label">Last name</label>
+                <input type="text" class="field__input" id="pfLast" value="Matiashvili">
+              </div>
+              <div class="field">
+                <label class="field__label">Email address</label>
+                <input type="email" class="field__input" id="pfEmail" value="giorgi@localshotels.com">
+                <span class="field__hint">Verified · used for bookings & receipts</span>
+              </div>
+              <div class="field">
+                <label class="field__label">Phone number</label>
+                <input type="tel" class="field__input" value="+995 555 123 456">
+              </div>
+              <div class="field">
+                <label class="field__label">Date of birth</label>
+                <input type="date" class="field__input" value="1992-06-14">
+              </div>
+              <div class="field">
+                <label class="field__label">Nationality</label>
+                <select class="field__select">
+                  <option>Georgian</option>
+                  <option>American</option>
+                  <option>British</option>
+                  <option>French</option>
+                  <option>German</option>
+                  <option>Italian</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="field__label">Gender</label>
+                <select class="field__select">
+                  <option>Prefer not to say</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Non-binary</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="field__label">Spoken languages</label>
+                <input type="text" class="field__input" value="Georgian, English, Russian">
+              </div>
+              <div class="field field--full">
+                <label class="field__label">About you</label>
+                <textarea class="field__textarea" placeholder="A short bio for hosts...">Travel writer based in Tbilisi. I love mountain villages, slow mornings, and finding small hotels with character.</textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn--ghost">Cancel</button>
+              <button type="submit" class="btn btn--primary">Save Changes</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- ============ SECURITY ============ -->
+      <div class="acct__panel" data-panel="security">
+        <div class="acct__header">
+          <div>
+            <div class="acct__breadcrumb">Account · Security</div>
+            <h1 class="acct__title">Security</h1>
+            <p class="acct__subtitle">Manage your password, two-factor authentication, and devices.</p>
+          </div>
+        </div>
+
+        <div class="security-status">
+          <div class="security-status__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div>
+            <div class="security-status__title">Your account is secure</div>
+            <div class="security-status__text">Strong password · 2FA enabled · Last sign-in 4 hours ago from Tbilisi</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__header">
+            <div class="card__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Password
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="field field--full">
+              <label class="field__label">Current password</label>
+              <input type="password" class="field__input" placeholder="••••••••">
+            </div>
+            <div class="field">
+              <label class="field__label">New password</label>
+              <input type="password" class="field__input" placeholder="At least 8 characters">
+            </div>
+            <div class="field">
+              <label class="field__label">Confirm new password</label>
+              <input type="password" class="field__input" placeholder="Repeat new password">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn--primary">Update Password</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__header">
+            <div class="card__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Two-Factor Authentication
+            </div>
+          </div>
+          <div class="toggle-row">
+            <div>
+              <div class="toggle-row__label">Authenticator app</div>
+              <div class="toggle-row__desc">Use Google Authenticator or 1Password to generate codes when signing in.</div>
+            </div>
+            <label class="switch"><input type="checkbox" checked><span class="switch__slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div>
+              <div class="toggle-row__label">SMS verification</div>
+              <div class="toggle-row__desc">Receive a one-time code by text message to +995 ••• ••• 456.</div>
+            </div>
+            <label class="switch"><input type="checkbox"><span class="switch__slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div>
+              <div class="toggle-row__label">Backup recovery codes</div>
+              <div class="toggle-row__desc">10 single-use codes you can store offline. 8 codes remaining.</div>
+            </div>
+            <button class="btn btn--ghost btn--small">View Codes</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ============ PAYMENT METHODS ============ -->
+      <div class="acct__panel" data-panel="payment">
+        <div class="acct__header">
+          <div>
+            <div class="acct__breadcrumb">Account · Payments</div>
+            <h1 class="acct__title">Payment Methods</h1>
+            <p class="acct__subtitle">Manage cards used for bookings, refunds, and pre-authorizations.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__header">
+            <div class="card__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              Saved Cards
+            </div>
+            <button class="card__action card__action--primary">+ Add Card</button>
+          </div>
+
+          <div class="pm-list">
+            <div class="pm pm--default">
+              <div class="pm__brand pm__brand--visa">VISA</div>
+              <div class="pm__info">
+                <div class="pm__number">•••• 4242 <span class="pm__default-pill">Default</span></div>
+                <div class="pm__meta">Expires 08/28 · Giorgi Matiashvili</div>
+              </div>
+              <div class="pm__actions">
+                <button class="pm__btn" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></button>
+                <button class="pm__btn" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button>
+              </div>
+            </div>
+            <div class="pm">
+              <div class="pm__brand pm__brand--mc">MC</div>
+              <div class="pm__info">
+                <div class="pm__number">•••• 8801</div>
+                <div class="pm__meta">Expires 02/27 · Giorgi Matiashvili</div>
+              </div>
+              <div class="pm__actions">
+                <button class="pm__btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg></button>
+                <button class="pm__btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button>
+              </div>
+            </div>
+            <div class="pm">
+              <div class="pm__brand pm__brand--amex">AMEX</div>
+              <div class="pm__info">
+                <div class="pm__number">•••• 1009 <span class="pm__expired-pill">Expired</span></div>
+                <div class="pm__meta">Expired 11/25 · Giorgi Matiashvili</div>
+              </div>
+              <div class="pm__actions">
+                <button class="pm__btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button>
+              </div>
+            </div>
+            <div class="pm">
+              <div class="pm__brand pm__brand--paypal">PayPal</div>
+              <div class="pm__info">
+                <div class="pm__number">giorgi@localshotels.com</div>
+                <div class="pm__meta">Linked Mar 12, 2025</div>
+              </div>
+              <div class="pm__actions">
+                <button class="pm__btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__header">
+            <div class="card__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              Billing Address
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="field field--full">
+              <label class="field__label">Street</label>
+              <input type="text" class="field__input" value="14 Atoneli Street, Apt. 7">
+            </div>
+            <div class="field">
+              <label class="field__label">City</label>
+              <input type="text" class="field__input" value="Tbilisi">
+            </div>
+            <div class="field">
+              <label class="field__label">Postal code</label>
+              <input type="text" class="field__input" value="0105">
+            </div>
+            <div class="field">
+              <label class="field__label">Country</label>
+              <select class="field__select"><option>Georgia</option></select>
+            </div>
+            <div class="field">
+              <label class="field__label">VAT / Tax ID (optional)</label>
+              <input type="text" class="field__input" placeholder="For business invoices">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn--primary">Save Billing Address</button>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- ============ TRAVELERS ============ -->
+      <div class="acct__panel" data-panel="travelers">
+        <div class="acct__header">
+          <div>
+            <div class="acct__breadcrumb">Account · Travelers</div>
+            <h1 class="acct__title">Travelers & Documents</h1>
+            <p class="acct__subtitle">Save details for people you frequently travel with and pre-fill bookings instantly.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__header">
+            <div class="card__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              Saved Travelers
+            </div>
+            <button class="card__action card__action--primary">+ Add Traveler</button>
+          </div>
+          <div class="traveler">
+            <div class="traveler__avatar">NM</div>
+            <div class="traveler__info">
+              <div class="traveler__name">Nino Matiashvili</div>
+              <div class="traveler__meta">Adult · Spouse · Passport: GE••••287</div>
+            </div>
+            <button class="traveler__btn">Edit</button>
+          </div>
+          <div class="traveler">
+            <div class="traveler__avatar">LM</div>
+            <div class="traveler__info">
+              <div class="traveler__name">Luka Matiashvili</div>
+              <div class="traveler__meta">Child · Age 8 · Birth certificate on file</div>
+            </div>
+            <button class="traveler__btn">Edit</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__header">
+            <div class="card__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Travel Documents
+            </div>
+            <button class="card__action">+ Upload Document</button>
+          </div>
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label">Passport number</label>
+              <input type="text" class="field__input" value="GE••••842">
+            </div>
+            <div class="field">
+              <label class="field__label">Issuing country</label>
+              <select class="field__select"><option>Georgia</option></select>
+            </div>
+            <div class="field">
+              <label class="field__label">Issue date</label>
+              <input type="date" class="field__input" value="2021-04-15">
+            </div>
+            <div class="field">
+              <label class="field__label">Expiry date</label>
+              <input type="date" class="field__input" value="2031-04-14">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn--primary">Save Documents</button>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </section>
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toastMsg">Saved successfully</span>
+  </div>
+
+  <script>
+    /* ===================== USER STATE ===================== */
+    var DEMO_USER = { firstName: 'Giorgi', lastName: 'Matiashvili', email: 'giorgi@localshotels.com' };
+    function loadUser() {
+      try {
+        var raw = localStorage.getItem('lh_user');
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          return {
+            firstName: parsed.firstName || DEMO_USER.firstName,
+            lastName: parsed.lastName || '',
+            email: parsed.email || DEMO_USER.email
+          };
+        }
+      } catch (e) {}
+      // Not signed in — seed a demo session so the dashboard is browseable.
+      // Real apps would redirect: location.href = 'signin.html';
+      localStorage.setItem('lh_user', JSON.stringify(DEMO_USER));
+      return DEMO_USER;
+    }
+    function saveUser(u) { localStorage.setItem('lh_user', JSON.stringify(u)); }
+
+    var user = loadUser();
+    function applyUser() {
+      var initials = ((user.firstName || '?')[0] + (user.lastName || '')[0]).toUpperCase();
+      document.getElementById('acctAvatar').childNodes[0].nodeValue = initials;
+      document.getElementById('acctName').textContent = (user.firstName + ' ' + (user.lastName || '')).trim();
+      document.getElementById('acctEmail').textContent = user.email || '';
+      document.getElementById('ovGreet').textContent = user.firstName || 'traveler';
+      var f = document.getElementById('pfFirst'); if (f) f.value = user.firstName || '';
+      var l = document.getElementById('pfLast'); if (l) l.value = user.lastName || '';
+      var e = document.getElementById('pfEmail'); if (e) e.value = user.email || '';
+    }
+    applyUser();
+
+    /* ===================== TOPBAR ===================== */
+    document.getElementById('topbarClose').addEventListener('click', function () {
+      document.getElementById('topbar').classList.add('hidden');
+    });
+
+    /* ===================== TAB NAVIGATION ===================== */
+    var navItems = document.querySelectorAll('.acct__nav-item');
+    var panels = document.querySelectorAll('.acct__panel');
+    function setTab(name) {
+      navItems.forEach(function (el) { el.classList.toggle('active', el.dataset.tab === name); });
+      panels.forEach(function (p) { p.classList.toggle('active', p.dataset.panel === name); });
+      if (history.replaceState) history.replaceState(null, '', '#' + name);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    navItems.forEach(function (el) { el.addEventListener('click', function () { setTab(el.dataset.tab); }); });
+    document.querySelectorAll('[data-go-tab]').forEach(function (el) {
+      el.addEventListener('click', function () { setTab(el.dataset.goTab); });
+    });
+    if (location.hash) {
+      var h = location.hash.replace('#', '');
+      if (document.querySelector('[data-panel="' + h + '"]')) setTab(h);
+    }
+
+    /* ===================== TOAST ===================== */
+    var toastEl = document.getElementById('toast');
+    var toastMsg = document.getElementById('toastMsg');
+    var toastTimer;
+    function toast(msg) {
+      toastMsg.textContent = msg || 'Saved successfully';
+      toastEl.classList.add('visible');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toastEl.classList.remove('visible'); }, 2400);
+    }
+
+    /* ===================== PERSONAL FORM ===================== */
+    var personalForm = document.getElementById('personalForm');
+    if (personalForm) {
+      personalForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        user.firstName = document.getElementById('pfFirst').value.trim();
+        user.lastName = document.getElementById('pfLast').value.trim();
+        user.email = document.getElementById('pfEmail').value.trim();
+        saveUser(user);
+        applyUser();
+        toast('Profile updated');
+      });
+    }
+    // Generic save toast for primary buttons that aren't part of a real submit handler
+    document.querySelectorAll('.card .form-actions .btn--primary').forEach(function (el) {
+      // Skip submit buttons inside personalForm (handled above)
+      if (el.closest('#personalForm')) return;
+      el.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        toast('Saved successfully');
+      });
+    });
+
+    /* ===================== SIGN OUT ===================== */
+    document.getElementById('acctSignout').addEventListener('click', function () {
+      if (!confirm('Sign out of Locals\u2019 Hotels?')) return;
+      localStorage.removeItem('lh_user');
+      location.href = 'index.html';
+    });
+
+    /* ===================== BOOKINGS ===================== */
+    var BOOKINGS = [
+      {
+        id: 'LH-29481',
+        hotel: 'Rooms Hotel Kazbegi',
+        location: 'Stepantsminda, Georgia',
+        img: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600',
+        checkIn: '2026-04-23',
+        checkOut: '2026-04-27',
+        nights: 4,
+        guests: '2 Adults',
+        room: 'Deluxe Mountain View',
+        price: 920,
+        status: 'upcoming',
+        cancelFreeUntil: '2026-04-22',
+        refundable: true
+      },
+      {
+        id: 'LH-29412',
+        hotel: 'Stamba Hotel',
+        location: 'Tbilisi, Georgia',
+        img: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600',
+        checkIn: '2026-05-18',
+        checkOut: '2026-05-21',
+        nights: 3,
+        guests: '2 Adults',
+        room: 'Library Suite',
+        price: 645,
+        status: 'upcoming',
+        cancelFreeUntil: null,
+        refundable: false
+      },
+      {
+        id: 'LH-29360',
+        hotel: 'Lopota Lake Resort',
+        location: 'Kakheti, Georgia',
+        img: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600',
+        checkIn: '2026-06-12',
+        checkOut: '2026-06-15',
+        nights: 3,
+        guests: '2 Adults · 1 Child',
+        room: 'Lakefront Bungalow',
+        price: 580,
+        status: 'pending',
+        refundable: true
+      },
+      {
+        id: 'LH-29155',
+        hotel: 'Vintage Hotel Sighnaghi',
+        location: 'Sighnaghi, Georgia',
+        img: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600',
+        checkIn: '2026-04-10',
+        checkOut: '2026-04-12',
+        nights: 2,
+        guests: '2 Adults',
+        room: 'Wine Country Suite',
+        price: 380,
+        status: 'checked-in',
+        refundable: false
+      },
+      {
+        id: 'LH-28902',
+        hotel: 'Quadrum Ski & Yoga Resort',
+        location: 'Bakuriani, Georgia',
+        img: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600',
+        checkIn: '2026-02-14',
+        checkOut: '2026-02-18',
+        nights: 4,
+        guests: '2 Adults',
+        room: 'Cosy Cube',
+        price: 480,
+        status: 'completed',
+        refundable: false,
+        rated: false
+      },
+      {
+        id: 'LH-28741',
+        hotel: 'Le Meridien Batumi',
+        location: 'Batumi, Georgia',
+        img: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600',
+        checkIn: '2025-12-22',
+        checkOut: '2025-12-26',
+        nights: 4,
+        guests: '2 Adults · 1 Child',
+        room: 'Sea View Deluxe',
+        price: 740,
+        status: 'completed',
+        refundable: false,
+        rated: true
+      },
+      {
+        id: 'LH-28505',
+        hotel: 'Sheraton Grand Tbilisi',
+        location: 'Tbilisi, Georgia',
+        img: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600',
+        checkIn: '2025-10-04',
+        checkOut: '2025-10-07',
+        nights: 3,
+        guests: '1 Adult',
+        room: 'Executive King',
+        price: 510,
+        status: 'cancelled',
+        refundable: true,
+        cancelledOn: '2025-09-28'
+      }
+    ];
+
+    var STATUS_LABELS = {
+      'upcoming': 'Upcoming',
+      'checked-in': 'Checked-in',
+      'completed': 'Stayed',
+      'cancelled': 'Cancelled',
+      'pending': 'Pending'
+    };
+
+    function fmtDate(s) {
+      var d = new Date(s + 'T00:00:00');
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    function fmtShort(s) {
+      var d = new Date(s + 'T00:00:00');
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+    function daysUntil(s) {
+      var t = new Date(s + 'T00:00:00').getTime();
+      var n = new Date(); n.setHours(0,0,0,0);
+      return Math.round((t - n.getTime()) / 86400000);
+    }
+
+    function statusPill(b) {
+      switch (b.status) {
+        case 'upcoming': {
+          var d = daysUntil(b.checkIn);
+          return '<span class="pill pill--blue"><span class="pill__dot"></span>Upcoming · in ' + d + ' day' + (d === 1 ? '' : 's') + '</span>';
+        }
+        case 'checked-in':
+          return '<span class="pill pill--green pill--live"><span class="pill__dot"></span>Checked-in · stay in progress</span>';
+        case 'completed':
+          return '<span class="pill pill--gray"><span class="pill__dot"></span>Stayed</span>';
+        case 'cancelled':
+          return '<span class="pill pill--red"><span class="pill__dot"></span>Cancelled</span>';
+        case 'pending':
+          return '<span class="pill pill--amber"><span class="pill__dot"></span>Pending payment</span>';
+      }
+      return '';
+    }
+
+    function refundPill(b) {
+      if (b.status === 'cancelled') return '';
+      if (b.status === 'completed') return '';
+      if (b.cancelFreeUntil && daysUntil(b.cancelFreeUntil) >= 0) {
+        return '<span class="pill pill--green">Free cancellation until ' + fmtShort(b.cancelFreeUntil) + '</span>';
+      }
+      if (b.refundable === false) {
+        return '<span class="pill pill--rose">Non-refundable</span>';
+      }
+      return '<span class="pill pill--gray">Refundable</span>';
+    }
+
+    function bkActions(b) {
+      var btns = '';
+      if (b.status === 'upcoming') {
+        btns += '<button class="bk__btn bk__btn--primary">View Details</button>';
+        btns += '<button class="bk__btn">Modify Dates</button>';
+        btns += '<button class="bk__btn bk__btn--danger">Cancel Booking</button>';
+      } else if (b.status === 'checked-in') {
+        btns += '<button class="bk__btn bk__btn--primary">Mobile Key</button>';
+        btns += '<button class="bk__btn">Hotel Concierge</button>';
+        btns += '<button class="bk__btn">Get Receipt</button>';
+      } else if (b.status === 'completed') {
+        btns += b.rated
+          ? '<button class="bk__btn bk__btn--primary">View Review</button>'
+          : '<button class="bk__btn bk__btn--primary">Leave a Review</button>';
+        btns += '<button class="bk__btn">Book Again</button>';
+        btns += '<button class="bk__btn">Get Receipt</button>';
+      } else if (b.status === 'cancelled') {
+        btns += '<button class="bk__btn bk__btn--primary">Book Again</button>';
+        btns += '<button class="bk__btn">View Refund</button>';
+      } else if (b.status === 'pending') {
+        btns += '<button class="bk__btn bk__btn--primary">Complete Payment</button>';
+        btns += '<button class="bk__btn bk__btn--danger">Abandon Booking</button>';
+      }
+      return btns;
+    }
+
+    function renderBookings(filter) {
+      var list = document.getElementById('bkList');
+      var items = BOOKINGS.filter(function (b) { return filter === 'all' || b.status === filter; });
+
+      if (!items.length) {
+        list.innerHTML =
+          '<div class="empty-state">' +
+            '<div class="empty-state__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>' +
+            '<div class="empty-state__title">No bookings here yet</div>' +
+            '<div class="empty-state__text">When you book a stay it will appear here. Browse our collection of independent hotels.</div>' +
+            '<a href="hotels.html" class="btn btn--primary">Explore Hotels</a>' +
+          '</div>';
+        return;
+      }
+
+      list.innerHTML = items.map(function (b) {
+        var nightLabel = b.nights + ' night' + (b.nights === 1 ? '' : 's');
+        var cancelNote = '';
+        if (b.status === 'upcoming' && b.cancelFreeUntil && daysUntil(b.cancelFreeUntil) >= 0) {
+          cancelNote = '<div class="bk__cancel-note bk__cancel-note--free">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>' +
+            'Free cancellation until ' + fmtDate(b.cancelFreeUntil) + '</div>';
+        } else if (b.status === 'cancelled' && b.cancelledOn) {
+          cancelNote = '<div class="bk__cancel-note">Cancelled on ' + fmtDate(b.cancelledOn) + ' · refund issued</div>';
+        }
+
+        return '' +
+          '<article class="bk">' +
+            '<div class="bk__inner">' +
+              '<div class="bk__img" style="background-image:url(' + b.img + ')"></div>' +
+              '<div class="bk__body">' +
+                '<div class="bk__row1">' +
+                  statusPill(b) +
+                  refundPill(b) +
+                  '<span class="bk__id">#' + b.id + '</span>' +
+                '</div>' +
+                '<div class="bk__hotel">' + b.hotel + '</div>' +
+                '<div class="bk__location">' +
+                  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
+                  b.location +
+                '</div>' +
+                '<div class="bk__meta">' +
+                  '<div class="bk__meta-item"><span class="bk__meta-label">Check-in</span><span class="bk__meta-val">' + fmtDate(b.checkIn) + '</span></div>' +
+                  '<div class="bk__meta-item"><span class="bk__meta-label">Check-out</span><span class="bk__meta-val">' + fmtDate(b.checkOut) + '</span></div>' +
+                  '<div class="bk__meta-item"><span class="bk__meta-label">Nights</span><span class="bk__meta-val">' + nightLabel + '</span></div>' +
+                  '<div class="bk__meta-item"><span class="bk__meta-label">Guests</span><span class="bk__meta-val">' + b.guests + '</span></div>' +
+                  '<div class="bk__meta-item"><span class="bk__meta-label">Room</span><span class="bk__meta-val">' + b.room + '</span></div>' +
+                '</div>' +
+                cancelNote +
+              '</div>' +
+              '<div class="bk__side">' +
+                '<div class="bk__price-lbl">Total</div>' +
+                '<div class="bk__price">$' + b.price.toLocaleString() + '</div>' +
+                '<div class="bk__actions">' + bkActions(b) + '</div>' +
+              '</div>' +
+            '</div>' +
+          '</article>';
+      }).join('');
+    }
+
+    function updateCounts() {
+      var c = { all: BOOKINGS.length, upcoming: 0, 'checked-in': 0, completed: 0, cancelled: 0, pending: 0 };
+      BOOKINGS.forEach(function (b) { c[b.status]++; });
+      document.getElementById('cntAll').textContent = c.all;
+      document.getElementById('cntUpcoming').textContent = c.upcoming;
+      document.getElementById('cntCheckedIn').textContent = c['checked-in'];
+      document.getElementById('cntCompleted').textContent = c.completed;
+      document.getElementById('cntCancelled').textContent = c.cancelled;
+      document.getElementById('cntPending').textContent = c.pending;
+      var badge = document.getElementById('bkBadge');
+      if (badge) badge.textContent = c.upcoming + c['checked-in'] + c.pending;
+    }
+
+    document.querySelectorAll('.bk-filter').forEach(function (el) {
+      el.addEventListener('click', function () {
+        document.querySelectorAll('.bk-filter').forEach(function (e) { e.classList.remove('active'); });
+        el.classList.add('active');
+        renderBookings(el.dataset.filter);
+      });
+    });
+
+    updateCounts();
+    renderBookings('all');
+  </script>
+
+  <script src="auth-modal.js"></script>
+  <script src="site-footer.js"></script>
+</body>
+</html>
