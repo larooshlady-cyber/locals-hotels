@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     :root {
       --white: #FFFFFF;
@@ -34,6 +34,7 @@
       background: var(--white);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
     img { display: block; max-width: 100%; }
@@ -512,6 +513,12 @@
     }
 
     /* ========== MOBILE ========== */
+    @media (max-width: 1024px) {
+      .auth { grid-template-columns: 2fr 3fr; }
+      .auth__visual-content { left: 32px; right: 32px; bottom: 48px; }
+      .auth__visual-heading { font-size: 26px; }
+    }
+
     @media (max-width: 768px) {
       .topbar { font-size: 11px; padding: 8px 40px 8px 16px; }
       .topbar__badge { display: none; }
@@ -521,7 +528,7 @@
       .header__lang { display: none; }
       .header__divider { display: none; }
       .header__action-btn--cta { font-size: 11px; padding: 0 18px; height: 36px; }
-      .header__hamburger { display: flex; }
+      .header__hamburger { display: flex; width: 44px; height: 44px; }
 
       .auth {
         grid-template-columns: 1fr;
@@ -549,6 +556,13 @@
       }
     }
 
+    @media (max-width: 480px) {
+      .auth__visual { min-height: 180px; }
+      .auth__form-side { padding: 32px 16px; }
+      .auth__form-title { font-size: 22px; }
+      .auth__social-btn { padding: 10px 12px; font-size: 12px; }
+    }
+
     /* Mobile menu */
     .mobile-menu {
       display: none;
@@ -566,7 +580,10 @@
     }
     .mobile-menu.active { display: flex; }
     .mobile-menu__link {
-      padding: 12px 16px;
+      padding: 14px 16px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
       font-size: 14px;
       font-weight: 500;
       color: var(--abbey);

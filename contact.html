@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     :root {
       --white: #FFFFFF;
@@ -35,6 +35,7 @@
       background: var(--white);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
     img { display: block; max-width: 100%; }
@@ -405,8 +406,8 @@
     .contact-hero__title {
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: 48px;
-      line-height: 56px;
+      font-size: clamp(28px, 3vw + 12px, 48px);
+      line-height: 1.17;
       color: var(--white);
       margin-bottom: 12px;
     }
@@ -825,6 +826,81 @@
       background-position: right 18px center;
       padding-right: 44px;
     }
+
+    /* ========== CUSTOM SELECT ========== */
+    .custom-select {
+      position: relative;
+    }
+    .custom-select__trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 10px;
+      background: var(--white);
+      cursor: pointer;
+      transition: all 0.25s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .custom-select__trigger:hover {
+      border-color: rgba(0,0,0,0.15);
+    }
+    .custom-select.open .custom-select__trigger {
+      border-color: var(--shark);
+      box-shadow: 0 0 0 3px rgba(33,37,41,0.06), 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .custom-select__value {
+      font-family: var(--font);
+      font-size: 15px;
+      color: var(--shark);
+    }
+    .custom-select__value.placeholder {
+      color: var(--hit-gray);
+    }
+    .custom-select__arrow {
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .custom-select.open .custom-select__arrow {
+      transform: rotate(180deg);
+    }
+    .custom-select__options {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      z-index: 50;
+      overflow: hidden;
+      padding: 6px;
+    }
+    .custom-select.open .custom-select__options {
+      display: block;
+    }
+    .custom-select__option {
+      padding: 12px 14px;
+      font-family: var(--font);
+      font-size: 14px;
+      color: var(--abbey);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .custom-select__option:hover {
+      background: var(--athens-gray);
+      color: var(--shark);
+    }
+    .custom-select__option.selected {
+      background: var(--shark);
+      color: var(--white);
+      font-weight: 600;
+    }
+
     .contact__form-footer {
       display: flex;
       align-items: center;
@@ -1119,16 +1195,16 @@
       flex-direction: column;
     }
     .footer__col--pages {
-      width: 341.5px;
-      flex-shrink: 0;
+      width: min(341.5px, 100%);
+      flex-shrink: 1;
       border-right: 1px solid var(--mischka);
       padding-right: 1px;
       justify-content: space-between;
       min-height: 224px;
     }
     .footer__col--regions {
-      width: 341.5px;
-      flex-shrink: 0;
+      width: min(341.5px, 100%);
+      flex-shrink: 1;
       border-right: 1px solid var(--mischka);
       padding-left: 24px;
     }
@@ -1207,12 +1283,13 @@
         padding: 0 18px;
         height: 36px;
       }
-      .header__hamburger { display: flex; }
+      .header__hamburger { display: flex; width: 44px; height: 44px; }
 
-      .contact-hero { min-height: 260px; }
-      .contact-hero__inner { padding: 40px 16px 32px; }
-      .contact-hero__title { font-size: 32px; line-height: 40px; }
-      .contact-hero__subtitle { font-size: 15px; }
+      .contact-hero { min-height: 220px; }
+      .contact-hero__inner { padding: 32px 16px 28px; }
+      .contact-hero__title { line-height: 1.17; }
+      .contact-hero__subtitle { font-size: 14px; line-height: 22px; max-width: 100%; }
+      .contact-hero__breadcrumb { font-size: 12px; margin-bottom: 12px; }
 
       .quick-contact__inner {
         grid-template-columns: 1fr;
@@ -1222,36 +1299,78 @@
         border-right: none;
         border-bottom: 1px solid rgba(255,255,255,0.08);
         padding: 16px 20px;
+        gap: 12px;
       }
       .quick-contact__item:last-child { border-bottom: none; }
+      .quick-contact__icon { width: 36px; height: 36px; }
+      .quick-contact__label { font-size: 9px; }
+      .quick-contact__value { font-size: 14px; }
 
-      .contact { padding: 40px 0 0; }
+      .contact { padding: 32px 0 0; }
       .contact__inner {
         padding: 0 16px;
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 32px;
       }
-      .contact__info { position: static; }
+      .contact__info { position: static; gap: 24px; }
+      .contact__info-title { font-size: 24px; line-height: 32px; }
+      .contact__info-desc { font-size: 14px; line-height: 24px; }
+      .contact__address-card { padding: 20px; gap: 12px; }
+      .contact__address-icon { width: 40px; height: 40px; }
+      .contact__hours-card { padding: 20px; }
+      .contact__map-embed iframe { height: 220px; }
+
       .contact__form-wrap {
         padding: 28px 20px;
         border-radius: 12px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .contact__form-title { font-size: 22px; }
+      .contact__form-subtitle { font-size: 13px; margin-bottom: 24px; }
+      .contact__form { gap: 16px; }
+      .contact__field label { font-size: 11px; }
+      .contact__field input,
+      .contact__field select,
+      .contact__field textarea {
+        font-size: 16px;
+        padding: 12px 14px;
+        border-radius: 8px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .contact__field select {
+        padding-right: 40px;
+        background-position: right 14px center;
+        min-height: 48px;
+      }
+      .contact__field textarea {
+        min-height: 120px;
       }
       .contact__form-row {
         grid-template-columns: 1fr;
       }
       .contact__form-footer {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .contact__submit {
+        width: 100%;
+        text-align: center;
       }
 
-      .faq { padding: 40px 0 60px; }
-      .faq__inner { padding: 0 16px; grid-template-columns: 1fr; gap: 32px; }
+      .faq { padding: 40px 0 48px; }
+      .faq__inner { padding: 0 16px; grid-template-columns: 1fr; gap: 24px; }
       .faq__left { position: static; }
-      .faq__heading { font-size: 28px; line-height: 36px; }
+      .faq__heading { font-size: 26px; line-height: 34px; }
+      .faq__desc { font-size: 14px; }
 
+      .map { padding: 0 0 48px; }
       .map__inner { padding: 0 16px; }
-      .map__frame { height: 280px; border-radius: 10px; }
-      .map__header { flex-direction: column; align-items: flex-start; }
+      .map__frame { height: 260px; border-radius: 10px; }
+      .map__header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .map__title { font-size: 20px; }
 
       .footer__inner { padding: 0 16px; }
       .footer__grid { flex-direction: column; }
@@ -1267,6 +1386,41 @@
       .footer__col--contact { padding: 16px 0; }
     }
 
+    /* ========== SMALL PHONE ========== */
+    @media (max-width: 480px) {
+      .contact-hero { min-height: 200px; }
+      .contact-hero__inner { padding: 28px 12px 24px; }
+      .contact-hero__subtitle { font-size: 13px; }
+
+      .quick-contact__item { padding: 14px 16px; }
+
+      .contact { padding: 24px 0 0; }
+      .contact__inner { padding: 0 12px; gap: 24px; }
+      .contact__info-title { font-size: 22px; line-height: 28px; }
+      .contact__address-card { padding: 16px; }
+      .contact__hours-card { padding: 16px; }
+      .contact__map-embed iframe { height: 180px; }
+
+      .contact__form-wrap { padding: 20px 14px; border-radius: 10px; }
+      .contact__form-title { font-size: 20px; }
+      .contact__form { gap: 12px; }
+      .contact__field input,
+      .contact__field select,
+      .contact__field textarea {
+        padding: 12px 12px;
+      }
+      .contact__field select {
+        padding-right: 36px;
+        background-position: right 12px center;
+      }
+
+      .faq__inner { padding: 0 12px; }
+      .faq__heading { font-size: 22px; line-height: 30px; }
+
+      .map__inner { padding: 0 12px; }
+      .map__frame { height: 220px; }
+    }
+
     @media (min-width: 769px) and (max-width: 1632px) {
       .header__inner,
       .contact-hero__inner,
@@ -1275,8 +1429,8 @@
       .faq__inner,
       .map__inner,
       .footer__inner {
-        padding-left: 40px;
-        padding-right: 40px;
+        padding-left: 32px;
+        padding-right: 32px;
       }
     }
   </style>
@@ -1445,15 +1599,21 @@
             <input type="email" id="email" placeholder="john@example.com" required>
           </div>
           <div class="contact__field">
-            <label for="subject">Subject</label>
-            <select id="subject" required>
-              <option value="" disabled selected>Select a topic</option>
-              <option value="general">General Inquiry</option>
-              <option value="booking">Booking Question</option>
-              <option value="partnership">Hotel Partnership</option>
-              <option value="press">Press & Media</option>
-              <option value="other">Other</option>
-            </select>
+            <label>Subject</label>
+            <input type="hidden" id="subject" required>
+            <div class="custom-select" id="subjectSelect">
+              <div class="custom-select__trigger" id="subjectTrigger">
+                <span class="custom-select__value" id="subjectValue">Select a topic</span>
+                <svg class="custom-select__arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="custom-select__options" id="subjectOptions">
+                <div class="custom-select__option" data-value="general">General Inquiry</div>
+                <div class="custom-select__option" data-value="booking">Booking Question</div>
+                <div class="custom-select__option" data-value="partnership">Hotel Partnership</div>
+                <div class="custom-select__option" data-value="press">Press &amp; Media</div>
+                <div class="custom-select__option" data-value="other">Other</div>
+              </div>
+            </div>
           </div>
           <div class="contact__field">
             <label for="message">Message</label>
@@ -1658,6 +1818,39 @@
         });
       }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
       reveals.forEach(function(el) { observer.observe(el); });
+    })();
+  </script>
+  <script>
+    // Custom select dropdown
+    (function() {
+      var wrap = document.getElementById('subjectSelect');
+      var trigger = document.getElementById('subjectTrigger');
+      var valueEl = document.getElementById('subjectValue');
+      var optionsWrap = document.getElementById('subjectOptions');
+      var hidden = document.getElementById('subject');
+      if (!wrap) return;
+
+      valueEl.classList.add('placeholder');
+
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        wrap.classList.toggle('open');
+      });
+
+      optionsWrap.addEventListener('click', function(e) {
+        var opt = e.target.closest('.custom-select__option');
+        if (!opt) return;
+        optionsWrap.querySelectorAll('.custom-select__option').forEach(function(o) { o.classList.remove('selected'); });
+        opt.classList.add('selected');
+        valueEl.textContent = opt.textContent;
+        valueEl.classList.remove('placeholder');
+        hidden.value = opt.getAttribute('data-value');
+        wrap.classList.remove('open');
+      });
+
+      document.addEventListener('click', function() {
+        wrap.classList.remove('open');
+      });
     })();
   </script>
   <script src="auth-modal.js"></script>

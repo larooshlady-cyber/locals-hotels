@@ -9,7 +9,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    body {
+      overflow-x: hidden;
+    }
 
     :root {
       --white: #FFFFFF;
@@ -42,6 +48,7 @@
       background: var(--athens-gray);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
     img { display: block; max-width: 100%; }
@@ -90,6 +97,7 @@
       grid-template-columns: 280px 1fr;
       gap: 32px;
       align-items: start;
+      box-sizing: border-box;
     }
 
     /* ----- Sidebar ----- */
@@ -164,7 +172,7 @@
     .stat__icon { width: 36px; height: 36px; border-radius: 10px; background: var(--athens-gray); display: flex; align-items: center; justify-content: center; color: var(--shark); margin-bottom: 14px; }
     .stat__icon svg { width: 18px; height: 18px; }
 
-    .next-trip { background: linear-gradient(135deg, var(--shark) 0%, #1a1d21 100%); color: var(--white); border-radius: 16px; padding: 32px; display: grid; grid-template-columns: 1fr 220px; gap: 24px; margin-bottom: 20px; position: relative; overflow: hidden; }
+    .next-trip { background: linear-gradient(135deg, var(--shark) 0%, #1a1d21 100%); color: var(--white); border-radius: 16px; padding: 32px; display: grid; grid-template-columns: 1fr 220px; gap: 24px; margin-bottom: 20px; position: relative; overflow: hidden; min-width: 0; }
     .next-trip::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 50%; background: radial-gradient(circle at top right, rgba(255,255,255,0.05), transparent 60%); pointer-events: none; }
     .next-trip__label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
     .next-trip__label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 4px rgba(74,222,128,0.2); animation: pulse 2s infinite; }
@@ -200,6 +208,21 @@
     .field__textarea { resize: vertical; min-height: 100px; font-family: inherit; }
     .field__hint { font-size: 11px; color: var(--hit-gray); }
     .field__select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23677078' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+    /* ========== CUSTOM SELECT ========== */
+    .custom-select { position: relative; }
+    .custom-select__trigger { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 12px 14px; background: var(--athens-gray); border: 1.5px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-family: var(--font); font-size: 14px; color: var(--shark); }
+    .custom-select__trigger:hover { border-color: rgba(0,0,0,0.08); }
+    .custom-select.open .custom-select__trigger { background: var(--white); border-color: var(--shark); box-shadow: 0 0 0 3px rgba(33,37,41,0.08); }
+    .custom-select__value { flex: 1; min-width: 0; }
+    .custom-select__value.placeholder { color: var(--hit-gray); }
+    .custom-select__arrow { width: 12px; height: 12px; flex-shrink: 0; color: var(--nevada); transition: transform 0.2s; }
+    .custom-select.open .custom-select__arrow { transform: rotate(180deg); }
+    .custom-select__options { display: none; position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--white); border: 1px solid rgba(0,0,0,0.08); border-radius: 10px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); z-index: 50; padding: 4px; max-height: 200px; overflow-y: auto; }
+    .custom-select.open .custom-select__options { display: block; }
+    .custom-select__option { padding: 10px 12px; font-size: 13px; color: var(--abbey); border-radius: 8px; cursor: pointer; transition: background 0.15s; }
+    .custom-select__option:hover { background: var(--athens-gray); color: var(--shark); }
+    .custom-select__option.selected { background: var(--shark); color: var(--white); font-weight: 600; }
+
     .form-actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--athens-gray); }
     .btn { padding: 12px 22px; border-radius: 10px; font-size: 13px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; border: 1.5px solid transparent; }
     .btn--primary { background: var(--shark); color: var(--white); border-color: var(--shark); }
@@ -370,16 +393,70 @@
     .toast svg { width: 16px; height: 16px; color: #4ade80; }
 
     /* ========== RESPONSIVE ========== */
+    @media (min-width: 1081px) and (max-width: 1280px) {
+      .acct { grid-template-columns: 240px 1fr; }
+    }
+
     @media (max-width: 1080px) {
-      .acct { grid-template-columns: 1fr; }
-      .acct__sidebar { position: relative; top: 0; }
-      .acct__nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
-      .acct__nav-section { grid-column: 1 / -1; }
-      .acct__signout { grid-column: 1 / -1; }
+      .acct { grid-template-columns: 1fr; padding: 16px 16px 60px; gap: 16px; }
+      .acct__main { min-width: 0; overflow: hidden; }
+      .acct__panel > *,
+      .card,
+      .next-trip,
+      .bk,
+      .bk-list,
+      .bk-filters,
+      .overview-stats,
+      .saved-grid,
+      .form-grid,
+      .security-status,
+      .device-list,
+      .pm-list,
+      .quick-actions,
+      .empty-state {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+      .acct__sidebar { position: static; top: auto; padding: 0; border-radius: 0; border: none; box-shadow: none; background: none !important; min-width: 0; overflow: hidden; }
+      .acct__profile {
+        display: grid;
+        grid-template-columns: 42px 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 0 12px;
+        align-items: center;
+        padding: 14px 16px;
+        margin-bottom: 4px;
+        text-align: left;
+        border-bottom: none;
+        background: var(--white);
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        border: 1px solid rgba(0,0,0,0.04);
+      }
+      .acct__avatar { width: 42px; height: 42px; font-size: 15px; margin-bottom: 0; box-shadow: 0 2px 8px rgba(33,37,41,0.12); flex-shrink: 0; grid-row: 1 / 3; grid-column: 1; }
+      .acct__avatar-edit { display: none; }
+      .acct__name { font-size: 14px; font-weight: 700; margin-bottom: 0; text-align: left; grid-row: 1; grid-column: 2; align-self: end; }
+      .acct__email { font-size: 11px; text-align: left; color: var(--nevada); grid-row: 2; grid-column: 2; align-self: start; }
+      .acct__tier { display: inline-flex; font-size: 8px; padding: 3px 8px; margin-top: 0; grid-row: 1 / 3; grid-column: 3; align-self: center; }
+      .acct__nav-section { display: none; }
+      .acct__nav { display: flex; flex-direction: row; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 4px 0; flex-wrap: nowrap; }
+      .acct__nav::-webkit-scrollbar { display: none; }
+      .acct__nav-item { flex-shrink: 0; padding: 8px 14px; border-radius: 20px; font-size: 12px; gap: 6px; white-space: nowrap; border: 1px solid var(--mischka); background: var(--white); width: auto; }
+      .acct__nav-item.active { border-color: var(--shark); }
+      .acct__nav-icon { width: 14px; height: 14px; }
+      .acct__signout { display: none; }
       .overview-stats { grid-template-columns: repeat(2, 1fr); }
       .saved-grid { grid-template-columns: repeat(2, 1fr); }
       .quick-actions { grid-template-columns: repeat(2, 1fr); }
       .next-trip { grid-template-columns: 1fr; }
+      .bk__inner { grid-template-columns: 1fr; }
+      .bk__img { min-height: 160px; }
+      .bk__side { min-width: 0; padding: 0 20px 20px; align-items: stretch; }
+      .bk__price { text-align: left; }
+      .bk__meta { display: flex; flex-wrap: wrap; gap: 10px 20px; }
     }
 
     @media (max-width: 768px) {
@@ -391,29 +468,238 @@
       .header__lang { display: none; }
       .header__divider { display: none; }
       .header__action-btn--cta { font-size: 11px; padding: 0 18px; height: 36px; }
-      .header__hamburger { display: flex; }
+      .header__hamburger { display: flex; width: 44px; height: 44px; }
 
-      .acct { padding: 24px 16px 60px; }
-      .acct__sidebar { padding: 20px 14px 14px; }
-      .acct__nav { grid-template-columns: 1fr; }
-      .acct__title { font-size: 24px; }
-      .card { padding: 20px; }
-      .form-grid { grid-template-columns: 1fr; }
-      .overview-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .stat { padding: 16px; }
-      .stat__value { font-size: 22px; }
-      .next-trip { padding: 24px; }
-      .next-trip__hotel { font-size: 20px; }
-      .quick-actions { grid-template-columns: 1fr; }
-      .saved-grid { grid-template-columns: 1fr; }
-      .perks { grid-template-columns: 1fr; }
+      .acct { padding: 12px 16px 60px; }
+      .acct__header { margin-bottom: 16px; overflow: hidden; }
+      .acct__section-title { font-size: 18px !important; }
+      .acct__breadcrumb { font-size: 10px; letter-spacing: 1.2px; margin-bottom: 4px; }
+      .acct__title { font-size: 22px; }
+      .acct__subtitle { font-size: 13px; margin-top: 4px; }
+
+      .card { padding: 16px; border-radius: 12px; margin-bottom: 14px; }
+
+      /* booking filters */
+      .bk-filters { gap: 4px; margin-bottom: 16px; padding-bottom: 12px; overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+      .bk-filters::-webkit-scrollbar { display: none; }
+      .bk-filter { flex-shrink: 0; padding: 6px 10px; font-size: 11px; }
+      .bk-filter__count { font-size: 9px; padding: 1px 5px; }
+
+      /* payment cards */
+      .pm { gap: 10px; padding: 14px; flex-wrap: wrap; }
+      .pm__brand { width: 44px; height: 28px; font-size: 9px; }
+      .pm__number { font-size: 13px; flex-wrap: wrap; gap: 6px; }
+      .pm__meta { font-size: 11px; }
+      .pm__actions { gap: 4px; }
+      .pm__btn { width: 30px; height: 30px; }
+
+      /* security */
+      .security-status { gap: 10px; padding: 14px; margin-bottom: 16px; }
+      .security-status__icon { width: 34px; height: 34px; }
+      .security-status__icon svg { width: 16px; height: 16px; }
+      .security-status__title { font-size: 13px; }
+      .security-status__text { font-size: 11px; }
+
+      /* devices */
+      .device { gap: 10px; padding: 14px; }
+      .device__icon { width: 36px; height: 36px; }
+      .device__icon svg { width: 16px; height: 16px; }
+      .device__name { font-size: 12px; gap: 6px; flex-wrap: wrap; }
+      .device__meta { font-size: 11px; }
+      .device__action { font-size: 11px; padding: 6px 10px; }
+
+      /* travelers */
+      .traveler { gap: 10px; padding: 14px; }
+      .traveler__avatar { width: 36px; height: 36px; font-size: 12px; }
+      .traveler__name { font-size: 13px; }
+      .traveler__meta { font-size: 11px; }
+      .traveler__btn { font-size: 11px; padding: 6px 10px; }
+      .card__header { margin-bottom: 14px; }
+      .card__title { font-size: 14px; }
+      .card__action { font-size: 11px; padding: 6px 12px; }
+
+      .overview-stats { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .stat { padding: 14px; border-radius: 12px; }
+      .stat__label { font-size: 10px; margin-bottom: 6px; }
+      .stat__value { font-size: 20px; }
+      .stat__icon { width: 30px; height: 30px; margin-bottom: 10px; }
+      .stat__icon svg { width: 14px; height: 14px; }
+
+      .next-trip { padding: 20px; border-radius: 12px; grid-template-columns: 1fr !important; gap: 16px; overflow: hidden; }
+      .next-trip > * { min-width: 0; max-width: 100%; }
+      .next-trip__hotel { font-size: 18px; word-break: break-word; }
+      .next-trip__location { font-size: 12px; margin-bottom: 14px; }
+      .next-trip__meta { gap: 10px 20px; display: flex; flex-wrap: wrap; }
+      .next-trip__meta-item { min-width: 0; }
+      .next-trip__meta-val { word-break: break-word; }
+      .next-trip__countdown { padding: 16px; border-radius: 10px; display: flex; flex-direction: column; align-items: center; }
+      .next-trip__countdown-num { font-size: 36px; }
+      .next-trip__cta { white-space: nowrap; font-size: 11px; padding: 8px 16px; }
+
+      .quick-actions { grid-template-columns: 1fr; gap: 8px; }
+      .quick-action { padding: 14px; border-radius: 10px; }
+      .quick-action__icon { width: 30px; height: 30px; margin-bottom: 8px; }
+      .quick-action__title { font-size: 12px; }
+      .quick-action__desc { font-size: 10px; }
+
       .bk__inner { grid-template-columns: 1fr; }
-      .bk__img { min-height: 160px; }
-      .bk__side { padding: 0 20px 20px; align-items: stretch; min-width: 0; }
-      .bk__price { text-align: left; }
-      .bk__meta { gap: 12px 18px; }
-      .form-actions { flex-direction: column-reverse; align-items: stretch; }
+      .bk { border-radius: 10px; }
+      .bk__img { min-height: 140px; }
+      .bk__body { padding: 16px; }
+      .bk__hotel { font-size: 16px; }
+      .bk__location { font-size: 12px; }
+      .bk__meta { gap: 10px 16px; }
+      .bk__side { padding: 0 16px 16px; align-items: stretch; min-width: 0; }
+      .bk__price { text-align: left; font-size: 18px; }
+      .bk__btn { padding: 10px 12px; font-size: 11px; }
+
+      .saved-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .saved { border-radius: 10px; }
+      .saved__body { padding: 12px; }
+      .saved__name { font-size: 13px; }
+      .saved__loc { font-size: 11px; margin-bottom: 8px; }
+
+      .perks { grid-template-columns: 1fr; gap: 8px; }
+
+      .form-grid { grid-template-columns: 1fr; gap: 14px; }
+      .field__label { font-size: 11px; }
+      .field__input, .field__select, .field__textarea { font-size: 14px; padding: 11px 12px; border-radius: 8px; }
+      .form-actions { flex-direction: column-reverse; align-items: stretch; gap: 8px; margin-top: 18px; }
       .form-actions .btn { width: 100%; }
+      .btn { padding: 12px 18px; font-size: 12px; border-radius: 8px; }
+
+      .empty-state { padding: 40px 20px; border-radius: 10px; }
+      .empty-state__title { font-size: 16px; }
+      .empty-state__text { font-size: 12px; }
+
+      .pill { font-size: 10px; padding: 4px 9px; }
+    }
+
+    /* ========== SMALL PHONE ========== */
+    @media (max-width: 480px) {
+      .acct { padding: 8px 12px 60px; gap: 10px; }
+      .acct__title { font-size: 20px; }
+      .acct__subtitle { font-size: 12px; }
+      .overview-stats { grid-template-columns: 1fr; }
+      .stat { padding: 12px; }
+      .stat__value { font-size: 18px; }
+      .next-trip { padding: 14px; }
+      .next-trip__hotel { font-size: 16px; }
+      .next-trip__countdown-num { font-size: 28px; }
+      .next-trip__meta { gap: 8px 14px; }
+      .next-trip__meta-label { font-size: 8px; letter-spacing: 1px; }
+      .next-trip__meta-val { font-size: 12px; }
+      .card { padding: 12px; }
+      .card__title { font-size: 13px; }
+      .bk__body { padding: 12px; }
+      .bk__side { padding: 0 12px 12px; }
+      .bk__hotel { font-size: 14px; }
+      .bk__meta { gap: 8px 12px; }
+      .bk__meta-label { font-size: 9px; }
+      .bk__meta-val { font-size: 12px; }
+      .bk__btn { padding: 8px 10px; font-size: 10px; }
+      .saved-grid { grid-template-columns: 1fr; }
+      .pm { padding: 12px; gap: 8px; }
+      .pm__brand { width: 40px; height: 26px; }
+      .device { padding: 12px; }
+      .traveler { padding: 12px; }
+      .field__input, .field__select, .field__textarea { padding: 10px 12px; font-size: 14px; }
+      .empty-state { padding: 32px 16px; }
+      .empty-state__title { font-size: 15px; }
+    }
+
+    /* ========== SMALL PHONE (iPhone SE / 375px) ========== */
+    @media (max-width: 375px) {
+      .acct { padding: 6px 10px 48px; gap: 8px; }
+      .acct__profile { gap: 8px; }
+      .acct__avatar { width: 36px; height: 36px; font-size: 13px; }
+      .acct__name { font-size: 13px; }
+      .acct__email { font-size: 10px; }
+      .acct__nav-item { padding: 6px 10px; font-size: 11px; gap: 4px; }
+      .acct__nav-icon { width: 12px; height: 12px; }
+
+      .acct__header { margin-bottom: 14px; }
+      .acct__breadcrumb { font-size: 9px; }
+      .acct__title { font-size: 18px; }
+      .acct__subtitle { font-size: 11px; }
+
+      .card { padding: 10px; border-radius: 10px; }
+      .card__header { margin-bottom: 10px; }
+      .card__title { font-size: 12px; }
+      .card__action { font-size: 10px; padding: 5px 10px; }
+
+      .overview-stats { gap: 6px; }
+      .stat { padding: 10px; border-radius: 10px; }
+      .stat__label { font-size: 9px; margin-bottom: 4px; }
+      .stat__value { font-size: 16px; }
+      .stat__icon { width: 26px; height: 26px; margin-bottom: 8px; }
+
+      .next-trip { padding: 12px; border-radius: 10px; gap: 12px; }
+      .next-trip__label { font-size: 9px; letter-spacing: 1.2px; }
+      .next-trip__hotel { font-size: 15px; margin-bottom: 2px; }
+      .next-trip__location { font-size: 11px; margin-bottom: 10px; }
+      .next-trip__meta { gap: 6px 12px; }
+      .next-trip__meta-label { font-size: 8px; }
+      .next-trip__meta-val { font-size: 11px; }
+      .next-trip__countdown { padding: 12px; }
+      .next-trip__countdown-num { font-size: 24px; }
+      .next-trip__countdown-lbl { font-size: 9px; }
+      .next-trip__cta { font-size: 10px; padding: 6px 12px; }
+
+      .bk-filter { padding: 5px 8px; font-size: 10px; }
+      .bk__img { min-height: 120px; }
+      .bk__body { padding: 10px; }
+      .bk__hotel { font-size: 13px; }
+      .bk__location { font-size: 11px; }
+      .bk__meta { gap: 6px 10px; }
+      .bk__meta-label { font-size: 8px; }
+      .bk__meta-val { font-size: 11px; }
+      .bk__side { padding: 0 10px 10px; }
+      .bk__price { font-size: 16px; }
+      .bk__btn { padding: 7px 8px; font-size: 10px; }
+
+      .pm { padding: 10px; gap: 8px; }
+      .pm__brand { width: 36px; height: 24px; font-size: 8px; }
+      .pm__number { font-size: 12px; }
+      .pm__meta { font-size: 10px; }
+      .pm__btn { width: 28px; height: 28px; }
+
+      .security-status { padding: 10px; gap: 8px; }
+      .security-status__icon { width: 30px; height: 30px; }
+      .security-status__title { font-size: 12px; }
+      .security-status__text { font-size: 10px; }
+
+      .device { padding: 10px; gap: 8px; }
+      .device__icon { width: 32px; height: 32px; }
+      .device__name { font-size: 11px; }
+      .device__meta { font-size: 10px; }
+      .device__action { font-size: 10px; padding: 5px 8px; }
+
+      .traveler { padding: 10px; gap: 8px; }
+      .traveler__avatar { width: 32px; height: 32px; font-size: 11px; }
+      .traveler__name { font-size: 12px; }
+      .traveler__meta { font-size: 10px; }
+      .traveler__btn { font-size: 10px; padding: 5px 8px; }
+
+      .field__label { font-size: 10px; }
+      .field__input, .field__select, .field__textarea { padding: 9px 10px; font-size: 14px; border-radius: 8px; }
+      .form-actions { gap: 6px; margin-top: 14px; padding-top: 14px; }
+      .btn { padding: 10px 14px; font-size: 11px; }
+
+      .saved__body { padding: 10px; }
+      .saved__name { font-size: 12px; }
+      .saved__loc { font-size: 10px; }
+
+      .quick-action { padding: 12px; }
+      .quick-action__icon { width: 26px; height: 26px; margin-bottom: 6px; }
+      .quick-action__title { font-size: 11px; }
+      .quick-action__desc { font-size: 9px; }
+
+      .perks .perk { padding: 10px; }
+      .empty-state { padding: 24px 12px; }
+      .empty-state__icon { width: 48px; height: 48px; }
+      .empty-state__title { font-size: 14px; }
+      .empty-state__text { font-size: 11px; }
     }
   </style>
 </head>
@@ -614,23 +900,34 @@
               </div>
               <div class="field">
                 <label class="field__label">Nationality</label>
-                <select class="field__select">
-                  <option>Georgian</option>
-                  <option>American</option>
-                  <option>British</option>
-                  <option>French</option>
-                  <option>German</option>
-                  <option>Italian</option>
-                </select>
+                <div class="custom-select" data-cs>
+                  <div class="custom-select__trigger">
+                    <span class="custom-select__value">Georgian</span>
+                    <svg class="custom-select__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </div>
+                  <div class="custom-select__options">
+                    <div class="custom-select__option selected" data-value="Georgian">Georgian</div>
+                    <div class="custom-select__option" data-value="American">American</div>
+                    <div class="custom-select__option" data-value="British">British</div>
+                    <div class="custom-select__option" data-value="French">French</div>
+                    <div class="custom-select__option" data-value="German">German</div>
+                  </div>
+                </div>
               </div>
               <div class="field">
                 <label class="field__label">Gender</label>
-                <select class="field__select">
-                  <option>Prefer not to say</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Non-binary</option>
-                </select>
+                <div class="custom-select" data-cs>
+                  <div class="custom-select__trigger">
+                    <span class="custom-select__value">Prefer not to say</span>
+                    <svg class="custom-select__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </div>
+                  <div class="custom-select__options">
+                    <div class="custom-select__option selected" data-value="Prefer not to say">Prefer not to say</div>
+                    <div class="custom-select__option" data-value="Male">Male</div>
+                    <div class="custom-select__option" data-value="Female">Female</div>
+                    <div class="custom-select__option" data-value="Non-binary">Non-binary</div>
+                  </div>
+                </div>
               </div>
               <div class="field">
                 <label class="field__label">Spoken languages</label>
@@ -815,7 +1112,19 @@
             </div>
             <div class="field">
               <label class="field__label">Country</label>
-              <select class="field__select"><option>Georgia</option></select>
+              <div class="custom-select" data-cs>
+                <div class="custom-select__trigger">
+                  <span class="custom-select__value">Georgia</span>
+                  <svg class="custom-select__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="custom-select__options">
+                  <div class="custom-select__option selected" data-value="Georgia">Georgia</div>
+                  <div class="custom-select__option" data-value="United States">United States</div>
+                  <div class="custom-select__option" data-value="United Kingdom">United Kingdom</div>
+                  <div class="custom-select__option" data-value="Germany">Germany</div>
+                  <div class="custom-select__option" data-value="France">France</div>
+                </div>
+              </div>
             </div>
             <div class="field">
               <label class="field__label">VAT / Tax ID (optional)</label>
@@ -881,7 +1190,19 @@
             </div>
             <div class="field">
               <label class="field__label">Issuing country</label>
-              <select class="field__select"><option>Georgia</option></select>
+              <div class="custom-select" data-cs>
+                <div class="custom-select__trigger">
+                  <span class="custom-select__value">Georgia</span>
+                  <svg class="custom-select__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="custom-select__options">
+                  <div class="custom-select__option selected" data-value="Georgia">Georgia</div>
+                  <div class="custom-select__option" data-value="United States">United States</div>
+                  <div class="custom-select__option" data-value="United Kingdom">United Kingdom</div>
+                  <div class="custom-select__option" data-value="Germany">Germany</div>
+                  <div class="custom-select__option" data-value="France">France</div>
+                </div>
+              </div>
             </div>
             <div class="field">
               <label class="field__label">Issue date</label>
@@ -1277,6 +1598,37 @@
 
     updateCounts();
     renderBookings('all');
+  </script>
+
+  <script>
+  // Custom selects
+  document.querySelectorAll('[data-cs]').forEach(function(wrap) {
+    var trigger = wrap.querySelector('.custom-select__trigger');
+    var valueEl = wrap.querySelector('.custom-select__value');
+    var opts = wrap.querySelector('.custom-select__options');
+
+    trigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      document.querySelectorAll('[data-cs].open').forEach(function(other) {
+        if (other !== wrap) other.classList.remove('open');
+      });
+      wrap.classList.toggle('open');
+    });
+
+    opts.addEventListener('click', function(e) {
+      var opt = e.target.closest('.custom-select__option');
+      if (!opt) return;
+      opts.querySelectorAll('.custom-select__option').forEach(function(o) { o.classList.remove('selected'); });
+      opt.classList.add('selected');
+      valueEl.textContent = opt.textContent;
+      valueEl.classList.remove('placeholder');
+      wrap.classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', function() {
+    document.querySelectorAll('[data-cs].open').forEach(function(w) { w.classList.remove('open'); });
+  });
   </script>
 
   <script src="auth-modal.js"></script>

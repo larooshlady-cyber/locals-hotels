@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     :root {
       --white: #FFFFFF;
@@ -35,6 +35,7 @@
       background: var(--white);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
     img { display: block; max-width: 100%; }
@@ -324,8 +325,10 @@
     }
     .mobile-menu.active { display: flex; }
     .mobile-menu__link {
-      display: block;
-      padding: 12px 0;
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      min-height: 44px;
       font-size: 16px;
       font-weight: 400;
       color: var(--abbey);
@@ -390,7 +393,7 @@
     }
     .hotel-header__name {
       font-family: var(--font-display);
-      font-size: 42px;
+      font-size: clamp(22px, 3vw + 10px, 42px);
       font-weight: 700;
       letter-spacing: -0.5px;
       line-height: 1.1;
@@ -1967,8 +1970,8 @@
     /* ========== TABLET STYLES ========== */
     @media (min-width: 769px) and (max-width: 1632px) {
       .header__inner, .page, .footer__inner {
-        padding-left: 40px;
-        padding-right: 40px;
+        padding-left: 32px;
+        padding-right: 32px;
       }
     }
     @media (min-width: 769px) and (max-width: 1100px) {
@@ -1997,7 +2000,7 @@
         padding: 0 18px;
         height: 36px;
       }
-      .header__hamburger { display: flex; }
+      .header__hamburger { display: flex; width: 44px; height: 44px; }
 
       .page {
         padding-left: 16px;
@@ -2009,18 +2012,28 @@
       }
 
       .hotel-header__name {
-        font-size: 28px;
+        line-height: 1.15;
       }
       .hotel-header__top {
         flex-direction: column;
         gap: 12px;
       }
-      .hotel-tabs__inner {
-        gap: 20px;
-        padding: 0 16px;
+      .hotel-tabs {
+        top: 64px;
       }
+      .hotel-tabs__inner {
+        gap: 16px;
+        padding: 0 16px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .hotel-tabs__inner::-webkit-scrollbar { display: none; }
       .hotel-tabs__tab {
-        font-size: 14px;
+        font-size: 13px;
+        white-space: nowrap;
+        padding: 14px 0;
+        flex-shrink: 0;
       }
 
       .gallery {
@@ -2039,11 +2052,22 @@
       .hotel-details__tagline {
         font-size: 18px;
       }
+      .featured-in-section { padding: 32px 0; }
+      .featured-in__title { font-size: 20px; margin-bottom: 16px; }
       .featured-in__list {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 10px;
       }
+      .featured-in__list::-webkit-scrollbar { display: none; }
       .featured-in__item {
-        max-width: 100%;
+        flex: 0 0 78%;
+        max-width: none;
+        scroll-snap-align: start;
       }
 
       .hotel-layout {
@@ -2051,10 +2075,17 @@
         gap: 0;
       }
       .hotel-sidebar { order: -1; }
-      .hotel-sidebar__inner { position: static; }
       .hotel-sidebar__inner {
         position: static;
         border-radius: 6px;
+        overflow: visible;
+      }
+      .bw {
+        max-height: none;
+      }
+      .bw__step {
+        overflow-y: visible;
+        overflow: visible;
       }
       .nearby-restaurants .hscroll,
       .nearby-hotels .hscroll,
@@ -2079,6 +2110,39 @@
         gap: 32px;
         padding: 40px 0;
       }
+    }
+
+    /* ========== SMALL PHONE ========== */
+    @media (max-width: 480px) {
+      .hotel-header { padding: 8px 0 16px; }
+      .hotel-header__name { font-size: 22px; line-height: 1.15; }
+      .hotel-header__address { font-size: 13px; margin-top: 6px; }
+      .hotel-header__actions { gap: 12px; }
+      .hotel-header__action-btn { font-size: 12px; }
+      .hotel-header__action-btn svg { width: 16px; height: 16px; }
+
+      .hotel-details__tagline { font-size: 15px; line-height: 1.5; }
+      .section-title__text { font-size: 17px; }
+
+      .amenities__grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+      .guest-reviews__title { font-size: 20px; }
+      .guest-reviews__item { padding: 12px; }
+
+      .member-banner { padding: 20px 16px; }
+      .member-banner__title { font-size: 16px; }
+
+      .featured-in__item { flex: 0 0 88%; }
+
+      .restaurant-card { flex: 0 0 240px; }
+      .nearby-hotel-card { flex: 0 0 220px; }
+      .discover-card { flex: 0 0 220px; }
+
+      .page { padding-left: 12px; padding-right: 12px; }
+
+      .hotel-sidebar__inner { border-radius: 8px; margin-bottom: 16px; }
+
+      .footer__grid { padding: 32px 0; gap: 24px; }
     }
 
     /* ========== LIGHTBOX ========== */
